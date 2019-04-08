@@ -28,6 +28,7 @@ export class LoginPage {
 
   login() {
     this.navCtrl.setRoot('DashboardPage');
+    //quero alterar isso aqui
   }
 
 }
