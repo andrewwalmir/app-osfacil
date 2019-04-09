@@ -3,20 +3,22 @@
 </ion-header>
 
 <ion-content padding>
-  <h3>OS Fácil</h3>
+<ion-title>OS Facil</ion-title>
 
   <img src="assets/imgs/worker.png" alt="OS Fácil">
 
   <form>
+    <ion-list>
     <ion-item>
-      <ion-label stacked>Usuário</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-label stacked >Usuário</ion-label>
+      <ion-input type="text" [(ngModel)] ="login" name="login"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label stacked>Senha</ion-label>
-      <ion-input type="password"></ion-input>
+      <ion-input type="password" [(ngModel)] = "senha" name="senha"></ion-input>
     </ion-item>
-    <button ion-button block (click)="login()">Entrar</button>
+  </ion-list>
+    <button ion-button block (click)="gologin()">Entrar</button>
   </form>
   <button ion-button block outline>Registrar</button>
 
