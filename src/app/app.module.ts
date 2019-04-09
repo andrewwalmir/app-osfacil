@@ -1,3 +1,5 @@
+import { LoginModule } from './../pages/login/login.module';
+import { LoginPage } from './../pages/login/login';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -16,7 +18,8 @@ import { ListarOsService } from '../services/domain/listar-os.services';
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp)
+   
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -25,8 +28,8 @@ import { ListarOsService } from '../services/domain/listar-os.services';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ListarOsService
+    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    
   ]
 })
 export class AppModule {}
