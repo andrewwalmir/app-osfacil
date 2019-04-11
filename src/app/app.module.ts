@@ -1,5 +1,5 @@
-import { LoginModule } from './../pages/login/login.module';
-import { LoginPage } from './../pages/login/login';
+import { ValidarService } from './../services/validar.service';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -9,7 +9,7 @@ import { MyApp } from './app.component';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { ListarOsService } from '../services/domain/listar-os.services';
+
 
 @NgModule({
   declarations: [
@@ -28,7 +28,8 @@ import { ListarOsService } from '../services/domain/listar-os.services';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    ValidarService
     
   ]
 })
