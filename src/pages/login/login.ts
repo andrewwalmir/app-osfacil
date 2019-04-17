@@ -1,7 +1,9 @@
+import { ValidarService } from './../../services/validar.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { MenuController } from 'ionic-angular/components/app/menu-controller';
+import { LoginDTO } from '../../models/login.dto';
 
 @IonicPage()
 
@@ -11,10 +13,12 @@ import { MenuController } from 'ionic-angular/components/app/menu-controller';
 })
 export class LoginPage {
 
-  login : string;
-  senha : string;
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, public menu: MenuController) {
+  creds : LoginDTO = new LoginDTO();
+  
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public menu: MenuController,
+    public validar : ValidarService) {
 
   }
 
@@ -30,10 +34,20 @@ export class LoginPage {
   // }
 
   gologin() {
-    console.log("Username: " + this.login);
-    //this.navCtrl.setRoot('DashboardPage');
+      //esse observable vai chegar aqui pra quem subscribe pra ele.. sacas?si
+          this.validar.authenticate(this.creds)
+          .subscribe(response => { 
+            
+            if(response == null){
+              alert('o usuário digitou usuario ou senha errado');
+            }else
+              this.navCtrl.setRoot('DashboardPage');
+          })
+      
+    //console.log(this.creds);
+    
 
-    console.log("Senha: " + this.senha);
+    
   }
 
 }
