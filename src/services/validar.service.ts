@@ -41,9 +41,9 @@ export class ValidarService{
             }
         }
 
-        //TÁ VENDO AQUI?to
+
         return Observable.of(null);
     }
 
-//ta caindo o teamviewer, mas enfim... testa aí pra ver se dá erro de cors ainda...
+
 }

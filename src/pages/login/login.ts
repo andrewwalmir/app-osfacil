@@ -39,7 +39,7 @@ export class LoginPage {
           .subscribe(response => { 
             
             if(response == null){
-              alert('o suuário digitou coiso errado');
+              alert('o usuário digitou usuario ou senha errado');
             }else
               this.navCtrl.setRoot('DashboardPage');
           })
