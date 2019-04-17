@@ -1,14 +1,21 @@
 Vamos lá:
 
-1) FRONT: Toda vez que vc enviar um objeto pro back, utilizando POST, vc precisa serializar ele (pra virar JSON). O seu não tava serializado, então eu mudei de "cred" para "JSON.stringfy(cred)";
+1) FRONT: Toda vez que vc enviar um objeto pro back, utilizando POST, vc precisa serializar ele (pra virar JSON). 
+O seu não tava serializado, então eu mudei de "cred" para "JSON.stringfy(cred)";
 
-2) BACK: As configurações e liberações de CROSS DOMAIN devem ser feitas no Provider da sua API RESTful. No seu caso, é a classe WSJsonProviderConfig. Eu inclui o implements ContainerResponseFilter na classe e implementei o método que essa interface me obriga a implementar, que é onde vc coloca os Accept ALL e tals;
+2) BACK: As configurações e liberações de CROSS DOMAIN devem ser feitas no Provider da sua API RESTful. 
+No seu caso, é a classe WSJsonProviderConfig. Eu inclui o implements ContainerResponseFilter na classe e implementei 
+o método que essa interface me obriga a implementar, que é onde vc coloca os Accept ALL e tals;
 
-3) BACK: Pra não misturar UserModel com o ato de autenticação (onde só usamos login e senha), criei um Model a mais no seu back, mas sem mapeamento de persistência, contendo só login e senha. Assim, a Model do back equivale ao objeto que você criou no front implementando a interface Logi DTO;
+3) BACK: Pra não misturar UserModel com o ato de autenticação (onde só usamos login e senha), criei um Model a mais no seu back, 
+mas sem mapeamento de persistência, contendo só login e senha. Assim, a Model do back equivale ao objeto que você criou no front 
+implementando a interface Logi DTO;
 
-4) FRONT: No seu service de validação, criei um método pra tratar os status HTTP q correspondem a erro e, pro erro cair ali, acrescentei um catch na sua requisição, apontando pra esse método;
+4) FRONT: No seu service de validação, criei um método pra tratar os status HTTP q correspondem a erro e, pro erro cair ali, 
+acrescentei um catch na sua requisição, apontando pra esse método;
 
-5) FRONT: Use sempre ("Content-Type", "application/json") em todas as suas requisições. Você deve sempre colocar no header da requisição (se tiver dúvida é só ver como eu coloquei no método de autenticação);
+5) FRONT: Use sempre ("Content-Type", "application/json") em todas as suas requisições. Você deve sempre colocar no header da 
+requisição (se tiver dúvida é só ver como eu coloquei no método de autenticação);
 
 ============================
 
