@@ -1,15 +1,21 @@
+import { StorageService } from './storage.service';
+import { LocalUser } from './../models/local_user';
 import { LoginDTO } from './../models/login.dto';
 import { API_CONFIG } from './../config/api.config';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { JwtHelper } from 'angular2-jwt';
 
 
 
 @Injectable()
 export class ValidarService{
 
-    constructor(public http : HttpClient){
+    jwtHelper: JwtHelper = new JwtHelper();
+
+    constructor(public http : HttpClient,
+                public storage:StorageService){
         
     }
 
@@ -27,6 +33,18 @@ export class ValidarService{
         }).catch( erro => this.tratarHttpStatusBack(erro) );
     }
 
+
+    sucessfullLogin(authorizationValue: string){
+        let tok = authorizationValue.substring(7);
+        console.log(tok);
+        let user: LocalUser = {
+            token : tok
+        };
+        this.storage.setLocalUser(user);
+    }
+        logout(){
+            this.storage.setLocalUser(null);
+        }
 
     //ESSE MÉTODO É ESPECÍFICO PARA CAPTURAR COISAS DIFERENTES DE 200, 201 E 204 DO HTTP
     // OU SEJA, QUANDO DÁ ALGUM ERRO...

@@ -1,3 +1,4 @@
+import { ValidarService } from './../services/validar.service';
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -14,14 +15,19 @@ export class MyApp {
 
   pages: Array<{ title: string, component: string }>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, 
+              public statusBar: StatusBar, 
+              public splashScreen: SplashScreen,
+              public validar: ValidarService) {
+
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Dashboard', component: 'DashboardPage' },
       { title: 'Ordens de Serviço', component: 'ListarOsPage' },
-      { title: 'Home', component: 'HomePage' }
+      { title: 'Home', component: 'HomePage'},
+      { title: 'Logout', component: ''}
     ];
 
   }
@@ -35,9 +41,18 @@ export class MyApp {
     });
   }
 
-  openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+  openPage(page : {title:string, component:string}) {
+   
+    switch(page.title){
+      case 'Logout':
+          this.validar.logout();
+          this.nav.setRoot('LoginPage');
+
+          break;
+
+      default:
+          this.nav.setRoot(page.component);
+
+    }
   }
 }

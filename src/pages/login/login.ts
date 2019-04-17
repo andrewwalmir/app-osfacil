@@ -41,8 +41,13 @@ export class LoginPage {
             if(response == null){
               alert('o usuário digitou usuario ou senha errado');
             }else
+              //this.validar.sucessfullLogin(response.headers.get('Authorization'));
               this.navCtrl.setRoot('DashboardPage');
-          })
+              console.log(this.creds);
+          },
+          error =>{
+            console.log(this.creds);
+          });
       
     //console.log(this.creds);
     
