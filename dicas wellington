@@ -10,15 +10,13 @@ Vamos lá:
 
 5) FRONT: Use sempre ("Content-Type", "application/json") em todas as suas requisições. Você deve sempre colocar no header da requisição (se tiver dúvida é só ver como eu coloquei no método de autenticação);
 
-6) SENTIMENTOS: Fui grosso pra caramba com vc, então peço desculpas. Às vezes não percebo como estou falando com as pessoas. Foi mal!
-
-FIM CARAI! BIRIDIN!
- rusbéPOSSO DESLOGAR? sim sim ..valeu fio
-
 ============================
 
 O QUE FALTA VC FAZER:
 
-1) SUGESTÃO: Quando você loga com dados válidos, o redirecionamento está acontecendo, porém voc~e não tá fazendo absolutamente nada com o Token. Sugiro que você coloque ele em algum service de Login, para que você possa consultar no decorrer da sua aplicação. Lembrando que os services implementam SingleTon, então você terá sempre auma única instância com seu Token dentro;
+1) SUGESTÃO: Quando você loga com dados válidos, o redirecionamento está acontecendo, porém voce não tá fazendo absolutamente 
+nada com o Token. Sugiro que você coloque ele em algum service de Login, para que você possa consultar no decorrer da sua aplicação. 
+Lembrando que os services implementam SingleTon, então você terá sempre auma única instância com seu Token dentro;
 
-2) MISSÃO: Sugiro que você retorne um UserModel e não um ResponseModel e, então, você enfia o token dentro do objeto do UserModel e retorna pro front. Não é boa prática retornar desse jeito, mas funciona. É só uma sugesetão!
+2) MISSÃO: Sugiro que você retorne um UserModel e não um ResponseModel e, então, você enfia o token dentro do objeto do UserModel e 
+retorna pro front. Não é boa prática retornar desse jeito, mas funciona. É só uma sugesetão!
