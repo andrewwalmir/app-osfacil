@@ -1,3 +1,3 @@
 export interface LocalUser {
-    token : string;
+  token: string;
 }

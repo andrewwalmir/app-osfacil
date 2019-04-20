@@ -10,4 +10,6 @@ import { ListarOsPage } from './listar-os';
     IonicPageModule.forChild(ListarOsPage),
   ],
 })
-export class ListarOsModule { }
+export class ListarOsModule { 
+  
+}

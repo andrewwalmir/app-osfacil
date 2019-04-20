@@ -10,4 +10,10 @@ import { DashboardPage } from './dashboard';
     IonicPageModule.forChild(DashboardPage),
   ],
 })
-export class DashboardModule {}
+export class DashboardModule {
+
+
+
+  
+
+}

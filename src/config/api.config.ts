@@ -1,3 +1,5 @@
 export const API_CONFIG = {
-    baseUrl: "http://localhost:8080/OSFacil_Back/api/"
-}
+  baseUrl: "http://18.228.104.153:8080"
+  
+  //"http://localhost:8080"
+};

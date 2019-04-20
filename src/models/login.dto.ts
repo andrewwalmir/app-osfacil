@@ -1,5 +1,4 @@
-export class LoginDTO{
-
-    login: string;
-    senha: string;
+export class LoginDTO {
+  login: string;
+  senha: string;
 }
