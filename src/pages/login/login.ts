@@ -4,7 +4,7 @@ import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 
 import { MenuController } from "ionic-angular/components/app/menu-controller";
-import { LoginDTO } from "../../models/login.dto";
+import { LoginModelDTO } from "../../models/loginModel.dto";
 
 @IonicPage()
 @Component({
@@ -12,7 +12,7 @@ import { LoginDTO } from "../../models/login.dto";
   templateUrl: "login.html"
 })
 export class LoginPage {
-  creds: LoginDTO = new LoginDTO();
+  creds: LoginModelDTO = new LoginModelDTO();
 
   constructor(
     public navCtrl: NavController,
@@ -50,6 +50,7 @@ export class LoginPage {
       }
     );
 
+    
     //console.log(this.creds);
   }
 }

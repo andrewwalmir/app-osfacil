@@ -4,7 +4,7 @@ import { JwtHelper } from "angular2-jwt";
 import { Observable } from "rxjs";
 import { API_CONFIG } from "./../config/api.config";
 import { LocalUser } from "./../models/local_user";
-import { LoginDTO } from "./../models/login.dto";
+import { LoginModelDTO } from "../models/loginModel.dto";
 import { UserModelDTO } from "./../models/usermodel.dto";
 import { StorageService } from "./storage.service";
 
@@ -14,7 +14,7 @@ export class ValidarService {
 
   constructor(public http: HttpClient, public storage: StorageService) {}
 
-  authenticate(creds: LoginDTO): Observable<UserModelDTO> {
+  authenticate(creds: LoginModelDTO): Observable<UserModelDTO> {
     //vai dar pau, pq seu UserModel tá cagado e não tá pronto...
     //vamos tentar na louca, mas vai dar pau... pq vc tem q fazer seu model ficar com todos os objetos internos e tals
     //perae vou abrir a porta aqui perae

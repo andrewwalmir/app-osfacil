@@ -1,4 +1,3 @@
-import { ListarOsPage } from './../listar-os/listar-os';
 import { ConfigService } from "./../../services/config.service";
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
@@ -14,7 +13,7 @@ export class DashboardPage {
     public navParams: NavParams,
     public configService: ConfigService
   ) {
-    //to falando pra vc só salvar carailho
+    
   }
 
   ionViewDidLoad() {
@@ -25,5 +24,4 @@ export class DashboardPage {
     this.navCtrl.setRoot("ListarOsPage");
     console.log("método fazendo algo");
   }
-  //injete o configservice
 }

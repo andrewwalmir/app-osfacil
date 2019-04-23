@@ -1,8 +1,7 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { API_CONFIG } from "../../config/api.config";
-import { ListarOsDTO } from "../../models/listar-os.dto";
-import { Observable } from "rxjs/Rx";
+import { FormModelDTO } from "../../models/formModel.dto";
 import { JwtHelper } from "angular2-jwt";
 
 @Injectable()
@@ -15,8 +14,11 @@ export class ListarOsService {
     //        let _http = new HttpHeaders()
     //      .set("Content-Type", "application/json");
 
-    return this._http.get<ListarOsDTO[]>(
-      `${API_CONFIG.baseUrl}/OSFacil_Back/api/status/listar`
+    return this._http.get<FormModelDTO[]>(
+      `${API_CONFIG.baseUrl}/OSFacil_Back/api/form/listar?pagina=1&limitePorPagina=9`
+
+      // /OSFacil_Back/api/status/listar
+      //http://localhost:8080/OSFacil_Back/api/form/listar?pagina=1&limitePorPagina=9
     );
   }
 }
