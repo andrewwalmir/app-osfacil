@@ -1,5 +1,5 @@
 import { ProfileService } from './../services/profile.service';
-import { ProfilePage } from './../pages/profile/profile';
+import { ProfilePage } from '../pages/usuario/profile/profile';
 import { ConfigService } from "./../services/config.service";
 import { ListarOsService } from "./../services/domain/listar-os.services";
 import { ErrorInterceptorProvider } from "./interceptors/error.interceptor";

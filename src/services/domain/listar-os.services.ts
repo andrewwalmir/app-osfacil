@@ -11,14 +11,11 @@ export class ListarOsService {
   constructor(private _http: HttpClient) {}
 
   listarForm() {
-    //        let _http = new HttpHeaders()
-    //      .set("Content-Type", "application/json");
-
+   
     return this._http.get<FormModelDTO[]>(
-      `${API_CONFIG.baseUrl}/OSFacil_Back/api/form/listar?pagina=1&limitePorPagina=9`
-
-      // /OSFacil_Back/api/status/listar
-      //http://localhost:8080/OSFacil_Back/api/form/listar?pagina=1&limitePorPagina=9
+      `${
+        API_CONFIG.baseUrl
+      }/OSFacil_Back/api/form/listar?pagina=1&limitePorPagina=9`
     );
   }
 }

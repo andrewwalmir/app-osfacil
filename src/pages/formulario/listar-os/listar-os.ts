@@ -1,4 +1,4 @@
-import { FormModelDTO } from "../../models/formModel.dto";
+import { FormModelDTO } from "../../../models/formModel.dto";
 import { Component } from "@angular/core";
 import {
   IonicPage,
@@ -7,9 +7,9 @@ import {
   LoadingController,
   AlertController
 } from "ionic-angular";
-import { ListarOsService } from "../../services/domain/listar-os.services";
+import { ListarOsService } from "../../../services/domain/listar-os.services";
 import { HttpErrorResponse } from "@angular/common/http";
-import { NavLifecycles } from "../../utils/ionic/nav/nav-lifecycles";
+import { NavLifecycles } from "../../../utils/ionic/nav/nav-lifecycles";
 
 @IonicPage()
 @Component({

@@ -29,9 +29,7 @@ export class LoginPage {
     this.menu.swipeEnable(true);
   }
 
-  // ionViewDidLoad() {
-  //   console.log('ionViewDidLoad LoginPage');
-  // }
+  
 
   gologin() {
     //esse observable vai chegar aqui pra quem subscribe pra ele.. sacas?si
@@ -41,6 +39,7 @@ export class LoginPage {
           alert("o usuário digitou usuario ou senha errado");
         } else {
           this.configService.usuarioLogado = usuarioRetornado;
+          console.log('testando' + this.configService.usuarioLogado);
           //this.validar.sucessfulLogin(response.headers.get('Authorization'));
           this.navCtrl.setRoot("DashboardPage");
         }
