@@ -1,5 +1,7 @@
 {
   "name": "osfacil",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic-angular"
 }

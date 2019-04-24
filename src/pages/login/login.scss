@@ -1,15 +1,12 @@
 page-login {
 
-    ion-title * {
-        margin-top: 30vh;
-        margin-bottom: 5vh;
-    }
-    h3 {
+    ion-title {
         text-align: center;
         padding: 20px;
     }
 
     img {
+        height: auto;
         width: 150px;
         align-self: center;
         margin: auto;

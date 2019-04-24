@@ -1,25 +1,32 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the DashboardPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { NavLifecycles } from './../../utils/ionic/nav/nav-lifecycles';
+import { ConfigService } from "./../../services/config.service";
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { ListarOsPage } from "../formulario/listar-os/listar-os";
+import { ProfilePage } from '../usuario/profile/profile';
 
 @IonicPage()
 @Component({
-  selector: 'page-dashboard',
-  templateUrl: 'dashboard.html',
+  selector: "page-dashboard",
+  templateUrl: "dashboard.html"
 })
-export class DashboardPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+export class DashboardPage implements NavLifecycles{
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public configService: ConfigService
+  ) {
+    
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad DashboardPage');
+    console.log("ionViewDidLoad DashboardPage");
   }
 
+  metodo() {
+    this.navCtrl.push(ListarOsPage.name);
+    }
+  metodoProfile() {
+    this.navCtrl.push(ProfilePage.name);
+  }
 }

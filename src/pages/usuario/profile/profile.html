@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Editar Usuario Logado</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form>
+    <ion-item>
+      <ion-label stacked>Nome:</ion-label>
+      <ion-input
+        name="nome"
+        value="{{ configService?.usuarioLogado?.nome }}"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Login:</ion-label>
+      <ion-input
+        name="login"
+        value="{{ configService?.usuarioLogado?.login }}"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Senha:</ion-label>
+      <ion-input
+        name="senha"
+        value="{{ configService?.usuarioLogado?.senha }}"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Email:</ion-label>
+      <ion-input
+        name="email"
+        value="{{ configService?.usuarioLogado?.email }}"
+      ></ion-input>
+      </ion-item>
+      
+    <ion-item>
+      <ion-label stacked>CPF:</ion-label>
+      <ion-input
+        name="cpf"
+        value="{{ configService?.usuarioLogado?.cpf }}"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Função:</ion-label>
+      <ion-input
+        name="function"
+        value="{{ configService?.usuarioLogado?.function.nameFunction }}"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Setor:</ion-label>
+      <ion-input
+        name="sector"
+        value="{{ configService?.usuarioLogado?.sector.name_sector }}"
+      ></ion-input>
+    </ion-item>
+    </form>
+</ion-content>

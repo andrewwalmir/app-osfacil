@@ -1,18 +1,21 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { API_CONFIG } from "../../config/api.config";
-import { ListarOsDTO } from "../../models/listar-os.dto";
-import { Observable } from "rxjs/Rx";
+import { FormModelDTO } from "../../models/formModel.dto";
+import { JwtHelper } from "angular2-jwt";
 
 @Injectable()
 export class ListarOsService {
+  jwtHelper: JwtHelper = new JwtHelper();
 
-    constructor(public http: HttpClient){
+  constructor(private _http: HttpClient) {}
 
-    }
-
-    findAll(): Observable<ListarOsDTO[]> {
-        return this.http.get<ListarOsDTO[]>(`${API_CONFIG.baseUrl}/listarOs`);
-    }
-
+  listarForm() {
+   
+    return this._http.get<FormModelDTO[]>(
+      `${
+        API_CONFIG.baseUrl
+      }/OSFacil_Back/api/form/listar?pagina=1&limitePorPagina=9`
+    );
+  }
 }
