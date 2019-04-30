@@ -10,6 +10,7 @@ import { API_CONFIG } from "./../config/api.config";
 @Injectable()
 export class ConfigService implements OnInit {
   usuarioLogado: UserModelDTO = null;
+  
 
   ngOnInit() {
     console.log("entrou aqui a");

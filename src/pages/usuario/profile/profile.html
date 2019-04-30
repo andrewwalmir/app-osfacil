@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content padding>
-  <form>
+  <form (ngSubmit)="changeUser()">
     <ion-item>
       <ion-label stacked>Nome:</ion-label>
       <ion-input
@@ -36,8 +36,8 @@
         name="email"
         value="{{ configService?.usuarioLogado?.email }}"
       ></ion-input>
-      </ion-item>
-      
+    </ion-item>
+
     <ion-item>
       <ion-label stacked>CPF:</ion-label>
       <ion-input
@@ -45,19 +45,38 @@
         value="{{ configService?.usuarioLogado?.cpf }}"
       ></ion-input>
     </ion-item>
+    <!--{{configService?.usuarioLogado?.function.id}}-->
+
     <ion-item>
-      <ion-label stacked>Função:</ion-label>
-      <ion-input
-        name="function"
-        value="{{ configService?.usuarioLogado?.function.nameFunction }}"
-      ></ion-input>
+      <ion-label stacked>Funções:</ion-label>
+      <ion-select
+        [(ngModel)]="functions"
+        name="functions"
+        multiple="false"
+        placeholder="{{ configService?.usuarioLogado?.function.nameFunction }}"
+      >
+        <ion-option
+          *ngFor="let function of functions"
+          value="{{ function.id }}"
+          >{{ function.nameFunction }}</ion-option
+        >
+      </ion-select>
     </ion-item>
+
     <ion-item>
       <ion-label stacked>Setor:</ion-label>
-      <ion-input
-        name="sector"
-        value="{{ configService?.usuarioLogado?.sector.name_sector }}"
-      ></ion-input>
+      <ion-select
+        [(ngModel)]="sectors"
+        name="sectors"
+        multiple="false"
+        placeholder="{{ configService?.usuarioLogado?.sector.name_sector }}">
+        <ion-option *ngFor="let sector of sectors" value="{{ sector.id }}">
+          {{
+          sector.name_sector        }}</ion-option>
+          
+      </ion-select>
     </ion-item>
-    </form>
+    <button ion-button block type="submit">Enviar</button>
+
+  </form>
 </ion-content>

@@ -1,7 +1,7 @@
 import { UserModelDTO } from './usermodel.dto';
 export class FunctionModelDTO{
 
-    id : string;
+    id : number;
     nameFunction : string;
     users : UserModelDTO[];
 

@@ -13,8 +13,7 @@ export class ListarOsService {
   listarForm() {
    
     return this._http.get<FormModelDTO[]>(
-      `${
-        API_CONFIG.baseUrl
+      `${API_CONFIG.baseUrl
       }/OSFacil_Back/api/form/listar?pagina=1&limitePorPagina=9`
     );
   }
