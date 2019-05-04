@@ -15,10 +15,6 @@ export class ValidarService {
   constructor(public http: HttpClient, public storage: StorageService) {}
 
   authenticate(creds: LoginModelDTO): Observable<UserModelDTO> {
-    //vai dar pau, pq seu UserModel tá cagado e não tá pronto...
-    //vamos tentar na louca, mas vai dar pau... pq vc tem q fazer seu model ficar com todos os objetos internos e tals
-    //perae vou abrir a porta aqui perae
-    //voltei... vamos ver q merda dá....
 
     let headers = new HttpHeaders().set("Content-Type", "application/json");
 

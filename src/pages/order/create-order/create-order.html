@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Ionic App - 2
+    </ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form #formulario01="ngForm" (ngSubmit)="saveOrder(formulario01)">
+    <ion-list>
+      <ion-item>
+        <ion-label floating>Campo Reason</ion-label>
+        <ion-input required [(ngModel)]="os.reason" type="text" name="reason"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Prioridade:</ion-label>
+        <ion-select
+          required
+          [(ngModel)]="os.priority"
+          name="priorities"
+          multiple="false"
+          placeholder="Prioridade"
+        >
+          <ion-option *ngFor="let priority of listPriorities" [value]="priority">{{
+            priority.priorityName
+          }}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <button [disabled]="!formulario01.valid" ion-button full block color="primary">
+        Salvar OS
+      </button>
+    </ion-list>
+  </form>
+</ion-content>

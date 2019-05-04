@@ -7,7 +7,7 @@ import {
   LoadingController,
   AlertController
 } from "ionic-angular";
-import { ListarOsService } from "../../../services/domain/listar-os.services";
+import { ListarOsService } from "../../../services/listar-os.services";
 import { HttpErrorResponse } from "@angular/common/http";
 import { NavLifecycles } from "../../../utils/ionic/nav/nav-lifecycles";
 
@@ -33,7 +33,7 @@ export class ListarOsPage implements NavLifecycles {
 
     loading.present();
 
-    this.listarOsService.listarForm().subscribe(
+    this.listarOsService.listOrder().subscribe(
       forms => {
         this.forms = forms;
         loading.dismiss();//sumir o loading quando carregar o componente por completo
@@ -41,7 +41,7 @@ export class ListarOsPage implements NavLifecycles {
       (err: HttpErrorResponse) => {
         console.log(err);
 
-        loading.dismiss(); 
+        loading.dismiss();
 
         this._alertCtrl
           .create({

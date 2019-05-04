@@ -1,32 +1,35 @@
 import { NavLifecycles } from './../../utils/ionic/nav/nav-lifecycles';
-import { ConfigService } from "./../../services/config.service";
-import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
-import { ListarOsPage } from "../formulario/listar-os/listar-os";
+import { ConfigService } from './../../services/config.service';
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+
 import { ProfilePage } from '../usuario/profile/profile';
+import { ListarOsPage } from '../order/listar-os/listar-os';
+import { CreateOrderPage } from '../order/create-order/create-order';
 
 @IonicPage()
 @Component({
-  selector: "page-dashboard",
-  templateUrl: "dashboard.html"
+  selector: 'page-dashboard',
+  templateUrl: 'dashboard.html'
 })
-export class DashboardPage implements NavLifecycles{
+export class DashboardPage implements NavLifecycles {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public configService: ConfigService
-  ) {
-    
-  }
+  ) {}
 
   ionViewDidLoad() {
-    console.log("ionViewDidLoad DashboardPage");
+    console.log('ionViewDidLoad DashboardPage');
   }
 
   metodo() {
     this.navCtrl.push(ListarOsPage.name);
-    }
+  }
   metodoProfile() {
     this.navCtrl.push(ProfilePage.name);
+  }
+  addOrder() {
+    this.navCtrl.push(CreateOrderPage.name);
   }
 }

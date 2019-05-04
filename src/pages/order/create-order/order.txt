@@ -1,0 +1,89 @@
+<ion-col col-6 (click)="metodoProfile()">
+
+[
+    {
+        "id": 2,
+        "dateopen": "2019-04-10T05:01:48.000+0000",
+        "description": "arrumar tudo sd fsa ",
+        "reason": null,
+        "dateclose": null,
+        "userResponsible": {
+            "id": 13,
+            "nome": "Executor1",
+            "login": "executor1",
+            "senha": "1234",
+            "email": "executor1@gmail.com",
+            "foto": null,
+            "cpf": "98765432100",
+            "contact": null,
+            "action": null,
+            "formResponsible": null,
+            "formRequester": null,
+            "function": {
+                "id": 2,
+                "nameFunction": "EXECUTOR"
+            },
+            "sector": {
+                "id": 6,
+                "name_sector": "TI INFORMATICA",
+                "services": null,
+                "formResponsible": null,
+                "formProvider": null
+            }
+        },
+        "userRequester": {
+            "id": 5,
+            "nome": "Executor",
+            "login": "executor",
+            "senha": "1234",
+            "email": "andrew@gmail.com",
+            "foto": null,
+            "cpf": "12378965400",
+            "contact": null,
+            "action": null,
+            "formResponsible": null,
+            "formRequester": null,
+            "function": {
+                "id": 2,
+                "nameFunction": "EXECUTOR"
+            },
+            "sector": {
+                "id": 1,
+                "name_sector": "RECEPCAO",
+                "services": null,
+                "formResponsible": null,
+                "formProvider": null
+            }
+        },
+        "actions": null,
+        "sectorProvider": {
+            "id": 1,
+            "name_sector": "RECEPCAO",
+            "users": null,
+            "services": null,
+            "formResponsible": null,
+            "formProvider": null
+        },
+        "sectorRequester": {
+            "id": 1,
+            "name_sector": "RECEPCAO",
+            "users": null,
+            "services": null,
+            "formResponsible": null,
+            "formProvider": null
+        },
+        "service": {
+            "id": 1,
+            "description": "MANUT PREVENTIVA",
+            "sector": null
+        },
+        "priority": {
+            "id": 3,
+            "level": 3,
+            "priorityName": "ALTA"
+        },
+        "status": {
+            "id": 2,
+            "nameStatus": "ATRIBUIDO"
+        }
+    },

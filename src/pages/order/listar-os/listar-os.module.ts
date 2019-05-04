@@ -3,13 +3,8 @@ import { IonicPageModule } from 'ionic-angular';
 import { ListarOsPage } from './listar-os';
 
 @NgModule({
-  declarations: [
-    ListarOsPage,
-  ],
-  imports: [
-    IonicPageModule.forChild(ListarOsPage),
-  ],
+  declarations: [ListarOsPage],
+  imports: [IonicPageModule.forChild(ListarOsPage)],
+  exports: [ListarOsPage]
 })
-export class ListarOsModule { 
-  
-}
+export class ListarOsModule {}

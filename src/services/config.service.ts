@@ -2,9 +2,9 @@ import { Observable } from "rxjs/Rx";
 import { HttpHeaders } from "@angular/common/http";
 import { HttpClient } from "@angular/common/http";
 import { UserModelDTO } from "./../models/usermodel.dto";
-import { LocalUser } from "./../models/local_user";
+
 import { Injectable, OnInit } from "@angular/core";
-import { STORAGE_KEYS } from "../config/storage_keys.config";
+
 import { API_CONFIG } from "./../config/api.config";
 
 @Injectable()
@@ -13,11 +13,11 @@ export class ConfigService implements OnInit {
   
 
   ngOnInit() {
-    console.log("entrou aqui a");
+    console.log("entrou aqui ngOnInit");
   }
 
   constructor(public http: HttpClient) {
-    console.log("entrou aqui b");
+    console.log("entrou constructor config.service");
 
     //essa chamada é necessária para o caso do usuário abrir outra aba
     //ou dar um refresh da app... pois os objetos q são injetados, são desalocados em refresh
@@ -38,7 +38,7 @@ export class ConfigService implements OnInit {
       );
     } else {
       console.log("MERDA:");
-      console.log(this.usuarioLogado);
+      console.log(this.usuarioLogado + 'usuario não logou');
     }
   }
 

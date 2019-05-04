@@ -1,11 +1,19 @@
-<ion-menu [content]="content">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Menu</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
+<ion-split-pane>
+<ion-menu [content]="conteudo" *ngIf="configService.usuarioLogado">
+ <!--configService?.usuarioLogado?.function.id-->
   <ion-content>
+      <ion-item no-lines id="cabecalho-menu" class="cabecalho-menu">
+          <div class="avatar-wrapper">
+              <ion-avatar item-start>
+                  <img src="assets/imgs/matielo.png">
+              </ion-avatar>
+          </div>
+      <p><ion-icon name="contact"> {{configService?.usuarioLogado?.nome }}</ion-icon><br>
+         <ion-icon name="mail"> {{ configService?.usuarioLogado?.email }}</ion-icon><br>
+         <ion-icon name="build"> {{configService?.usuarioLogado?.function.nameFunction}}</ion-icon></p><br>
+      </ion-item>
+
+
     <ion-list>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{ p.title }}
@@ -14,5 +22,6 @@
   </ion-content>
 </ion-menu>
 
-<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
-<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
+
+<ion-nav [root]="rootPage" main #conteudo swipeBackEnabled="false"></ion-nav>
+</ion-split-pane>

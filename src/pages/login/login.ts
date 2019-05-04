@@ -12,6 +12,7 @@ import { LoginModelDTO } from "../../models/loginModel.dto";
   templateUrl: "login.html"
 })
 export class LoginPage {
+
   creds: LoginModelDTO = new LoginModelDTO();
 
   constructor(

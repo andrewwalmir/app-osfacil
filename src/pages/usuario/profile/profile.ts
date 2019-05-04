@@ -74,7 +74,7 @@ export class ProfilePage implements NavLifecycles {
     );
       
     }
-
+//https://www.udemy.com/spring-boot-ionic/learn/v4/t/lecture/8926788?start=0
     //changeUser(){
       //  console.log(this.)
    // }

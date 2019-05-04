@@ -1,8 +1,8 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
+    <!-- <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
-    </button>
+    </button> -->
     <ion-title>Editar Usuario Logado</ion-title>
   </ion-navbar>
 </ion-header>
@@ -11,39 +11,24 @@
   <form (ngSubmit)="changeUser()">
     <ion-item>
       <ion-label stacked>Nome:</ion-label>
-      <ion-input
-        name="nome"
-        value="{{ configService?.usuarioLogado?.nome }}"
-      ></ion-input>
+      <ion-input name="nome" value="{{ configService?.usuarioLogado?.nome }}"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label stacked>Login:</ion-label>
-      <ion-input
-        name="login"
-        value="{{ configService?.usuarioLogado?.login }}"
-      ></ion-input>
+      <ion-input name="login" value="{{ configService?.usuarioLogado?.login }}"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label stacked>Senha:</ion-label>
-      <ion-input
-        name="senha"
-        value="{{ configService?.usuarioLogado?.senha }}"
-      ></ion-input>
+      <ion-input name="senha" value="{{ configService?.usuarioLogado?.senha }}"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label stacked>Email:</ion-label>
-      <ion-input
-        name="email"
-        value="{{ configService?.usuarioLogado?.email }}"
-      ></ion-input>
+      <ion-input name="email" value="{{ configService?.usuarioLogado?.email }}"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label stacked>CPF:</ion-label>
-      <ion-input
-        name="cpf"
-        value="{{ configService?.usuarioLogado?.cpf }}"
-      ></ion-input>
+      <ion-input name="cpf" value="{{ configService?.usuarioLogado?.cpf }}"></ion-input>
     </ion-item>
     <!--{{configService?.usuarioLogado?.function.id}}-->
 
@@ -55,11 +40,9 @@
         multiple="false"
         placeholder="{{ configService?.usuarioLogado?.function.nameFunction }}"
       >
-        <ion-option
-          *ngFor="let function of functions"
-          value="{{ function.id }}"
-          >{{ function.nameFunction }}</ion-option
-        >
+        <ion-option *ngFor="let function of functions" value="{{ function.id }}">{{
+          function.nameFunction
+        }}</ion-option>
       </ion-select>
     </ion-item>
 
@@ -69,14 +52,13 @@
         [(ngModel)]="sectors"
         name="sectors"
         multiple="false"
-        placeholder="{{ configService?.usuarioLogado?.sector.name_sector }}">
+        placeholder="{{ configService?.usuarioLogado?.sector.name_sector }}"
+      >
         <ion-option *ngFor="let sector of sectors" value="{{ sector.id }}">
-          {{
-          sector.name_sector        }}</ion-option>
-          
+          {{ sector.name_sector }}</ion-option
+        >
       </ion-select>
     </ion-item>
     <button ion-button block type="submit">Enviar</button>
-
   </form>
 </ion-content>

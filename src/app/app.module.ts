@@ -1,21 +1,22 @@
+import { PriorityService } from './../services/priority.service';
+import { CreateOrderService } from './../services/createOrder.service';
 import { ProfileService } from './../services/profile.service';
-import { ProfilePage } from '../pages/usuario/profile/profile';
-import { ConfigService } from "./../services/config.service";
-import { ListarOsService } from "./../services/domain/listar-os.services";
-import { ErrorInterceptorProvider } from "./interceptors/error.interceptor";
-import { ValidarInterceptorProvider } from "./interceptors/validar.interceptor";
-import { ValidarService } from "./../services/validar.service";
+import { ConfigService } from './../services/config.service';
+import { ListarOsService } from './../services/listar-os.services';
+import { ErrorInterceptorProvider } from './interceptors/error.interceptor';
+import { ValidarInterceptorProvider } from './interceptors/validar.interceptor';
+import { ValidarService } from './../services/validar.service';
 
-import { BrowserModule } from "@angular/platform-browser";
-import { HttpClientModule } from "@angular/common/http";
-import { ErrorHandler, NgModule } from "@angular/core";
-import { IonicApp, IonicErrorHandler, IonicModule } from "ionic-angular";
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { ErrorHandler, NgModule } from '@angular/core';
+import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
-import { MyApp } from "./app.component";
+import { MyApp } from './app.component';
 
-import { StatusBar } from "@ionic-native/status-bar";
-import { SplashScreen } from "@ionic-native/splash-screen";
-import { StorageService } from "../services/storage.service";
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { StorageService } from '../services/storage.service';
 
 @NgModule({
   declarations: [MyApp],
@@ -33,8 +34,9 @@ import { StorageService } from "../services/storage.service";
     ValidarService,
     StorageService,
     ConfigService,
-    ProfileService
-    
+    ProfileService,
+    CreateOrderService,
+    PriorityService
   ]
 })
 export class AppModule {}

@@ -1,6 +1,6 @@
 <ion-header> </ion-header>
 
-<ion-content padding>
+<ion-content scroll= "false">
   <ion-title>OS Facil</ion-title>
 
   <img src="assets/imgs/worker.png" alt="OS Fácil" />
@@ -9,7 +9,7 @@
     <ion-list>
       <ion-item>
         <ion-label stacked>Usuário</ion-label>
-        <ion-input
+        <ion-input 
           type="text"
           [(ngModel)]="creds.login"
           name="login"
@@ -17,7 +17,7 @@
       </ion-item>
       <ion-item>
         <ion-label stacked>Senha</ion-label>
-        <ion-input
+        <ion-input 
           type="password"
           [(ngModel)]="creds.senha"
           name="senha"
@@ -26,5 +26,5 @@
     </ion-list>
     <button ion-button block (click)="gologin()">Entrar</button>
   </form>
-  <button ion-button block outline>Registrar</button>
+ <!-- <button ion-button block outline>Registrar</button>-->
 </ion-content>
