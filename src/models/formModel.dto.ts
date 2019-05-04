@@ -1,10 +1,9 @@
 import { PriorityOSModel } from './priorityOsModel.dto';
 import { ServiceModelDTO } from './serviceModel';
 import { SectorModelDTO } from './sectorModel.dto';
-import { UserModelDTO } from "./usermodel.dto";
-import { actionModelDTO } from "./actionModel.dto";
+import { UserModelDTO } from './usermodel.dto';
+import { actionModelDTO } from './actionModel.dto';
 import { StatusOsModelDTO } from './statusOsModel.dto';
-
 
 export class FormModelDTO {
   id: number;
@@ -21,7 +20,7 @@ export class FormModelDTO {
   priority: PriorityOSModel;
   status: StatusOsModelDTO;
 
-     /*
+  /*
 
 	id: number;
 	dateopen: Date;

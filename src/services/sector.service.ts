@@ -1,19 +1,19 @@
+import { SectorModelDTO } from './../models/sectorModel.dto';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { API_CONFIG } from '../config/api.config';
 import { JwtHelper } from 'angular2-jwt';
 import { Observable } from 'rxjs';
-import { PriorityOSModel } from '../models/priorityOsModel.dto';
 
 @Injectable()
-export class PriorityService {
+export class SectorService {
   jwtHelper: JwtHelper = new JwtHelper();
   constructor(public http: HttpClient) {}
 
-  listarPrioridades(): Observable<PriorityOSModel[]> {
+  listarSetores(): Observable<SectorModelDTO[]> {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this.http
-      .get<PriorityOSModel[]>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/priority/listar`, {
+      .get<SectorModelDTO[]>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/sector/listar`, {
         headers
       })
       .catch(erro => this.tratarHttpStatusBack(erro));

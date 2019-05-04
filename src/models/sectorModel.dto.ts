@@ -1,6 +1,6 @@
-import { ServiceModelDTO } from "./serviceModel";
-import { FormModelDTO } from "./formModel.dto";
-import { UserModelDTO } from "./usermodel.dto";
+import { ServiceModelDTO } from './serviceModel';
+import { FormModelDTO } from './formModel.dto';
+import { UserModelDTO } from './usermodel.dto';
 export class SectorModelDTO {
   id: number;
   nameSector: string;
@@ -17,6 +17,6 @@ export class SectorModelDTO {
 	@JsonIgnoreProperties("sector")
 	@OneToMany(mappedBy = "sector", fetch = FetchType.LAZY)
 	private List<ServiceModel> services;
-     * 
+     *
      */
 }

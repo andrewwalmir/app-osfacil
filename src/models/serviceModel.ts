@@ -1,5 +1,5 @@
-import { SectorModelDTO } from "./sectorModel.dto";
-import { FormModelDTO } from "./formModel.dto";
+import { SectorModelDTO } from './sectorModel.dto';
+import { FormModelDTO } from './formModel.dto';
 export class ServiceModelDTO {
   id: number;
   description: string;

@@ -1,6 +1,4 @@
-import { CreateOrderPage } from './../pages/order/create-order/create-order';
 import { ProfilePage } from './../pages/usuario/profile/profile';
-
 import { ListarOsPage } from './../pages/order/listar-os/listar-os';
 import { ConfigService } from './../services/config.service';
 import { ValidarService } from './../services/validar.service';
@@ -56,7 +54,8 @@ export class MyApp {
         this.validar.logout().subscribe(
           retorno => {
             this.configService.usuarioLogado = null;
-            this.nav.setRoot(LoginPage.name);
+            this.nav.setRoot(this.rootPage);
+            //LoginPage.name);
           },
           error => {
             console.log(error);

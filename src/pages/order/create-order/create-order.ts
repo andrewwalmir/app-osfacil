@@ -1,3 +1,7 @@
+import { DashboardPage } from './../../dashboard/dashboard';
+import { ConfigService } from './../../../services/config.service';
+import { SectorService } from './../../../services/sector.service';
+import { ServicesService } from './../../../services/services.service';
 import { PriorityService } from './../../../services/priority.service';
 import { UserModelDTO } from './../../../models/usermodel.dto';
 import { StatusOsModelDTO } from './../../../models/statusOsModel.dto';
@@ -6,11 +10,9 @@ import { SectorModelDTO } from './../../../models/sectorModel.dto';
 import { PriorityOSModel } from './../../../models/priorityOsModel.dto';
 import { FormModelDTO } from './../../../models/formModel.dto';
 import { CreateOrderService } from './../../../services/createOrder.service';
-import { Component, OnInit } from '@angular/core'; //perae
-import { NgForm } from '@angular/forms';
-import { IonicPage, NavController, NavParams, Form } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { regexValidators } from '../../../utils/ionic/validators/validators';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonicPage, NavController, Nav } from 'ionic-angular';
+import { FormBuilder } from '@angular/forms';
 
 @IonicPage()
 @Component({
@@ -18,20 +20,28 @@ import { regexValidators } from '../../../utils/ionic/validators/validators';
   templateUrl: 'create-order.html'
 })
 export class CreateOrderPage implements OnInit {
+ // @ViewChild(Nav) nav: Nav;
+  rootPage = DashboardPage.name;
   //Objetos
   private os: FormModelDTO;
   private listPriorities: PriorityOSModel[] = [];
-
+  private listSectors: SectorModelDTO[] = [];
+  private listServices: ServiceModelDTO[] = [];
   constructor(
     public navCtrl: NavController,
     public formBuilder: FormBuilder,
     public createOrderService: CreateOrderService,
-    public priorityService: PriorityService
+    public priorityService: PriorityService,
+    public servicesService: ServicesService,
+    public sectorService: SectorService,
+    public configService: ConfigService
   ) {}
 
   ngOnInit() {
     this.os = new FormModelDTO();
     this.carregarListaPrioridades();
+    this.carregarListaSetores();
+    this.carregarListaServicos();
   }
 
   carregarListaPrioridades() {
@@ -40,26 +50,44 @@ export class CreateOrderPage implements OnInit {
         this.listPriorities = lista;
       },
       error => {
-        console.log('deu pau');
+        console.log('deu pau no listaPrioridades');
         console.log(error);
       }
     );
   }
-
+  carregarListaSetores() {
+    this.sectorService.listarSetores().subscribe(
+      lista => {
+        this.listSectors = lista;
+      },
+      error => {
+        console.log('deu pau no listaSetores');
+        console.log(error);
+      }
+    );
+  }
+  carregarListaServicos() {
+    this.servicesService.listarServicos().subscribe(
+      lista => {
+        this.listServices = lista;
+      },
+      error => {
+        console.log('deu pau no listaServicos');
+        console.log(error);
+      }
+    );
+  }
   saveOrder(formulario) {
     //Colocando estatícamente objetos obrigatórios (NOT NULL) pra ver se a caralha pelo menos salva no banco
-    let sectorRequesterTemp = new SectorModelDTO();
-    sectorRequesterTemp.id = 1;
-    this.os.sectorRequester = sectorRequesterTemp;
-    let serviceTemp = new ServiceModelDTO();
-    serviceTemp.id = 1;
-    this.os.service = serviceTemp;
+
     let statusTemp = new StatusOsModelDTO();
-    statusTemp.id = 1;
+    statusTemp.id = 1; //cria a OS com o status "Aberto"
     this.os.status = statusTemp;
+
     let requesterTemp = new UserModelDTO();
-    requesterTemp.id = 1;
+    requesterTemp.id = this.configService.usuarioLogado.id;
     this.os.userRequester = requesterTemp;
+
     //Colocando estatícamente objetos obrigatórios (NOT NULL) pra ver se a caralha pelo menos salva no banco
 
     console.log('vamos ver como estáá o objeto os:');
@@ -67,11 +95,12 @@ export class CreateOrderPage implements OnInit {
 
     this.createOrderService.saveOrder(this.os).subscribe(
       retorno => {
-        console.log('retorno:');
+        console.log('deu certo o subscribe do saveOrder:');
         console.log(retorno);
+        this.navCtrl.setRoot(this.rootPage);
       },
       error => {
-        console.log('deu pau');
+        console.log('deu pau no saveOrder');
         console.log(error);
       }
     );

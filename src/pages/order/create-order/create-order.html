@@ -1,8 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
-      Ionic App - 2
-    </ion-title>
+    <ion-title>Gerar Ordem de Serviço </ion-title>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -12,9 +10,41 @@
 <ion-content padding>
   <form #formulario01="ngForm" (ngSubmit)="saveOrder(formulario01)">
     <ion-list>
+
+
       <ion-item>
-        <ion-label floating>Campo Reason</ion-label>
-        <ion-input required [(ngModel)]="os.reason" type="text" name="reason"></ion-input>
+        <ion-label floating>Descrever a manutenção:</ion-label>
+        <ion-input required [(ngModel)]="os.description" type="text" name="description"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Setor:</ion-label>
+        <ion-select
+          required
+          [(ngModel)]="os.sectorRequester"
+          name="sector"
+          multiple="false"
+          placeholder="Setor"
+        >
+          <ion-option *ngFor="let sector of listSectors" [value]="sector">{{
+            sector.nameSector
+          }}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Serviço:</ion-label>
+        <ion-select
+          required
+          [(ngModel)]="os.service"
+          name="service"
+          multiple="false"
+          placeholder="Tipo de Serviço"
+        >
+          <ion-option *ngFor="let service of listServices" [value]="service">{{
+            service.description
+          }}</ion-option>
+        </ion-select>
       </ion-item>
 
       <ion-item>
