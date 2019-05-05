@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title> Usuarios</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let user of users" (click)="selecionaUser(User)" flex-wrap: nowrap>
+      <h2>Nome: {{ user.nome }}</h2>
+
+      <h3>Login: {{ user.login }}</h3>
+      <!--    <p *ngIf="form.sectorProvider != null">Nome Setor: {{ form.sectorProvider.name_sector }}</p>-->
+      <p>Função: {{ user.function.nameFunction }}</p>
+      <p>Setor: {{ user.sector.nameSector }}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>

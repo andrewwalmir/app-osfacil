@@ -1,3 +1,4 @@
+import { NavLifecycles } from './../../utils/ionic/nav/nav-lifecycles';
 import { ConfigService } from "./../../services/config.service";
 import { ValidarService } from "./../../services/validar.service";
 import { Component } from "@angular/core";
@@ -11,7 +12,7 @@ import { LoginModelDTO } from "../../models/loginModel.dto";
   selector: "page-login",
   templateUrl: "login.html"
 })
-export class LoginPage {
+export class LoginPage implements NavLifecycles{
 
   creds: LoginModelDTO = new LoginModelDTO();
 
@@ -23,6 +24,8 @@ export class LoginPage {
     public configService: ConfigService
   ) {}
 
+    ionViewDidLoad;
+
   ionViewWillEnter() {
     this.menu.swipeEnable(false);
   }
@@ -30,7 +33,7 @@ export class LoginPage {
     this.menu.swipeEnable(true);
   }
 
-  
+
 
   gologin() {
     //esse observable vai chegar aqui pra quem subscribe pra ele.. sacas?si
@@ -50,7 +53,7 @@ export class LoginPage {
       }
     );
 
-    
+
     //console.log(this.creds);
   }
 }

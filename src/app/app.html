@@ -1,27 +1,32 @@
 <ion-split-pane>
-<ion-menu [content]="conteudo" *ngIf="configService.usuarioLogado">
- <!--configService?.usuarioLogado?.function.id-->
-  <ion-content>
+  <ion-menu [content]="conteudo" *ngIf="configService.usuarioLogado">
+    <!--configService?.usuarioLogado?.function.id-->
+    <ion-content>
       <ion-item no-lines id="cabecalho-menu" class="cabecalho-menu">
-          <div class="avatar-wrapper">
-              <ion-avatar item-start>
-                  <img src="assets/imgs/matielo.png">
-              </ion-avatar>
-          </div>
-      <p><ion-icon name="contact"> {{configService?.usuarioLogado?.nome }}</ion-icon><br>
-         <ion-icon name="mail"> {{ configService?.usuarioLogado?.email }}</ion-icon><br>
-         <ion-icon name="build"> {{configService?.usuarioLogado?.function.nameFunction}}</ion-icon></p><br>
+        <div class="avatar-wrapper">
+          <ion-avatar item-start>
+            <img src="assets/imgs/avatar-padrao.jpg" />
+          </ion-avatar>
+        </div>
+        <p>
+          <ion-icon name="contact"> {{ configService?.usuarioLogado?.nome }}</ion-icon
+          ><br />
+          <ion-icon name="mail"> {{ configService?.usuarioLogado?.email }}</ion-icon
+          ><br />
+          <ion-icon name="build">
+            {{ configService?.usuarioLogado?.function.nameFunction }}</ion-icon
+          >
+        </p>
+        <br />
       </ion-item>
 
+      <ion-list>
+        <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+          {{ p.title }}
+        </button>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
 
-    <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{ p.title }}
-      </button>
-    </ion-list>
-  </ion-content>
-</ion-menu>
-
-
-<ion-nav [root]="rootPage" main #conteudo swipeBackEnabled="false"></ion-nav>
+  <ion-nav [root]="rootPage" main #conteudo swipeBackEnabled="false"></ion-nav>
 </ion-split-pane>

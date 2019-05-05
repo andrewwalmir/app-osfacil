@@ -1,3 +1,4 @@
+import { NavLifecycles } from './../../../utils/ionic/nav/nav-lifecycles';
 import { DashboardPage } from './../../dashboard/dashboard';
 import { ConfigService } from './../../../services/config.service';
 import { SectorService } from './../../../services/sector.service';
@@ -11,7 +12,7 @@ import { PriorityOSModel } from './../../../models/priorityOsModel.dto';
 import { FormModelDTO } from './../../../models/formModel.dto';
 import { CreateOrderService } from './../../../services/createOrder.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonicPage, NavController, Nav } from 'ionic-angular';
+import { IonicPage, NavController, Nav, AlertController, LoadingController } from 'ionic-angular';
 import { FormBuilder } from '@angular/forms';
 
 @IonicPage()
@@ -19,8 +20,8 @@ import { FormBuilder } from '@angular/forms';
   selector: 'page-create-order',
   templateUrl: 'create-order.html'
 })
-export class CreateOrderPage implements OnInit {
- // @ViewChild(Nav) nav: Nav;
+export class CreateOrderPage implements OnInit, NavLifecycles {
+  // @ViewChild(Nav) nav: Nav;
   rootPage = DashboardPage.name;
   //Objetos
   private os: FormModelDTO;
@@ -34,9 +35,17 @@ export class CreateOrderPage implements OnInit {
     public priorityService: PriorityService,
     public servicesService: ServicesService,
     public sectorService: SectorService,
-    public configService: ConfigService
+    public configService: ConfigService,
+    private _loadingCtrl: LoadingController,
+    private _alertCtrl: AlertController
   ) {}
 
+  
+  ionViewDidLoad() {
+    let loading = this._loadingCtrl.create({
+      content: 'Carregando Pagina, Aguarde...'
+    });
+  }
   ngOnInit() {
     this.os = new FormModelDTO();
     this.carregarListaPrioridades();

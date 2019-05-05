@@ -1,4 +1,4 @@
-import { ProfilePage } from './../pages/usuario/profile/profile';
+import { ProfilePage } from '../pages/usuario/users/profile/profile';
 import { ListarOsPage } from './../pages/order/listar-os/listar-os';
 import { ConfigService } from './../services/config.service';
 import { ValidarService } from './../services/validar.service';
@@ -19,7 +19,6 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage = LoginPage.name;
-  // CreateOrderPage.name;
 
   pages: Array<{ title: string; component: string }>;
 
@@ -55,7 +54,6 @@ export class MyApp {
           retorno => {
             this.configService.usuarioLogado = null;
             this.nav.setRoot(this.rootPage);
-            //LoginPage.name);
           },
           error => {
             console.log(error);

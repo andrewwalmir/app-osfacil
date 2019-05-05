@@ -1,11 +1,13 @@
+import { UsersPage } from './../usuario/users/users';
 import { NavLifecycles } from './../../utils/ionic/nav/nav-lifecycles';
 import { ConfigService } from './../../services/config.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { ProfilePage } from '../usuario/profile/profile';
-import { ListarOsPage } from '../order/listar-os/listar-os';
+import { ProfilePage } from '../usuario/users/profile/profile';
+
 import { CreateOrderPage } from '../order/create-order/create-order';
+import { ListarOsPage } from '../order/listar-os/listar-os';
 
 @IonicPage()
 @Component({
@@ -19,10 +21,7 @@ export class DashboardPage implements NavLifecycles {
     public configService: ConfigService
   ) {}
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad DashboardPage');
-  }
-
+  ionViewDidLoad;
   metodo() {
     this.navCtrl.push(ListarOsPage.name);
   }
@@ -31,5 +30,8 @@ export class DashboardPage implements NavLifecycles {
   }
   addOrder() {
     this.navCtrl.push(CreateOrderPage.name);
+  }
+  listarUsuarios() {
+    this.navCtrl.push(UsersPage.name);
   }
 }

@@ -15,10 +15,11 @@ import { PriorityService } from './../services/priority.service';
 import { CreateOrderService } from './../services/createOrder.service';
 import { ProfileService } from './../services/profile.service';
 import { ConfigService } from './../services/config.service';
-import { ListarOsService } from './../services/listar-os.services';
+import { ListarOsService } from '../services/listarOs.service';
 import { ErrorInterceptorProvider } from './interceptors/error.interceptor';
 import { ValidarInterceptorProvider } from './interceptors/validar.interceptor';
 import { ValidarService } from './../services/validar.service';
+import { UsersService } from './../services/users.service';
 
 @NgModule({
   declarations: [MyApp],
@@ -40,7 +41,8 @@ import { ValidarService } from './../services/validar.service';
     CreateOrderService,
     PriorityService,
     ServicesService,
-    SectorService
+    SectorService,
+    UsersService
   ]
 })
 export class AppModule {}

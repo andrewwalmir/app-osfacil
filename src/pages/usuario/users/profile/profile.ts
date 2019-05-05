@@ -1,28 +1,29 @@
-import { UserModelDTO } from './../../../models/usermodel.dto';
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 import {
   IonicPage,
   NavController,
   NavParams,
   AlertController,
   LoadingController
-} from "ionic-angular";
-import { ConfigService } from "../../../services/config.service";
-import { NavLifecycles } from "../../../utils/ionic/nav/nav-lifecycles";
-import { ProfileService } from "../../../services/profile.service";
-import { HttpErrorResponse } from "@angular/common/http";
-import { SectorModelDTO } from "../../../models/sectorModel.dto";
-import { FunctionModelDTO } from "./../../../models/functionModel.dto";
+} from 'ionic-angular';
+
+import { ProfileService } from '../../../../services/profile.service';
+
+import { FunctionModelDTO } from '../../../../models/functionModel.dto';
+import { ConfigService } from '../../../../services/config.service';
+import { SectorModelDTO } from '../../../../models/sectorModel.dto';
+import { UserModelDTO } from '../../../../models/usermodel.dto';
+import { NavLifecycles } from '../../../../utils/ionic/nav/nav-lifecycles';
+import { HttpErrorResponse } from '@angular/common/http';
 @IonicPage()
 @Component({
-  selector: "page-profile",
-  templateUrl: "profile.html"
+  selector: 'page-profile',
+  templateUrl: 'profile.html'
 })
 export class ProfilePage implements NavLifecycles {
   public functions: FunctionModelDTO[];
   public sectors: SectorModelDTO[];
-  public alterarUsuario : UserModelDTO;  
-  
+  public alterarUsuario: UserModelDTO;
 
   constructor(
     public navCtrl: NavController,
@@ -35,7 +36,7 @@ export class ProfilePage implements NavLifecycles {
   //https://cursos.alura.com.br/course/ionic3-parte1/task/33246
   ionViewDidLoad() {
     let loading = this._loadingCtrl.create({
-      content: "Carregando Funções..."
+      content: 'Carregando Funções...'
     });
 
     this.profileService.listarFunction().subscribe(
@@ -47,10 +48,9 @@ export class ProfilePage implements NavLifecycles {
         console.log(err);
         this._alertCtrl
           .create({
-            title: "Falha na conexão",
-            subTitle:
-              "Não foi possível carregar a lista de funções. Tente novamente mais tarde!",
-            buttons: [{ text: "Ok" }]
+            title: 'Falha na conexão',
+            subTitle: 'Não foi possível carregar a lista de funções. Tente novamente mais tarde!',
+            buttons: [{ text: 'Ok' }]
           })
           .present();
       }
@@ -64,20 +64,16 @@ export class ProfilePage implements NavLifecycles {
       (err: HttpErrorResponse) => {
         this._alertCtrl
           .create({
-            title: "Falha na conexão",
-            subTitle:
-              "Não foi possível carregar a lista de funções. Tente novamente mais tarde!",
-            buttons: [{ text: "Ok" }]
+            title: 'Falha na conexão',
+            subTitle: 'Não foi possível carregar a lista de funções. Tente novamente mais tarde!',
+            buttons: [{ text: 'Ok' }]
           })
           .present();
       }
     );
-      
-    }
-//https://www.udemy.com/spring-boot-ionic/learn/v4/t/lecture/8926788?start=0
-    //changeUser(){
-      //  console.log(this.)
-   // }
-
   }
-
+  //https://www.udemy.com/spring-boot-ionic/learn/v4/t/lecture/8926788?start=0
+  //changeUser(){
+  //  console.log(this.)
+  // }
+}
