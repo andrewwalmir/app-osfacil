@@ -21,11 +21,10 @@ export class UserModelDTO {
   *
             @JsonIgnoreProperties("user") // quando é RESTFul precisa desta annotation
             @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-            private List<ActionModel> action;// correto professor 
+            private List<ActionModel> action;// correto professor
             @JsonIgnoreProperties("userResponsible") // quando é RESTFul precisa desta annotation
             @OneToMany(mappedBy = "userResponsible", fetch = FetchType.LAZY)
             private List<FormModel> formResponsible;// correto
-
             @JsonIgnoreProperties("userRequester") // quando é RESTFul precisa desta annotation
             @OneToMany(mappedBy = "userRequester", fetch = FetchType.LAZY)
             private List<FormModel> formRequester;// correto

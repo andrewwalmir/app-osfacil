@@ -26,16 +26,13 @@ export class ConfigService implements OnInit {
       this.verificarUsuarioLogado().subscribe(
         retorno => {
           this.usuarioLogado = retorno;
-          console.log(
-            'DEU CERTO! IMPLEMENTAR AQUI O REDIRECIONAMENTO PRA DASHBOARD PQ O USER TA LOGADO'
-          );
+          console.log();
         },
         error => {
           console.log(error);
         }
       );
     } else {
-      console.log('MERDA:');
       console.log(this.usuarioLogado + 'usuario não logou');
     }
   }

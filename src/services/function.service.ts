@@ -1,18 +1,18 @@
-import { SectorModelDTO } from './../models/sectorModel.dto';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { API_CONFIG } from '../config/api.config';
 import { JwtHelper } from 'angular2-jwt';
+import { FunctionModelDTO } from '../models/functionModel.dto';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class SectorService {
+export class FunctionService {
   jwtHelper: JwtHelper = new JwtHelper();
   constructor(public http: HttpClient) {}
-
-  listarSetores(): Observable<SectorModelDTO[]> {
+  listarFunction(): Observable<FunctionModelDTO[]> {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.http.get<SectorModelDTO[]>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/sector/listar`, {
+    return this.http
+      .get<FunctionModelDTO[]>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/function/listarFunction`, {
         headers
       })
       .catch(erro => this.tratarHttpStatusBack(erro));

@@ -21,7 +21,7 @@ import { FormBuilder } from '@angular/forms';
   templateUrl: 'create-order.html'
 })
 export class CreateOrderPage implements OnInit, NavLifecycles {
-  // @ViewChild(Nav) nav: Nav;
+  @ViewChild(Nav) nav: Nav;
   rootPage = DashboardPage.name;
   //Objetos
   private os: FormModelDTO;
@@ -40,7 +40,6 @@ export class CreateOrderPage implements OnInit, NavLifecycles {
     private _alertCtrl: AlertController
   ) {}
 
-  
   ionViewDidLoad() {
     let loading = this._loadingCtrl.create({
       content: 'Carregando Pagina, Aguarde...'

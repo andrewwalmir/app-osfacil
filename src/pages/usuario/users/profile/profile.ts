@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { UsersService } from './../../../../services/users.service';
+import { Component, OnInit } from '@angular/core';
 import {
   IonicPage,
   NavController,
@@ -15,22 +16,31 @@ import { SectorModelDTO } from '../../../../models/sectorModel.dto';
 import { UserModelDTO } from '../../../../models/usermodel.dto';
 import { NavLifecycles } from '../../../../utils/ionic/nav/nav-lifecycles';
 import { HttpErrorResponse } from '@angular/common/http';
+import { SectorService } from '../../../../services/sector.service';
+import { FunctionService } from '../../../../services/function.service';
+import { DashboardPage } from '../../../dashboard/dashboard';
+
 @IonicPage()
 @Component({
   selector: 'page-profile',
   templateUrl: 'profile.html'
 })
-export class ProfilePage implements NavLifecycles {
+export class ProfilePage implements OnInit, NavLifecycles {
+  rootPage = DashboardPage.name;
   public functions: FunctionModelDTO[];
   public sectors: SectorModelDTO[];
-  public alterarUsuario: UserModelDTO;
+  private userform: UserModelDTO;
+  private listFunctions: FunctionModelDTO[] = [];
+  private listSectors: SectorModelDTO[] = [];
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public profileService: ProfileService,
+    public sectorService: SectorService,
+    public functionService: FunctionService,
+    public userService: UsersService,
     public configService: ConfigService,
-    private _alertCtrl: AlertController,
     private _loadingCtrl: LoadingController
   ) {}
   //https://cursos.alura.com.br/course/ionic3-parte1/task/33246
@@ -38,42 +48,66 @@ export class ProfilePage implements NavLifecycles {
     let loading = this._loadingCtrl.create({
       content: 'Carregando Funções...'
     });
+  }
 
-    this.profileService.listarFunction().subscribe(
-      functions => {
-        this.functions = functions;
-        loading.dismiss(); //sumir o loading quando carregar o componente por completo
-      },
-      (err: HttpErrorResponse) => {
-        console.log(err);
-        this._alertCtrl
-          .create({
-            title: 'Falha na conexão',
-            subTitle: 'Não foi possível carregar a lista de funções. Tente novamente mais tarde!',
-            buttons: [{ text: 'Ok' }]
-          })
-          .present();
-      }
-    );
+  ngOnInit() {
+    this.userform = new UserModelDTO();
+    this.carregarListaFuncoes();
+    this.carregarListaSetores();
+  }
 
-    this.profileService.listarSector().subscribe(
-      sectors => {
-        this.sectors = sectors;
-        loading.dismiss(); //sumir o loading quando carregar o componente por completo
+  carregarListaSetores() {
+    this.sectorService.listarSetores().subscribe(
+      lista => {
+        this.listSectors = lista;
       },
-      (err: HttpErrorResponse) => {
-        this._alertCtrl
-          .create({
-            title: 'Falha na conexão',
-            subTitle: 'Não foi possível carregar a lista de funções. Tente novamente mais tarde!',
-            buttons: [{ text: 'Ok' }]
-          })
-          .present();
+      error => {
+        console.log('deu pau no listaSetores');
+        console.log(error);
       }
     );
   }
-  //https://www.udemy.com/spring-boot-ionic/learn/v4/t/lecture/8926788?start=0
-  //changeUser(){
-  //  console.log(this.)
-  // }
+  carregarListaFuncoes() {
+    this.functionService.listarFunction().subscribe(
+      lista => {
+        this.listFunctions = lista;
+      },
+      error => {
+        console.log('deu pau no listaFunction');
+        console.log(error);
+      }
+    );
+  }
+  editUser(formulario) {
+    console.log('vamos ver como estáá o objeto os:');
+    console.log(this.userform);
+
+    this.profileService.editUser(this.userform).subscribe(
+      retorno => {
+        console.log('deu certo o subscribe do saveOrder:');
+        console.log(retorno);
+        this.navCtrl.setRoot(this.rootPage);
+      },
+      error => {
+        console.log('deu pau no editUser');
+        console.log(error);
+      }
+    );
+  }
+  saveUser(formulario) {
+    console.log('vamos ver como estáá o objeto os:');
+    console.log(this.userform);
+
+    this.userService.saveUser(this.userform).subscribe(
+      retorno => {
+        console.log('deu certo o subscribe do saveUser:');
+        console.log(retorno);
+        this.navCtrl.setRoot(this.rootPage);
+      },
+      error => {
+        console.log('deu pau no saveUser');
+        console.log(error);
+      }
+    );
+  }
 }

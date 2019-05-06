@@ -16,10 +16,11 @@ import { CreateOrderService } from './../services/createOrder.service';
 import { ProfileService } from './../services/profile.service';
 import { ConfigService } from './../services/config.service';
 import { ListarOsService } from '../services/listarOs.service';
-import { ErrorInterceptorProvider } from './interceptors/error.interceptor';
+
 import { ValidarInterceptorProvider } from './interceptors/validar.interceptor';
 import { ValidarService } from './../services/validar.service';
 import { UsersService } from './../services/users.service';
+import { FunctionService } from '../services/function.service';
 
 @NgModule({
   declarations: [MyApp],
@@ -32,17 +33,17 @@ import { UsersService } from './../services/users.service';
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     ValidarInterceptorProvider,
-    ListarOsService,
-    ErrorInterceptorProvider,
-    ValidarService,
-    StorageService,
     ConfigService,
-    ProfileService,
     CreateOrderService,
+    FunctionService,
+    ListarOsService,
     PriorityService,
+    ProfileService,
     ServicesService,
     SectorService,
-    UsersService
+    StorageService,
+    UsersService,
+    ValidarService
   ]
 })
 export class AppModule {}
