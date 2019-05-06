@@ -1,0 +1,32 @@
+nvm use 8.15.1
+npm install
+npm install angular2-jwt
+ionic serve
+
+-- paginas //pasta
+------ os //pasta
+-------- os.component.html //nesses três arquivos (html, ts e scss), vc faz o seu datatable de LISTAR
+-------- os.component.scss
+-------- os.component.ts
+-------- osdetalhe //pasta
+---------- osdetalhe.component.html //nesses três arquivos (html, ts e scss), vc faz o formulário de INCLUIR e EDITAR
+---------- osdetalhe.component.scss
+---------- osdetalhe.component.ts //vc cria um modoEdicao:boolean pra identificar se tá rolando inclusão ou edição
+------ sector //pasta
+-------- sector.component.html //nesses três arquivos (html, ts e scss), vc faz o seu datatable de LISTAR (deletar aqui)
+-------- sector.component.scss
+-------- sector.component.ts
+-------- sectordetalhe //pasta
+---------- sectordetalhe.component.html //nesses três arquivos (html, ts e scss), vc faz o formulário de INCLUIR e EDITAR 
+---------- sectordetalhe.component.scss
+---------- sectordetalhe.component.ts //vc cria um modoEdicao:boolean pra identificar se tá rolando inclusão ou edição
+
+-- models //pasta
+-----os.model.ts
+-----sector.model.ts
+
+-- services //pasta
+-----os.service.ts
+-----sector.service.ts
+
+
