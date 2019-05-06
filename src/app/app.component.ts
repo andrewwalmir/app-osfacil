@@ -1,17 +1,24 @@
-import { ConfigService } from "./../services/config.service";
-import { ValidarService } from "./../services/validar.service";
-import { Component, ViewChild } from "@angular/core";
-import { Nav, Platform } from "ionic-angular";
-import { StatusBar } from "@ionic-native/status-bar";
-import { SplashScreen } from "@ionic-native/splash-screen";
+import { ProfilePage } from '../pages/usuario/users/profile/profile';
+import { ListarOsPage } from './../pages/order/listar-os/listar-os';
+import { ConfigService } from './../services/config.service';
+import { ValidarService } from './../services/validar.service';
+import { Component, ViewChild } from '@angular/core';
+import { Nav, Platform } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { LoginPage } from '../pages/login/login';
+import { HomePage } from '../pages/home/home';
+
+import { DashboardPage } from '../pages/dashboard/dashboard';
 
 @Component({
-  templateUrl: "app.html"
+  selector: 'myapp',
+  templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: string = "LoginPage";
+  rootPage = LoginPage.name;
 
   pages: Array<{ title: string; component: string }>;
 
@@ -24,20 +31,17 @@ export class MyApp {
   ) {
     this.initializeApp();
 
-    // used for an example of ngFor and navigation
     this.pages = [
-      { title: "Dashboard", component: "DashboardPage" },
-      { title: "Home", component: "HomePage" },
-      { title: "Ordens de Serviço", component: "ListarOsPage" },
-      { title: "Profile", component: "ProfilePage" },
-      { title: "Logout", component: "" }
+      { title: 'Dashboard', component: DashboardPage.name },
+      { title: 'Home', component: HomePage.name },
+      { title: 'Ordens de Serviço', component: ListarOsPage.name },
+      { title: 'Profile', component: ProfilePage.name },
+      { title: 'Logout', component: '' }
     ];
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
@@ -45,11 +49,11 @@ export class MyApp {
 
   openPage(page: { title: string; component: string }) {
     switch (page.title) {
-      case "Logout":
+      case 'Logout':
         this.validar.logout().subscribe(
           retorno => {
             this.configService.usuarioLogado = null;
-            this.nav.setRoot("LoginPage");
+            this.nav.setRoot(this.rootPage);
           },
           error => {
             console.log(error);

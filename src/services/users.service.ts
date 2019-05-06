@@ -1,26 +1,29 @@
-import { SectorModelDTO } from './../models/sectorModel.dto';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { JwtHelper } from 'angular2-jwt';
 import { API_CONFIG } from '../config/api.config';
+
+import { JwtHelper } from 'angular2-jwt';
 import { UserModelDTO } from '../models/usermodel.dto';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class ProfileService {
+export class UsersService {
   jwtHelper: JwtHelper = new JwtHelper();
 
   constructor(private http: HttpClient) {}
 
-  editUser(user: UserModelDTO): Observable<boolean> {
+  listUsers() {
+    return this.http.get<UserModelDTO[]>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/user/listarUser`);
+  }
+
+  saveUser(user: UserModelDTO): Observable<boolean> {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this.http
-      .post<boolean>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/user/alterar`, JSON.stringify(user), {
+      .post<boolean>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/user/salvar`, JSON.stringify(user), {
         headers
       })
       .catch(erro => this.tratarHttpStatusBack(erro));
   }
-
   public tratarHttpStatusBack(erro) {
     console.log('TRATAMENTO DE EXCEÇÕES DO BACK');
 

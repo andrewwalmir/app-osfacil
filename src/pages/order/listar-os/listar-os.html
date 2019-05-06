@@ -3,18 +3,17 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Ordens de Serviço</ion-title>
+    <ion-title>Criar Ordem de Serviço</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let form of forms" (click)="selecionaForm(Form)"flex-wrap: nowrap>
-
+    <ion-item *ngFor="let form of forms" (click)="selecionaForm(Form)" flex-wrap: nowrap>
       <h2>Prioridade: {{ form.priority.priorityName }}</h2>
 
-      <h3>Data Abertura: {{ form.dateopen | date: "dd/MM/yyyy HH:mm:ss" }}</h3>
-      <p>Nome Setor: {{ form.sectorProvider.name_sector }}</p>
+      <h3>Data Abertura: {{ form.dateopen | date: 'dd/MM/yyyy HH:mm:ss' }}</h3>
+      <p *ngIf="form.sectorProvider != null">Nome Setor: {{ form.sectorProvider.name_sector }}</p>
       <p>Descrição: {{ form.description }}</p>
     </ion-item>
   </ion-list>
