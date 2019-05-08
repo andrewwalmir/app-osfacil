@@ -1,30 +1,24 @@
 <ion-header> </ion-header>
-
-<ion-content scroll= "false">
-  <ion-title>OS Facil</ion-title>
-
-  <img src="assets/imgs/worker.png" alt="OS Fácil" />
-
-  <form>
-    <ion-list>
-      <ion-item>
-        <ion-label stacked>Usuário</ion-label>
-        <ion-input 
-          type="text"
-          [(ngModel)]="creds.login"
-          name="login"
-        ></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label stacked>Senha</ion-label>
-        <ion-input 
-          type="password"
-          [(ngModel)]="creds.senha"
-          name="senha"
-        ></ion-input>
-      </ion-item>
-    </ion-list>
-    <button ion-button block (click)="gologin()">Entrar</button>
-  </form>
- <!-- <button ion-button block outline>Registrar</button>-->
+<ion-content scroll="false">
+  <ion-row>
+    <ion-col class="content" col-12>
+      <img src="../../assets/imgs/os-login.png" />
+    </ion-col>
+  </ion-row>
+  <ion-row padding>
+    <ion-col col-12>
+      <ion-list>
+        <h3>OS Fácil</h3>
+        <ion-item>
+          <ion-label floating>Usuário</ion-label>
+          <ion-input type="text" [(ngModel)]="creds.login" name="login"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>Senha</ion-label>
+          <ion-input type="password" [(ngModel)]="creds.senha" name="senha"></ion-input>
+        </ion-item>
+        <button class="btn" ion-button block (click)="gologin()">Entrar</button>
+      </ion-list>
+    </ion-col>
+  </ion-row>
 </ion-content>

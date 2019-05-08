@@ -1,19 +1,22 @@
 page-login {
+  ion-row {
+    position: relative;
+    text-align: center;
+  }
 
-    ion-title {
-        text-align: center;
-        padding: 20px;
-    }
+  .btn {
+    margin: 40px auto;
+    padding: 20px;
+    font-weight: bold;
+  }
 
-    img {
-        height: auto;
-        width: 150px;
-        align-self: center;
-        margin: auto;
-        display: block;
-        padding: 10px;
-        margin-bottom: 10px;
-    }
-
-
+  h3 {
+    text-align: center;
+    margin-bottom: 20px !important;
+    padding: 20px !important;
+    font-size: 1.5em !important;
+    font-weight: bold !important;
+    color: #8655fc;
+    text-transform: uppercase !important;
+  }
 }
