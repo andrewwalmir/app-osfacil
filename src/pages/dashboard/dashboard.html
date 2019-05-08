@@ -9,33 +9,33 @@
 <ion-content>
   <section class="title-dash">
     <h2>Bem vindo</h2>
-    <p>Matielo {{ configService?.usuarioLogado?.nome }}</p>
+    <p>{{ configService?.usuarioLogado?.nome }}</p>
   </section>
   <ion-grid>
     <ion-row>
       <ion-col col-6>
-        <ion-card text-center padding color="primary">
-          <ion-icon name="calendar"></ion-icon>
-          <h2>Roteirizar</h2>
+        <ion-card text-center padding color="my-button">
+          <ion-icon color="primary" name="calendar"></ion-icon>
+          <h2 color="primary">Roteirizar</h2>
         </ion-card>
       </ion-col>
       <ion-col col-6 (click)="listarUsuarios()">
-        <ion-card text-center padding color="primary">
-          <ion-icon name="people"></ion-icon>
+        <ion-card text-center padding color="my-button">
+          <ion-icon color="primary" name="people"></ion-icon>
           <h2>Usuarios</h2>
         </ion-card>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col col-6>
-        <ion-card text-center padding color="primary">
-          <ion-icon name="settings"></ion-icon>
+        <ion-card text-center padding color="my-button">
+          <ion-icon color="primary" name="settings"></ion-icon>
           <h2>Config</h2>
         </ion-card>
       </ion-col>
       <ion-col col-6 (click)="metodo()">
-        <ion-card text-center padding color="primary">
-          <ion-icon name="list"></ion-icon>
+        <ion-card text-center padding color="my-button">
+          <ion-icon color="primary" name="list"></ion-icon>
           <h2>Listar Serviços</h2>
         </ion-card>
       </ion-col>
@@ -43,14 +43,14 @@
 
     <ion-row>
       <ion-col col-6 (click)="addOrder()">
-        <ion-card text-center padding color="my-color2">
-          <ion-icon name="add"></ion-icon>
+        <ion-card text-center padding color="my-button">
+          <ion-icon color="primary" name="add"></ion-icon>
           <h2>Gerar Ordem</h2>
         </ion-card>
       </ion-col>
       <ion-col col-6 (click)="metodoProfile()">
-        <ion-card text-center padding color="my-color2">
-          <ion-icon name="person"></ion-icon>
+        <ion-card text-center padding color="my-button">
+          <ion-icon color="primary" name="person"></ion-icon>
           <h2>Inserir Usuarios</h2>
         </ion-card>
       </ion-col>

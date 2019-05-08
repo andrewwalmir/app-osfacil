@@ -1,9 +1,9 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Criar Ordem de Serviço</ion-title>
+    <ion-title>Listar Ordem de Serviço</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -12,7 +12,7 @@
     <ion-item *ngFor="let form of forms" (click)="selecionaForm(Form)" flex-wrap: nowrap>
       <h2>Prioridade: {{ form.priority.priorityName }}</h2>
 
-      <h3>Data Abertura: {{ form.dateopen | date: 'dd/MM/yyyy HH:mm:ss' }}</h3>
+      <h2>Data Abertura: {{ form.dateopen | date: 'dd/MM/yyyy HH:mm:ss' }}</h2>
       <p *ngIf="form.sectorProvider != null">Nome Setor: {{ form.sectorProvider.name_sector }}</p>
       <p>Descrição: {{ form.description }}</p>
     </ion-item>
