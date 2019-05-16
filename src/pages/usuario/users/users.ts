@@ -1,3 +1,5 @@
+import { ProfilePage } from './profile/profile';
+import { UserDetailPage } from './user-detail/user-detail';
 import { Component } from '@angular/core';
 import {
   IonicPage,
@@ -9,8 +11,8 @@ import {
 
 import { UsersService } from '../../../services/users.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ProfilePage } from './profile/profile';
 import { UserModelDTO } from '../../../models/usermodel.dto';
+import { UserDetailService } from '../../../services/userdetail.service';
 
 @IonicPage()
 @Component({
@@ -19,13 +21,15 @@ import { UserModelDTO } from '../../../models/usermodel.dto';
 })
 export class UsersPage {
   public users: UserModelDTO[];
+  user: any;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public usersService: UsersService,
     private _loadingCtrl: LoadingController,
-    private _alertCtrl: AlertController
+    private _alertCtrl: AlertController,
+    public userDetailService: UserDetailService
   ) {}
   ionViewDidLoad() {
     let loading = this._loadingCtrl.create({
@@ -55,10 +59,8 @@ export class UsersPage {
     );
   }
 
-  selecionaForm(user: UserModelDTO) {
-    console.log(user);
-    this.navCtrl.push(ProfilePage.name, {
-      selecionaUser: user
-    });
+  selecionaUser(user: UserModelDTO) {
+    this.navCtrl.push(ProfilePage.name, user);
+    console.log('listando user no selecionaUser' + user);
   }
 }

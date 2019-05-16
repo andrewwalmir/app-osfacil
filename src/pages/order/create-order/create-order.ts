@@ -12,7 +12,14 @@ import { PriorityOSModel } from './../../../models/priorityOsModel.dto';
 import { FormModelDTO } from './../../../models/formModel.dto';
 import { CreateOrderService } from './../../../services/createOrder.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonicPage, NavController, Nav, AlertController, LoadingController } from 'ionic-angular';
+import {
+  IonicPage,
+  NavController,
+  Nav,
+  AlertController,
+  LoadingController,
+  ViewController
+} from 'ionic-angular';
 import { FormBuilder } from '@angular/forms';
 
 @IonicPage()
@@ -37,7 +44,8 @@ export class CreateOrderPage implements OnInit, NavLifecycles {
     public sectorService: SectorService,
     public configService: ConfigService,
     private _loadingCtrl: LoadingController,
-    private _alertCtrl: AlertController
+    private _alertCtrl: AlertController,
+    public viewCtrl: ViewController
   ) {}
 
   ionViewDidLoad() {
@@ -112,5 +120,9 @@ export class CreateOrderPage implements OnInit, NavLifecycles {
         console.log(error);
       }
     );
+  }
+  closeModal() {
+    //declarar ViewController no construtor
+    this.viewCtrl.dismiss();
   }
 }

@@ -1,7 +1,7 @@
-import { SectorModelDTO } from "./sectorModel.dto";
-import { FormModelDTO } from "./formModel.dto";
-import { actionModelDTO } from "./actionModel.dto";
-import { FunctionModelDTO } from "./functionModel.dto";
+import { SectorModelDTO } from './sectorModel.dto';
+import { FormModelDTO } from './formModel.dto';
+import { actionModelDTO } from './actionModel.dto';
+import { FunctionModelDTO } from './functionModel.dto';
 export class UserModelDTO {
   id: number;
   nome: string;
