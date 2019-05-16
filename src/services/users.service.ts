@@ -24,6 +24,16 @@ export class UsersService {
       })
       .catch(erro => this.tratarHttpStatusBack(erro));
   }
+
+  updateUser(user: UserModelDTO): Observable<boolean> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http
+      .put<boolean>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/user/alterar`, JSON.stringify(user), {
+        headers
+      })
+      .catch(erro => this.tratarHttpStatusBack(erro));
+  }
+
   public tratarHttpStatusBack(erro) {
     console.log('TRATAMENTO DE EXCEÇÕES DO BACK');
 

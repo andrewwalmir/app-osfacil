@@ -1,3 +1,4 @@
+import { UserDetailService } from './../services/userdetail.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -43,7 +44,8 @@ import { FunctionService } from '../services/function.service';
     SectorService,
     StorageService,
     UsersService,
-    ValidarService
+    ValidarService,
+    UserDetailService
   ]
 })
 export class AppModule {}

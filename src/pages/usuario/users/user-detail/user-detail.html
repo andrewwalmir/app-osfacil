@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>Inserir Usuario </ion-title>
+    <ion-title>Editar Usuario </ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="closeModal()">
         <ion-icon name="close"></ion-icon>
@@ -13,57 +13,52 @@
 </ion-header>
 
 <ion-content padding>
-  <form #formulario02="ngForm" (ngSubmit)="saveUser(formulario02)">
+  <form #formulario02="ngForm" (ngSubmit)="editUser(formulario03)">
     <ion-list>
       <ion-item>
         <ion-label floating>Nome:</ion-label>
-        <ion-input required [(ngModel)]="userform.nome" type="text" name="nome"></ion-input>
+        <ion-input required [(ngModel)]="nome" type="text" name="nome"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label floating>Login:</ion-label>
-        <ion-input required [(ngModel)]="userform.login" type="text" name="login"></ion-input>
+        <ion-input required [(ngModel)]="user.login" type="text" name="login"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label floating>Senha:</ion-label>
-        <ion-input required [(ngModel)]="userform.senha" type="password" name="senha"></ion-input>
+        <ion-input required [(ngModel)]="user.senha" type="password" name="senha"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label floating>Email:</ion-label>
-        <ion-input required [(ngModel)]="userform.email" type="email" name="email"></ion-input>
+        <ion-input required [(ngModel)]="user.email" type="email" name="email"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label floating>Contato:</ion-label>
-        <ion-input required [(ngModel)]="userform.contact" type="text" name="contact"></ion-input>
+        <ion-input required [(ngModel)]="user.contact" type="text" name="contact"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label floating>CPF:</ion-label>
-        <ion-input required [(ngModel)]="userform.cpf" type="text" name="cpf"></ion-input>
+        <ion-input required [(ngModel)]="user.cpf" type="text" name="cpf"></ion-input>
       </ion-item>
       <!--{{configService?.usuarioLogado?.function.id}}-->
 
       <ion-item>
-        <ion-label stacked>Função: </ion-label>
-        <ion-select [compareWith]="comparacaoDeId" required [(ngModel)]="userform.function" name="function" multiple="false">
+        <ion-label stacked>Função:</ion-label>
+        <ion-select required [(ngModel)]="user.function" name="function" multiple="false">
           <ion-option *ngFor="let function of listFunctions" [value]="function">{{
             function.nameFunction
           }}</ion-option>
         </ion-select>
       </ion-item>
 
-      <ion-item >
+      <ion-item>
         <ion-label stacked>Setor:</ion-label>
-        <ion-select
-          [compareWith]="comparacaoDeId"
-          [(ngModel)]="userform.sector"
-          name="sector"
-          multiple="false"
-        >
+        <ion-select required [(ngModel)]="user.sector" name="sector" multiple="false">
           <ion-option *ngFor="let sector of listSectors" [value]="sector">
             {{ sector.nameSector }}</ion-option
           >
         </ion-select>
       </ion-item>
-      <button [disabled]="!formulario02.valid" ion-button full block color="primary">Enviar</button>
+      <button [disabled]="!formulario03.valid" ion-button full block color="primary">Enviar</button>
     </ion-list>
   </form>
 </ion-content>

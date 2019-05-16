@@ -1,3 +1,4 @@
+import { UserModelDTO } from './../../../../models/usermodel.dto';
 import { UsersService } from './../../../../services/users.service';
 import { Component, OnInit } from '@angular/core';
 import {
@@ -5,7 +6,8 @@ import {
   NavController,
   NavParams,
   AlertController,
-  LoadingController
+  LoadingController,
+  ViewController
 } from 'ionic-angular';
 
 import { ProfileService } from '../../../../services/profile.service';
@@ -13,7 +15,7 @@ import { ProfileService } from '../../../../services/profile.service';
 import { FunctionModelDTO } from '../../../../models/functionModel.dto';
 import { ConfigService } from '../../../../services/config.service';
 import { SectorModelDTO } from '../../../../models/sectorModel.dto';
-import { UserModelDTO } from '../../../../models/usermodel.dto';
+
 import { NavLifecycles } from '../../../../utils/ionic/nav/nav-lifecycles';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SectorService } from '../../../../services/sector.service';
@@ -41,7 +43,8 @@ export class ProfilePage implements OnInit, NavLifecycles {
     public functionService: FunctionService,
     public userService: UsersService,
     public configService: ConfigService,
-    private _loadingCtrl: LoadingController
+    private _loadingCtrl: LoadingController,
+    public viewCtrl: ViewController
   ) {}
   //https://cursos.alura.com.br/course/ionic3-parte1/task/33246
   ionViewDidLoad() {
@@ -51,7 +54,17 @@ export class ProfilePage implements OnInit, NavLifecycles {
   }
 
   ngOnInit() {
-    this.userform = new UserModelDTO();
+    console.log('tá chegando assim:');
+    console.log(this.navParams.data);
+    if (this.navParams.data) {
+      console.log('modo edição de usuário');
+      this.userform = this.navParams.data;
+    } else {
+      console.log('modo novo  usuário');
+      this.userform = new UserModelDTO();
+    }
+
+    // this.userform = new UserModelDTO();
     this.carregarListaFuncoes();
     this.carregarListaSetores();
   }
@@ -78,36 +91,47 @@ export class ProfilePage implements OnInit, NavLifecycles {
       }
     );
   }
-  editUser(formulario) {
-    console.log('vamos ver como estáá o objeto os:');
-    console.log(this.userform);
 
-    this.profileService.editUser(this.userform).subscribe(
-      retorno => {
-        console.log('deu certo o subscribe do saveOrder:');
-        console.log(retorno);
-        this.navCtrl.setRoot(this.rootPage);
-      },
-      error => {
-        console.log('deu pau no editUser');
-        console.log(error);
-      }
-    );
-  }
   saveUser(formulario) {
     console.log('vamos ver como estáá o objeto os:');
     console.log(this.userform);
-
-    this.userService.saveUser(this.userform).subscribe(
-      retorno => {
-        console.log('deu certo o subscribe do saveUser:');
-        console.log(retorno);
-        this.navCtrl.setRoot(this.rootPage);
-      },
-      error => {
-        console.log('deu pau no saveUser');
-        console.log(error);
-      }
-    );
+    if (this.userform.id > 0) {
+      //alteração
+      console.log('alterando no bd');
+      this.userService.updateUser(this.userform).subscribe(
+        retorno => {
+          console.log('deu certo o subscribe do saveUser:');
+          console.log(retorno);
+          this.navCtrl.setRoot(this.rootPage);
+        },
+        error => {
+          console.log('deu pau no saveUser');
+          console.log(error);
+        }
+      );
+    } else {
+      console.log('salvando novo no bd');
+      this.userService.saveUser(this.userform).subscribe(
+        retorno => {
+          console.log('deu certo o subscribe do saveUser:');
+          console.log(retorno);
+          this.navCtrl.setRoot(this.rootPage);
+        },
+        error => {
+          console.log('deu pau no saveUser');
+          console.log(error);
+        }
+      );
+    }
   }
+  closeModal() {
+    //declarar ViewController no construtor
+    this.viewCtrl.dismiss();
+  }
+
+  comparacaoDeId(c1, c2): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
+
+  }
+  //pra poder rolar o select mostrar o que veio no json
 }
