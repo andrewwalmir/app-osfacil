@@ -1,4 +1,3 @@
-import { UserDetailService } from './../services/userdetail.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -14,7 +13,6 @@ import { SectorService } from './../services/sector.service';
 import { ServicesService } from './../services/services.service';
 import { PriorityService } from './../services/priority.service';
 import { CreateOrderService } from './../services/createOrder.service';
-import { ProfileService } from './../services/profile.service';
 import { ConfigService } from './../services/config.service';
 import { ListarOsService } from '../services/listarOs.service';
 
@@ -39,13 +37,11 @@ import { FunctionService } from '../services/function.service';
     FunctionService,
     ListarOsService,
     PriorityService,
-    ProfileService,
     ServicesService,
     SectorService,
     StorageService,
     UsersService,
-    ValidarService,
-    UserDetailService
+    ValidarService
   ]
 })
 export class AppModule {}

@@ -1,4 +1,4 @@
-import { ProfilePage } from '../pages/usuario/users/profile/profile';
+import { UserPage } from '../pages/user/user.component';
 import { ListarOsPage } from './../pages/order/listar-os/listar-os';
 import { ConfigService } from './../services/config.service';
 import { ValidarService } from './../services/validar.service';
@@ -35,7 +35,7 @@ export class MyApp {
       { title: 'Dashboard', component: DashboardPage.name },
       { title: 'Home', component: HomePage.name },
       { title: 'Ordens de Serviço', component: ListarOsPage.name },
-      { title: 'Profile', component: ProfilePage.name },
+      { title: 'Usuario', component: UserPage.name },
       { title: 'Logout', component: '' }
     ];
   }

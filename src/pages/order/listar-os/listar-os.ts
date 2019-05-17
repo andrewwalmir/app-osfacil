@@ -5,7 +5,8 @@ import {
   NavController,
   NavParams,
   LoadingController,
-  AlertController
+  AlertController,
+  ViewController
 } from 'ionic-angular';
 import { ListarOsService } from '../../../services/listarOs.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -24,7 +25,8 @@ export class ListarOsPage implements NavLifecycles {
     public navParams: NavParams,
     public listarOsService: ListarOsService,
     private _loadingCtrl: LoadingController,
-    private _alertCtrl: AlertController
+    private _alertCtrl: AlertController,
+    private viewCtrl: ViewController
   ) {}
   ionViewDidLoad() {
     let loading = this._loadingCtrl.create({
@@ -60,5 +62,9 @@ export class ListarOsPage implements NavLifecycles {
     this.navCtrl.push(ListarOsPage.name, {
       selecionaForm: form
     });
+  }
+  closeModal() {
+    //declarar ViewController no construtor
+    this.viewCtrl.dismiss();
   }
 }
