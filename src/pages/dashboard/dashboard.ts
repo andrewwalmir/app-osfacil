@@ -1,10 +1,10 @@
-import { UsersPage } from './../usuario/users/users';
+import { UserPage } from '../user/user.component';
 import { NavLifecycles } from './../../utils/ionic/nav/nav-lifecycles';
 import { ConfigService } from './../../services/config.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { ProfilePage } from '../usuario/users/profile/profile';
+import { UserDetailPage } from '../user/userdetail/userdetail.component';
 
 import { CreateOrderPage } from '../order/create-order/create-order';
 import { ListarOsPage } from '../order/listar-os/listar-os';
@@ -25,13 +25,13 @@ export class DashboardPage implements NavLifecycles {
   metodo() {
     this.navCtrl.push(ListarOsPage.name);
   }
-  metodoProfile() {
-    this.navCtrl.push(ProfilePage.name);
+  metodoUserDetail() {
+    this.navCtrl.push(UserDetailPage.name);
   }
   addOrder() {
     this.navCtrl.push(CreateOrderPage.name);
   }
   listarUsuarios() {
-    this.navCtrl.push(UsersPage.name);
+    this.navCtrl.push(UserPage.name);
   }
 }

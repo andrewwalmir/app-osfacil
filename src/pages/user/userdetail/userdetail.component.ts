@@ -1,34 +1,30 @@
-import { UserModelDTO } from './../../../../models/usermodel.dto';
-import { UsersService } from './../../../../services/users.service';
+import { UserModelDTO } from '../../../models/usermodel.dto';
+import { UsersService } from '../../../services/users.service';
 import { Component, OnInit } from '@angular/core';
 import {
   IonicPage,
   NavController,
   NavParams,
-  AlertController,
   LoadingController,
   ViewController
 } from 'ionic-angular';
 
-import { ProfileService } from '../../../../services/profile.service';
+import { FunctionModelDTO } from '../../../models/functionModel.dto';
+import { ConfigService } from '../../../services/config.service';
+import { SectorModelDTO } from '../../../models/sectorModel.dto';
 
-import { FunctionModelDTO } from '../../../../models/functionModel.dto';
-import { ConfigService } from '../../../../services/config.service';
-import { SectorModelDTO } from '../../../../models/sectorModel.dto';
-
-import { NavLifecycles } from '../../../../utils/ionic/nav/nav-lifecycles';
-import { HttpErrorResponse } from '@angular/common/http';
-import { SectorService } from '../../../../services/sector.service';
-import { FunctionService } from '../../../../services/function.service';
-import { DashboardPage } from '../../../dashboard/dashboard';
+import { NavLifecycles } from '../../../utils/ionic/nav/nav-lifecycles';
+import { SectorService } from '../../../services/sector.service';
+import { FunctionService } from '../../../services/function.service';
+import { UserPage } from '../user.component';
 
 @IonicPage()
 @Component({
-  selector: 'page-profile',
-  templateUrl: 'profile.html'
+  selector: 'page-userdetail',
+  templateUrl: 'userdetail.component.html'
 })
-export class ProfilePage implements OnInit, NavLifecycles {
-  rootPage = DashboardPage.name;
+export class UserDetailPage implements OnInit, NavLifecycles {
+  rootPage = UserPage.name;
   public functions: FunctionModelDTO[];
   public sectors: SectorModelDTO[];
   private userform: UserModelDTO;
@@ -38,7 +34,6 @@ export class ProfilePage implements OnInit, NavLifecycles {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public profileService: ProfileService,
     public sectorService: SectorService,
     public functionService: FunctionService,
     public userService: UsersService,
@@ -131,7 +126,6 @@ export class ProfilePage implements OnInit, NavLifecycles {
 
   comparacaoDeId(c1, c2): boolean {
     return c1 && c2 ? c1.id === c2.id : c1 === c2;
-
   }
   //pra poder rolar o select mostrar o que veio no json
 }

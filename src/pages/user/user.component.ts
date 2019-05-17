@@ -1,25 +1,24 @@
-import { ProfilePage } from './profile/profile';
-import { UserDetailPage } from './user-detail/user-detail';
 import { Component } from '@angular/core';
 import {
   IonicPage,
   NavController,
   NavParams,
   LoadingController,
-  AlertController
+  AlertController,
+  ViewController
 } from 'ionic-angular';
 
-import { UsersService } from '../../../services/users.service';
+import { UsersService } from '../../services/users.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { UserModelDTO } from '../../../models/usermodel.dto';
-import { UserDetailService } from '../../../services/userdetail.service';
+import { UserModelDTO } from '../../models/usermodel.dto';
+import { UserDetailPage } from './userdetail/userdetail.component';
 
 @IonicPage()
 @Component({
-  selector: 'page-users',
-  templateUrl: 'users.html'
+  selector: 'page-user',
+  templateUrl: 'user.component.html'
 })
-export class UsersPage {
+export class UserPage {
   public users: UserModelDTO[];
   user: any;
 
@@ -29,7 +28,7 @@ export class UsersPage {
     public usersService: UsersService,
     private _loadingCtrl: LoadingController,
     private _alertCtrl: AlertController,
-    public userDetailService: UserDetailService
+    private viewCtrl : ViewController
   ) {}
   ionViewDidLoad() {
     let loading = this._loadingCtrl.create({
@@ -60,7 +59,11 @@ export class UsersPage {
   }
 
   selecionaUser(user: UserModelDTO) {
-    this.navCtrl.push(ProfilePage.name, user);
+    this.navCtrl.push(UserDetailPage.name, user);
     console.log('listando user no selecionaUser' + user);
+  }
+  closeModal() {
+    //declarar ViewController no construtor
+    this.viewCtrl.dismiss();
   }
 }
