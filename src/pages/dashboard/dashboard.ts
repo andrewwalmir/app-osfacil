@@ -7,7 +7,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UserDetailPage } from '../user/userdetail/userdetail.component';
 
 import { CreateOrderPage } from '../order/create-order/create-order';
-import { ListarOsPage } from '../order/listar-os/listar-os';
+import { OrderPage } from '../order/order.component';
 
 @IonicPage()
 @Component({
@@ -23,7 +23,7 @@ export class DashboardPage implements NavLifecycles {
 
   ionViewDidLoad;
   metodo() {
-    this.navCtrl.push(ListarOsPage.name);
+    this.navCtrl.push(OrderPage.name);
   }
   metodoUserDetail() {
     this.navCtrl.push(UserDetailPage.name);

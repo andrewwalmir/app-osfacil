@@ -1,5 +1,4 @@
 import { NavLifecycles } from './../../../utils/ionic/nav/nav-lifecycles';
-import { DashboardPage } from './../../dashboard/dashboard';
 import { ConfigService } from './../../../services/config.service';
 import { SectorService } from './../../../services/sector.service';
 import { ServicesService } from './../../../services/services.service';
@@ -21,6 +20,7 @@ import {
   ViewController
 } from 'ionic-angular';
 import { FormBuilder } from '@angular/forms';
+import { OrderPage } from '../order.component';
 
 @IonicPage()
 @Component({
@@ -29,7 +29,7 @@ import { FormBuilder } from '@angular/forms';
 })
 export class CreateOrderPage implements OnInit, NavLifecycles {
   @ViewChild(Nav) nav: Nav;
-  rootPage = DashboardPage.name;
+  rootPage = OrderPage.name;
   //Objetos
   private os: FormModelDTO;
   private listPriorities: PriorityOSModel[] = [];
