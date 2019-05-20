@@ -15,19 +15,6 @@
 <ion-content padding>
   <form #formulario01="ngForm" (ngSubmit)="saveOrder(formulario01)">
     <ion-list>
-      <!--
-      <ion-item>
-        <ion-label position="floating" ion-row>
-          <ion-col size="12"></ion-col>
-        </ion-row>Descrever a manutenção:</ion-label>
-        <ion-textarea
-          required
-          [(ngModel)]="os.description"
-          type="text"
-          name="description"
-        ></ion-textarea>
-      </ion-item>
-   -->
       <ion-item>
         <ion-label floating>Descrever a manutenção:</ion-label>
         <ion-input required [(ngModel)]="os.description" type="text" name="description"></ion-input>

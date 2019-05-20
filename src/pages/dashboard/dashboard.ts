@@ -1,12 +1,14 @@
+import { UserModelDTO } from './../../models/usermodel.dto';
+import { FunctionModelDTO } from './../../models/functionModel.dto';
 import { UserPage } from '../user/user.component';
 import { NavLifecycles } from './../../utils/ionic/nav/nav-lifecycles';
 import { ConfigService } from './../../services/config.service';
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, OnInit } from '@angular/core';
+import { IonicPage, NavController, NavParams, Config } from 'ionic-angular';
 
 import { UserDetailPage } from '../user/userdetail/userdetail.component';
 
-import { CreateOrderPage } from '../order/create-order/create-order';
+import { OrderDetailPage } from '../order/orderDetail/orderDetail.component';
 import { OrderPage } from '../order/order.component';
 
 @IonicPage()
@@ -14,7 +16,14 @@ import { OrderPage } from '../order/order.component';
   selector: 'page-dashboard',
   templateUrl: 'dashboard.html'
 })
-export class DashboardPage implements NavLifecycles {
+export class DashboardPage implements OnInit, NavLifecycles {
+  parametro:string = this.configService.usuarioLogado.function.nameFunction;
+
+  ngOnInit(): void {
+    console.log(this.parametro);
+  }
+  // this.configService.usuarioLogado.function.nameFunction;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -29,7 +38,7 @@ export class DashboardPage implements NavLifecycles {
     this.navCtrl.push(UserDetailPage.name);
   }
   addOrder() {
-    this.navCtrl.push(CreateOrderPage.name);
+    this.navCtrl.push(OrderDetailPage.name);
   }
   listarUsuarios() {
     this.navCtrl.push(UserPage.name);

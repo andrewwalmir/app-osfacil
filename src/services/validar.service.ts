@@ -1,23 +1,36 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { JwtHelper } from "angular2-jwt";
-import { Observable } from "rxjs";
-import { API_CONFIG } from "./../config/api.config";
-import { LocalUser } from "./../models/local_user";
-import { LoginModelDTO } from "../models/loginModel.dto";
-import { UserModelDTO } from "./../models/usermodel.dto";
-import { StorageService } from "./storage.service";
+import { Platform } from 'ionic-angular';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { JwtHelper } from 'angular2-jwt';
+import { Observable } from 'rxjs';
+import { API_CONFIG } from './../config/api.config';
+import { LocalUser } from './../models/local_user';
+import { LoginModelDTO } from '../models/loginModel.dto';
+import { UserModelDTO } from './../models/usermodel.dto';
+import { StorageService } from './storage.service';
 
 @Injectable()
 export class ValidarService {
+  url: string;
   jwtHelper: JwtHelper = new JwtHelper();
 
   constructor(public http: HttpClient, public storage: StorageService) {}
 
   authenticate(creds: LoginModelDTO): Observable<UserModelDTO> {
+    let headers = new HttpHeaders().append('Content-Type', 'application/json');
 
-    let headers = new HttpHeaders().set("Content-Type", "application/json");
+    /*.set('Access-Control-Allow-Origin', '*');
 
+    this.url = `${API_CONFIG.baseUrl}/OSFacil_Back/api/login/validar`;
+    console.log(this.url);
+    return this.http
+      .post<UserModelDTO>(this.url, JSON.stringify(creds), {
+        headers
+      })
+
+      .catch(erro => this.tratarHttpStatusBack(erro));
+  }
+*/
     return this.http
       .post<UserModelDTO>(
         `${API_CONFIG.baseUrl}/OSFacil_Back/api/login/validar`,
@@ -28,7 +41,7 @@ export class ValidarService {
       )
       .catch(erro => this.tratarHttpStatusBack(erro));
   }
-
+  /*
   sucessfulLogin(JWTValue: string) {
     let tok = JWTValue;
     console.log(tok);
@@ -37,12 +50,14 @@ export class ValidarService {
     };
     this.storage.setLocalUser(user);
   }
-
+*/
   logout() {
     this.storage.setLocalUser(null);
 
-    console.log("entrou no logout");
-    let headers = new HttpHeaders().set("Content-Type", "application/json");
+    console.log('entrou no logout');
+    let headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Access-Control-Allow-Origin', '*');
 
     return this.http
       .get(`${API_CONFIG.baseUrl}/OSFacil_Back/api/login/deslogar`, {
@@ -55,12 +70,12 @@ export class ValidarService {
   // OU SEJA, QUANDO DÁ ALGUM ERRO...
   //QUANDO O CARA ERRAR O LOGIN, VC VAI RETORNAR UM OBSERVABLE DE NULO
   public tratarHttpStatusBack(erro) {
-    console.log("TRATAMENTO DE EXCEÇÕES DO BACK");
-
+    console.log('TRATAMENTO DE EXCEÇÕES DO BACK');
+    console.log(erro);
     if (erro.status != null) {
       if (erro.status == 401) {
         //401 é não autorizado, ou seja, o cara digitou login ou senha errados
-        console.log("EXIBA UMA JANELA AQUI FALANDO Q O CARA ERROU A SENHA");
+        console.log('EXIBA UMA JANELA AQUI FALANDO Q O CARA ERROU A SENHA');
       }
     }
 

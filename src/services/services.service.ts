@@ -12,6 +12,7 @@ export class ServicesService {
 
   listarServicos(): Observable<ServiceModelDTO[]> {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    
     return this.http
       .get<ServiceModelDTO[]>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/service/listar`, {
         headers

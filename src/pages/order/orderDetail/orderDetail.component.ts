@@ -1,15 +1,15 @@
-import { NavLifecycles } from './../../../utils/ionic/nav/nav-lifecycles';
-import { ConfigService } from './../../../services/config.service';
-import { SectorService } from './../../../services/sector.service';
-import { ServicesService } from './../../../services/services.service';
-import { PriorityService } from './../../../services/priority.service';
-import { UserModelDTO } from './../../../models/usermodel.dto';
-import { StatusOsModelDTO } from './../../../models/statusOsModel.dto';
-import { ServiceModelDTO } from './../../../models/serviceModel';
-import { SectorModelDTO } from './../../../models/sectorModel.dto';
-import { PriorityOSModel } from './../../../models/priorityOsModel.dto';
-import { FormModelDTO } from './../../../models/formModel.dto';
-import { CreateOrderService } from './../../../services/createOrder.service';
+import { NavLifecycles } from '../../../utils/ionic/nav/nav-lifecycles';
+import { ConfigService } from '../../../services/config.service';
+import { SectorService } from '../../../services/sector.service';
+import { ServicesService } from '../../../services/services.service';
+import { PriorityService } from '../../../services/priority.service';
+import { UserModelDTO } from '../../../models/usermodel.dto';
+import { StatusOsModelDTO } from '../../../models/statusOsModel.dto';
+import { ServiceModelDTO } from '../../../models/serviceModel';
+import { SectorModelDTO } from '../../../models/sectorModel.dto';
+import { PriorityOSModel } from '../../../models/priorityOsModel.dto';
+import { FormModelDTO } from '../../../models/formModel.dto';
+import { CreateOrderService } from '../../../services/createOrder.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   IonicPage,
@@ -24,10 +24,10 @@ import { OrderPage } from '../order.component';
 
 @IonicPage()
 @Component({
-  selector: 'page-create-order',
-  templateUrl: 'create-order.html'
+  selector: 'page-orderDetail',
+  templateUrl: 'orderDetail.component.html'
 })
-export class CreateOrderPage implements OnInit, NavLifecycles {
+export class OrderDetailPage implements OnInit, NavLifecycles {
   @ViewChild(Nav) nav: Nav;
   rootPage = OrderPage.name;
   //Objetos
