@@ -39,7 +39,9 @@ export class ConfigService implements OnInit {
 
   verificarUsuarioLogado() {
     console.log('entrou no verificarUsuarioLogado');
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    let headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Access-Control-Allow-Origin', '*');
 
     return this.http
       .get<UserModelDTO>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/login/checar`, {

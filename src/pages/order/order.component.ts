@@ -1,4 +1,4 @@
-import { FormModelDTO } from '../../../models/formModel.dto';
+import { FormModelDTO } from '../../models/formModel.dto';
 import { Component } from '@angular/core';
 import {
   IonicPage,
@@ -8,16 +8,16 @@ import {
   AlertController,
   ViewController
 } from 'ionic-angular';
-import { ListarOsService } from '../../../services/listarOs.service';
+import { ListarOsService } from '../../services/listarOs.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { NavLifecycles } from '../../../utils/ionic/nav/nav-lifecycles';
+import { NavLifecycles } from '../../utils/ionic/nav/nav-lifecycles';
 
 @IonicPage()
 @Component({
-  selector: 'page-listar-os',
-  templateUrl: 'listar-os.html'
+  selector: 'page-order.component',
+  templateUrl: 'order.component.html'
 })
-export class ListarOsPage implements NavLifecycles {
+export class OrderPage implements NavLifecycles {
   public forms: FormModelDTO[];
 
   constructor(
@@ -59,7 +59,7 @@ export class ListarOsPage implements NavLifecycles {
 
   selecionaForm(form: FormModelDTO) {
     console.log(form);
-    this.navCtrl.push(ListarOsPage.name, {
+    this.navCtrl.push(OrderPage.name, {
       selecionaForm: form
     });
   }

@@ -1,5 +1,5 @@
 import { UserPage } from '../pages/user/user.component';
-import { ListarOsPage } from './../pages/order/listar-os/listar-os';
+import { OrderPage } from '../pages/order/order.component';
 import { ConfigService } from './../services/config.service';
 import { ValidarService } from './../services/validar.service';
 import { Component, ViewChild } from '@angular/core';
@@ -34,7 +34,7 @@ export class MyApp {
     this.pages = [
       { title: 'Dashboard', component: DashboardPage.name },
       { title: 'Home', component: HomePage.name },
-      { title: 'Ordens de Serviço', component: ListarOsPage.name },
+      { title: 'Ordens de Serviço', component: OrderPage.name },
       { title: 'Usuario', component: UserPage.name },
       { title: 'Logout', component: '' }
     ];

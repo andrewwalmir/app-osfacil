@@ -15,7 +15,11 @@
         </ion-item>
         <ion-item>
           <ion-label floating>Senha</ion-label>
-          <ion-input type="password" [(ngModel)]="creds.senha" name="senha"></ion-input>
+          <ion-input
+            type="password"
+            [(ngModel)]="creds.senha"
+            name="senha"
+          ></ion-input>
         </ion-item>
         <button class="btn" ion-button block (click)="gologin()">Entrar</button>
       </ion-list>
