@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>Gerar Ordem de Serviço </ion-title>
+    <ion-title>Gerar/Editar Ordem de Serviço </ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="closeModal()">
         <ion-icon name="close"></ion-icon>
@@ -21,13 +21,13 @@
       </ion-item>
 
       <ion-item>
-        <ion-label stacked>Setor:</ion-label>
+        <ion-label floating>Setor:</ion-label>
         <ion-select
           required
+          [compareWith]="comparacaoDeIdOrder"
           [(ngModel)]="os.sectorRequester"
           name="sector"
           multiple="false"
-          placeholder="Setor"
         >
           <ion-option *ngFor="let sector of listSectors" [value]="sector">{{
             sector.nameSector
@@ -36,13 +36,13 @@
       </ion-item>
 
       <ion-item>
-        <ion-label stacked>Serviço:</ion-label>
+        <ion-label floating>Serviço:</ion-label>
         <ion-select
           required
+          [compareWith]="comparacaoDeIdOrder"
           [(ngModel)]="os.service"
           name="service"
           multiple="false"
-          placeholder="Tipo de Serviço"
         >
           <ion-option *ngFor="let service of listServices" [value]="service">{{
             service.description
@@ -51,13 +51,13 @@
       </ion-item>
 
       <ion-item>
-        <ion-label stacked>Prioridade:</ion-label>
+        <ion-label floating>Prioridade:</ion-label>
         <ion-select
           required
+          [compareWith]="comparacaoDeIdOrder"
           [(ngModel)]="os.priority"
-          name="priorities"
+          name="priority"
           multiple="false"
-          placeholder="Prioridade"
         >
           <ion-option *ngFor="let priority of listPriorities" [value]="priority">{{
             priority.priorityName

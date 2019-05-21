@@ -1,3 +1,4 @@
+import { OrderService } from './../../services/order.service';
 import { FormModelDTO } from '../../models/formModel.dto';
 import { Component } from '@angular/core';
 import {
@@ -5,28 +6,26 @@ import {
   NavController,
   NavParams,
   LoadingController,
-  AlertController,
-  ViewController
+  AlertController
 } from 'ionic-angular';
-import { ListarOsService } from '../../services/listarOs.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { NavLifecycles } from '../../utils/ionic/nav/nav-lifecycles';
+import { OrderDetailPage } from './orderDetail/orderDetail.component';
+import { DashboardPage } from '../dashboard/dashboard';
 
 @IonicPage()
 @Component({
   selector: 'page-order.component',
   templateUrl: 'order.component.html'
 })
-export class OrderPage implements NavLifecycles {
+export class OrderPage {
   public forms: FormModelDTO[];
-
+  form: any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public listarOsService: ListarOsService,
     private _loadingCtrl: LoadingController,
     private _alertCtrl: AlertController,
-    private viewCtrl: ViewController
+    private orderService: OrderService
   ) {}
   ionViewDidLoad() {
     let loading = this._loadingCtrl.create({
@@ -35,7 +34,7 @@ export class OrderPage implements NavLifecycles {
 
     loading.present();
 
-    this.listarOsService.listOrder().subscribe(
+    this.orderService.listOrder().subscribe(
       forms => {
         this.forms = forms;
         loading.dismiss(); //sumir o loading quando carregar o componente por completo
@@ -58,13 +57,10 @@ export class OrderPage implements NavLifecycles {
   }
 
   selecionaForm(form: FormModelDTO) {
-    console.log(form);
-    this.navCtrl.push(OrderPage.name, {
-      selecionaForm: form
-    });
+    this.navCtrl.push(OrderDetailPage.name, form);
+    console.log('selecionando Form : ' + form);
   }
   closeModal() {
-    //declarar ViewController no construtor
-    this.viewCtrl.dismiss();
+    this.navCtrl.setRoot(DashboardPage.name);
   }
 }

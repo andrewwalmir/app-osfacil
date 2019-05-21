@@ -17,7 +17,7 @@ import { OrderPage } from '../order/order.component';
   templateUrl: 'dashboard.html'
 })
 export class DashboardPage implements OnInit, NavLifecycles {
-  parametro:string = this.configService.usuarioLogado.function.nameFunction;
+  parametro: string = this.configService.usuarioLogado.function.nameFunction;
 
   ngOnInit(): void {
     console.log(this.parametro);
@@ -39,6 +39,9 @@ export class DashboardPage implements OnInit, NavLifecycles {
   }
   addOrder() {
     this.navCtrl.push(OrderDetailPage.name);
+  }
+  listTecnico(){
+
   }
   listarUsuarios() {
     this.navCtrl.push(UserPage.name);
