@@ -1,14 +1,14 @@
+import { DashboardPage } from './../dashboard/dashboard';
 import { Component } from '@angular/core';
 import {
   IonicPage,
   NavController,
   NavParams,
   LoadingController,
-  AlertController,
-  ViewController
+  AlertController
 } from 'ionic-angular';
 
-import { UsersService } from '../../services/users.service';
+import { UsersService } from '../../services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserModelDTO } from '../../models/usermodel.dto';
 import { UserDetailPage } from './userdetail/userdetail.component';
@@ -25,10 +25,9 @@ export class UserPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public usersService: UsersService,
+    public userService: UsersService,
     private _loadingCtrl: LoadingController,
-    private _alertCtrl: AlertController,
-    private viewCtrl : ViewController
+    private _alertCtrl: AlertController
   ) {}
   ionViewDidLoad() {
     let loading = this._loadingCtrl.create({
@@ -37,7 +36,7 @@ export class UserPage {
 
     loading.present();
 
-    this.usersService.listUsers().subscribe(
+    this.userService.listUsers().subscribe(
       users => {
         this.users = users;
         loading.dismiss(); //sumir o loading quando carregar o componente por completo
@@ -60,10 +59,9 @@ export class UserPage {
 
   selecionaUser(user: UserModelDTO) {
     this.navCtrl.push(UserDetailPage.name, user);
-    console.log('listando user no selecionaUser' + user);
+    console.log('selecionando User: ' + user);
   }
   closeModal() {
-    //declarar ViewController no construtor
-    this.viewCtrl.dismiss();
+    this.navCtrl.setRoot(DashboardPage.name);
   }
 }

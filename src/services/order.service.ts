@@ -1,17 +1,20 @@
-import { FormModelDTO } from './../models/formModel.dto';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { API_CONFIG } from '../config/api.config';
 import { JwtHelper } from 'angular2-jwt';
 import { Observable } from 'rxjs';
+import { FormModelDTO } from './../models/formModel.dto';
 
 @Injectable()
-export class CreateOrderService {
+export class OrderService {
   jwtHelper: JwtHelper = new JwtHelper();
   constructor(public http: HttpClient) {}
 
-
-
+  listOrder() {
+    return this.http.get<FormModelDTO[]>(
+      `${API_CONFIG.baseUrl}/OSFacil_Back/api/form/listar?pagina=1&limitePorPagina=9`
+    );
+  }
   saveOrder(os: FormModelDTO): Observable<boolean> {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this.http
@@ -20,11 +23,14 @@ export class CreateOrderService {
       })
       .catch(erro => this.tratarHttpStatusBack(erro));
   }
-
-
-
-
-
+  updateOrder(os: FormModelDTO): Observable<boolean> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http
+      .put<boolean>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/form/alterar`, JSON.stringify(os), {
+        headers
+      })
+      .catch(erro => this.tratarHttpStatusBack(erro));
+  }
 
   //ESSE MÉTODO É ESPECÍFICO PARA CAPTURAR COISAS DIFERENTES DE 200, 201 E 204 DO HTTP
   // OU SEJA, QUANDO DÁ ALGUM ERRO...

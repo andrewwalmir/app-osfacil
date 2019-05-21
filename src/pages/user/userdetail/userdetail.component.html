@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>Inserir Usuario </ion-title>
+    <ion-title>Gerar/Editar Usuario </ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="closeModal()">
         <ion-icon name="close"></ion-icon>
@@ -33,7 +33,7 @@
       </ion-item>
       <ion-item>
         <ion-label floating>Contato:</ion-label>
-        <ion-input required [(ngModel)]="userform.contact" type="text" name="contact"></ion-input>
+        <ion-input required [(ngModel)]="userform.contact" type="number" name="contact"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label floating>CPF:</ion-label>
@@ -42,17 +42,23 @@
       <!--{{configService?.usuarioLogado?.function.id}}-->
 
       <ion-item>
-        <ion-label stacked>Função: </ion-label>
-        <ion-select [compareWith]="comparacaoDeId" required [(ngModel)]="userform.function" name="function" multiple="false">
+        <ion-label floating>Função: </ion-label>
+        <ion-select
+          [compareWith]="comparacaoDeId"
+          required
+          [(ngModel)]="userform.function"
+          name="function"
+          multiple="false"
+        >
           <ion-option *ngFor="let function of listFunctions" [value]="function">{{
             function.nameFunction
           }}</ion-option>
         </ion-select>
       </ion-item>
 
-      <ion-item >
-        <ion-label stacked>Setor:</ion-label>
-        <ion-select
+      <ion-item>
+        <ion-label floating>Setor:</ion-label>
+        <ion-select required
           [compareWith]="comparacaoDeId"
           [(ngModel)]="userform.sector"
           name="sector"

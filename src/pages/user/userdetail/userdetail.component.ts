@@ -1,23 +1,15 @@
 import { UserModelDTO } from '../../../models/usermodel.dto';
-import { UsersService } from '../../../services/users.service';
+import { UsersService } from '../../../services/user.service';
 import { Component, OnInit } from '@angular/core';
-import {
-  IonicPage,
-  NavController,
-  NavParams,
-  LoadingController,
-  ViewController
-} from 'ionic-angular';
-
 import { FunctionModelDTO } from '../../../models/functionModel.dto';
 import { ConfigService } from '../../../services/config.service';
 import { SectorModelDTO } from '../../../models/sectorModel.dto';
-
 import { NavLifecycles } from '../../../utils/ionic/nav/nav-lifecycles';
 import { SectorService } from '../../../services/sector.service';
 import { FunctionService } from '../../../services/function.service';
 import { UserPage } from '../user.component';
-
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { DashboardPage } from '../../dashboard/dashboard';
 @IonicPage()
 @Component({
   selector: 'page-userdetail',
@@ -25,21 +17,20 @@ import { UserPage } from '../user.component';
 })
 export class UserDetailPage implements OnInit, NavLifecycles {
   rootPage = UserPage.name;
-  public functions: FunctionModelDTO[];
-  public sectors: SectorModelDTO[];
   private userform: UserModelDTO;
+  private functions: FunctionModelDTO[];
+  private sectors: SectorModelDTO[];
   private listFunctions: FunctionModelDTO[] = [];
   private listSectors: SectorModelDTO[] = [];
 
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    public sectorService: SectorService,
-    public functionService: FunctionService,
-    public userService: UsersService,
-    public configService: ConfigService,
-    private _loadingCtrl: LoadingController,
-    public viewCtrl: ViewController
+    private navCtrl: NavController,
+    private navParams: NavParams,
+    private sectorService: SectorService,
+    private functionService: FunctionService,
+    private userService: UsersService,
+    private configService: ConfigService,
+    private _loadingCtrl: LoadingController
   ) {}
   //https://cursos.alura.com.br/course/ionic3-parte1/task/33246
   ionViewDidLoad() {
@@ -59,7 +50,6 @@ export class UserDetailPage implements OnInit, NavLifecycles {
       this.userform = new UserModelDTO();
     }
 
-    // this.userform = new UserModelDTO();
     this.carregarListaFuncoes();
     this.carregarListaSetores();
   }
@@ -88,7 +78,7 @@ export class UserDetailPage implements OnInit, NavLifecycles {
   }
 
   saveUser(formulario) {
-    console.log('vamos ver como estáá o objeto os:');
+    console.log('vamos ver como estáá o objeto user:');
     console.log(this.userform);
     if (this.userform.id > 0) {
       //alteração
@@ -120,8 +110,7 @@ export class UserDetailPage implements OnInit, NavLifecycles {
     }
   }
   closeModal() {
-    //declarar ViewController no construtor
-    this.viewCtrl.dismiss();
+    this.navCtrl.setRoot(DashboardPage.name);
   }
 
   comparacaoDeId(c1, c2): boolean {

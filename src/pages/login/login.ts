@@ -12,7 +12,7 @@ import { LoginModelDTO } from '../../models/loginModel.dto';
   selector: 'page-login',
   templateUrl: 'login.html'
 })
-export class LoginPage implements NavLifecycles {
+export class LoginPage  {
   creds: LoginModelDTO = new LoginModelDTO();
 
   constructor(
@@ -23,7 +23,7 @@ export class LoginPage implements NavLifecycles {
     public configService: ConfigService
   ) {}
 
-  ionViewDidLoad;
+  
 
   ionViewWillEnter() {
     this.menu.swipeEnable(false);
@@ -55,7 +55,5 @@ export class LoginPage implements NavLifecycles {
         console.log('printou o erro do gologin()');
       }
     );
-
-    //console.log(this.creds);
   }
 }

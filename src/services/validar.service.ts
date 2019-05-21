@@ -1,23 +1,20 @@
-import { Platform } from 'ionic-angular';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelper } from 'angular2-jwt';
 import { Observable } from 'rxjs';
 import { API_CONFIG } from './../config/api.config';
-import { LocalUser } from './../models/local_user';
 import { LoginModelDTO } from '../models/loginModel.dto';
 import { UserModelDTO } from './../models/usermodel.dto';
-import { StorageService } from './storage.service';
 
 @Injectable()
 export class ValidarService {
   url: string;
   jwtHelper: JwtHelper = new JwtHelper();
 
-  constructor(public http: HttpClient, public storage: StorageService) {}
+  constructor(public http: HttpClient) {}
 
   authenticate(creds: LoginModelDTO): Observable<UserModelDTO> {
-    let headers = new HttpHeaders().append('Content-Type', 'application/json');
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
 
     /*.set('Access-Control-Allow-Origin', '*');
 
@@ -41,19 +38,7 @@ export class ValidarService {
       )
       .catch(erro => this.tratarHttpStatusBack(erro));
   }
-  /*
-  sucessfulLogin(JWTValue: string) {
-    let tok = JWTValue;
-    console.log(tok);
-    let user: LocalUser = {
-      token: tok
-    };
-    this.storage.setLocalUser(user);
-  }
-*/
   logout() {
-    this.storage.setLocalUser(null);
-
     console.log('entrou no logout');
     let headers = new HttpHeaders()
       .set('Content-Type', 'application/json')

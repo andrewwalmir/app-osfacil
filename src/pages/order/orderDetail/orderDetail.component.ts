@@ -9,18 +9,17 @@ import { ServiceModelDTO } from '../../../models/serviceModel';
 import { SectorModelDTO } from '../../../models/sectorModel.dto';
 import { PriorityOSModel } from '../../../models/priorityOsModel.dto';
 import { FormModelDTO } from '../../../models/formModel.dto';
-import { CreateOrderService } from '../../../services/createOrder.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { OrderService } from '../../../services/order.service';
+import { Component, OnInit } from '@angular/core';
 import {
   IonicPage,
   NavController,
-  Nav,
   AlertController,
   LoadingController,
-  ViewController
+  NavParams
 } from 'ionic-angular';
-import { FormBuilder } from '@angular/forms';
 import { OrderPage } from '../order.component';
+import { DashboardPage } from '../../dashboard/dashboard';
 
 @IonicPage()
 @Component({
@@ -28,24 +27,25 @@ import { OrderPage } from '../order.component';
   templateUrl: 'orderDetail.component.html'
 })
 export class OrderDetailPage implements OnInit, NavLifecycles {
-  @ViewChild(Nav) nav: Nav;
   rootPage = OrderPage.name;
   //Objetos
   private os: FormModelDTO;
+  private priority: PriorityOSModel[];
+  private sectors: SectorModelDTO[];
+  private services: ServiceModelDTO[];
   private listPriorities: PriorityOSModel[] = [];
   private listSectors: SectorModelDTO[] = [];
   private listServices: ServiceModelDTO[] = [];
   constructor(
-    public navCtrl: NavController,
-    public formBuilder: FormBuilder,
-    public createOrderService: CreateOrderService,
-    public priorityService: PriorityService,
-    public servicesService: ServicesService,
-    public sectorService: SectorService,
-    public configService: ConfigService,
+    private navCtrl: NavController,
+    private orderService: OrderService,
+    private priorityService: PriorityService,
+    private servicesService: ServicesService,
+    private navParams: NavParams,
+    private sectorService: SectorService,
+    private configService: ConfigService,
     private _loadingCtrl: LoadingController,
-    private _alertCtrl: AlertController,
-    public viewCtrl: ViewController
+    private _alertCtrl: AlertController
   ) {}
 
   ionViewDidLoad() {
@@ -54,12 +54,79 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
     });
   }
   ngOnInit() {
-    this.os = new FormModelDTO();
+    console.log('tá chegando assim:');
+    console.log(this.navParams.data);
+    if (this.navParams.data) {    //testa se o objeto possui valor
+      console.log('modo edição de order');
+      this.os = this.navParams.data;
+    } else {
+      console.log('modo novo  order');
+      this.os = new FormModelDTO(); //se NULL recebe nova intancia
+    }
+
     this.carregarListaPrioridades();
     this.carregarListaSetores();
     this.carregarListaServicos();
   }
 
+  saveOrder(formulario) {
+    //Colocando estatícamente objetos obrigatórios (NOT NULL) pra ver se a caralha pelo menos salva no banco
+    console.log('vamos ver como estáá o objeto os:');
+    console.log(this.os);
+    if (this.os.id > 0) {
+      //alteração
+      let statusTemp = new StatusOsModelDTO();
+      statusTemp.id = 1; //cria a OS com o status "Aberto"
+      this.os.status = statusTemp;
+
+      let requesterTemp = new UserModelDTO();
+      requesterTemp.id = this.configService.usuarioLogado.id;
+      this.os.userRequester = requesterTemp;
+      console.log('alterando Order no bd');
+      this.orderService.updateOrder(this.os).subscribe(
+        retorno => {
+          console.log('deu certo o subscribe do updateOrder:');
+          console.log(retorno);
+          this.navCtrl.setRoot(this.rootPage);
+        },
+        error => {
+          console.log('deu pau no saveUser');
+          console.log(error);
+        }
+      );
+    } else {
+      let statusTemp = new StatusOsModelDTO();
+      statusTemp.id = 1; //cria a OS com o status "Aberto"
+      this.os.status = statusTemp;
+
+      let requesterTemp = new UserModelDTO();
+      requesterTemp.id = this.configService.usuarioLogado.id;
+      this.os.userRequester = requesterTemp;
+
+      //Colocando estatícamente objetos obrigatórios (NOT NULL) pra ver se a caralha pelo menos salva no banco
+
+      console.log('vamos ver como estáá o objeto os:');
+      console.log(this.os);
+
+      this.orderService.saveOrder(this.os).subscribe(
+        retorno => {
+          console.log('deu certo o subscribe do saveOrder:');
+          console.log(retorno);
+          this.navCtrl.setRoot(this.rootPage);
+        },
+        error => {
+          console.log('deu pau no saveOrder');
+          console.log(error);
+        }
+      );
+    }
+  }
+  comparacaoDeIdOrder(c1, c2): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
+  }
+  closeModal() {
+    this.navCtrl.setRoot(DashboardPage.name);
+  }
   carregarListaPrioridades() {
     this.priorityService.listarPrioridades().subscribe(
       lista => {
@@ -92,37 +159,5 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
         console.log(error);
       }
     );
-  }
-  saveOrder(formulario) {
-    //Colocando estatícamente objetos obrigatórios (NOT NULL) pra ver se a caralha pelo menos salva no banco
-
-    let statusTemp = new StatusOsModelDTO();
-    statusTemp.id = 1; //cria a OS com o status "Aberto"
-    this.os.status = statusTemp;
-
-    let requesterTemp = new UserModelDTO();
-    requesterTemp.id = this.configService.usuarioLogado.id;
-    this.os.userRequester = requesterTemp;
-
-    //Colocando estatícamente objetos obrigatórios (NOT NULL) pra ver se a caralha pelo menos salva no banco
-
-    console.log('vamos ver como estáá o objeto os:');
-    console.log(this.os);
-
-    this.createOrderService.saveOrder(this.os).subscribe(
-      retorno => {
-        console.log('deu certo o subscribe do saveOrder:');
-        console.log(retorno);
-        this.navCtrl.setRoot(this.rootPage);
-      },
-      error => {
-        console.log('deu pau no saveOrder');
-        console.log(error);
-      }
-    );
-  }
-  closeModal() {
-    //declarar ViewController no construtor
-    this.viewCtrl.dismiss();
   }
 }
