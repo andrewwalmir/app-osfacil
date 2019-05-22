@@ -3,8 +3,10 @@ myapp {
         border: none;
     }
     .cabecalho-menu {
+        //background-color: #3498db;
         background-image: url('../assets/imgs/material-design-background.jpg');
-        height: 150px;
+        //background-image: linear-gradient(to right, #3498db, #00a88f);
+        height: 200px;
         margin-bottom: 10px;
 
         ion-avatar img {
@@ -18,7 +20,13 @@ myapp {
         }
 
         p {
+            padding: 3px;
+            font-size: 1em;
             color: #eee;
+        }
+
+        ion-list button{
+            font-size: 2em;
         }
     }
 }

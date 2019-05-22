@@ -7,8 +7,6 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from '../pages/login/login';
-import { HomePage } from '../pages/home/home';
-
 import { DashboardPage } from '../pages/dashboard/dashboard';
 
 @Component({
@@ -33,9 +31,8 @@ export class MyApp {
 
     this.pages = [
       { title: 'Dashboard', component: DashboardPage.name },
-      { title: 'Home', component: HomePage.name },
       { title: 'Ordens de Serviço', component: OrderPage.name },
-      { title: 'Usuario', component: UserPage.name },
+      { title: 'Usuarios', component: UserPage.name },
       { title: 'Logout', component: '' }
     ];
   }
