@@ -4,7 +4,7 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title> Ordens de Serviço</ion-title>
-        <ion-buttons end>
+    <ion-buttons end>
       <button ion-button icon-only (click)="closeModal()">
         <ion-icon name="close"></ion-icon>
       </button>
@@ -13,13 +13,38 @@
 </ion-header>
 
 <ion-content padding>
+
+  <ion-card *ngFor="let form of forms" (click)="selecionaForm(Form)">
+    <ion-item>
+      <h2><b>Prioridade:</b> {{ form.priority.priorityName }}</h2>
+      <p><b>Abertura:</b> {{ form.dateopen | date: 'dd/MM/yyyy HH:mm:ss' }}</p>
+      <p><b>Status:</b> {{ form.status.nameStatus }}</p>
+    </ion-item>
+    <ion-card-content>
+      <b>Descrição:</b>
+      <p>{{ form.description }}</p>
+    </ion-card-content>
+    <ion-row>
+      <ion-col>
+        <button ion-button icon-start clear small>
+          <ion-icon name="person"></ion-icon>
+          <div><b>Solicitante:</b> {{ form.userRequester.nome }}</div>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+
+ <!-- LIST ANTIGO
   <ion-list>
     <ion-item *ngFor="let form of forms" (click)="selecionaForm(Form)" flex-wrap: nowrap>
       <h2>Prioridade: {{ form.priority.priorityName }}</h2>
-
       <h2>Data Abertura: {{ form.dateopen | date: 'dd/MM/yyyy HH:mm:ss' }}</h2>
       <p *ngIf="form.sectorProvider != null">Nome Setor: {{ form.sectorProvider.name_sector }}</p>
       <p>Descrição: {{ form.description }}</p>
     </ion-item>
   </ion-list>
+--> 
+
+
 </ion-content>
