@@ -15,7 +15,7 @@ export class ConfigService implements OnInit {
     console.log('entrou aqui ngOnInit');
   }
 
-  constructor(public http: HttpClient) {
+  constructor(private http: HttpClient) {
     console.log('entrou constructor config.service');
 
     //essa chamada é necessária para o caso do usuário abrir outra aba
@@ -40,12 +40,12 @@ export class ConfigService implements OnInit {
   verificarUsuarioLogado() {
     console.log('entrou no verificarUsuarioLogado');
     let headers = new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('Access-Control-Allow-Origin', '*');
+      .append('Content-Type', 'application/json')
+      .append('Access-Control-Allow-Origin', '*');
 
     return this.http
       .get<UserModelDTO>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/login/checar`, {
-        headers
+        headers: headers
       })
       .catch(erro => this.tratarHttpStatusBack(erro));
   }

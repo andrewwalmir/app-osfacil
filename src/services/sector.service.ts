@@ -8,13 +8,12 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class SectorService {
   jwtHelper: JwtHelper = new JwtHelper();
-  constructor(public http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   listarSetores(): Observable<SectorModelDTO[]> {
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.http.get<SectorModelDTO[]>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/sector/listar`, {
-        headers
-      })
+    let headers = new HttpHeaders().append('Content-Type', 'application/json');
+    return this.http
+      .get<SectorModelDTO[]>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/sector/listar`, { headers: headers })
       .catch(erro => this.tratarHttpStatusBack(erro));
   }
   //ESSE MÉTODO É ESPECÍFICO PARA CAPTURAR COISAS DIFERENTES DE 200, 201 E 204 DO HTTP
