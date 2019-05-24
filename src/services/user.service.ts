@@ -5,21 +5,33 @@ import { API_CONFIG } from '../config/api.config';
 import { JwtHelper } from 'angular2-jwt';
 import { UserModelDTO } from '../models/usermodel.dto';
 import { Observable } from 'rxjs';
+import { Platform } from 'ionic-angular';
 
 @Injectable()
 export class UsersService {
   jwtHelper: JwtHelper = new JwtHelper();
+  basepath = API_CONFIG.baseUrl
+  //basepath = "/osfacilapi"
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private _platform: Platform
+  ) {
+    if (this._platform.is("cordova")) {
+      this.basepath = "http://18.228.104.153:8080";
+    }
+  }
 
   listUsers() {
-    return this.http.get<UserModelDTO[]>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/user/listarUser`);
+    //return this.http.get<UserModelDTO[]>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/user/listarUser`);
+    return this.http.get<UserModelDTO[]>(`${this.basepath}/OSFacil_Back/api/user/listarUser`);
   }
 
   saveUser(user: UserModelDTO): Observable<boolean> {
     let headers = new HttpHeaders().append('Content-Type', 'application/json');
     return this.http
-      .post<boolean>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/user/salvar`, JSON.stringify(user), {
+      //.post<boolean>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/user/salvar`, JSON.stringify(user), {
+      .post<boolean>(`${this.basepath}/OSFacil_Back/api/user/salvar`, JSON.stringify(user), {
         headers: headers
       })
       .catch(erro => this.tratarHttpStatusBack(erro));
@@ -28,7 +40,8 @@ export class UsersService {
   updateUser(user: UserModelDTO): Observable<boolean> {
     let headers = new HttpHeaders().append('Content-Type', 'application/json');
     return this.http
-      .put<boolean>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/user/alterar`, JSON.stringify(user), {
+      //.put<boolean>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/user/alterar`, JSON.stringify(user), {
+      .put<boolean>(`${this.basepath}/OSFacil_Back/api/user/alterar`, JSON.stringify(user), {
         headers: headers
       })
       .catch(erro => this.tratarHttpStatusBack(erro));

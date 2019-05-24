@@ -3,5 +3,11 @@
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
-  }
+  },
+  "proxies": [
+    {
+      "path": "/osfacilapi",
+      "proxyUrl": "http://18.228.104.153:8080"
+    }
+  ]
 }
