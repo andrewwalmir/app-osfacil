@@ -17,19 +17,19 @@ export class UsersService {
   }
 
   saveUser(user: UserModelDTO): Observable<boolean> {
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    let headers = new HttpHeaders().append('Content-Type', 'application/json');
     return this.http
       .post<boolean>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/user/salvar`, JSON.stringify(user), {
-        headers
+        headers: headers
       })
       .catch(erro => this.tratarHttpStatusBack(erro));
   }
 
   updateUser(user: UserModelDTO): Observable<boolean> {
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    let headers = new HttpHeaders().append('Content-Type', 'application/json');
     return this.http
       .put<boolean>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/user/alterar`, JSON.stringify(user), {
-        headers
+        headers: headers
       })
       .catch(erro => this.tratarHttpStatusBack(erro));
   }

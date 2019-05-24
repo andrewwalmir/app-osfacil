@@ -8,13 +8,13 @@ import { PriorityOSModel } from '../models/priorityOsModel.dto';
 @Injectable()
 export class PriorityService {
   jwtHelper: JwtHelper = new JwtHelper();
-  constructor(public http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   listarPrioridades(): Observable<PriorityOSModel[]> {
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    let headers = new HttpHeaders().append('Content-Type', 'application/json');
     return this.http
       .get<PriorityOSModel[]>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/priority/listar`, {
-        headers
+        headers: headers
       })
       .catch(erro => this.tratarHttpStatusBack(erro));
   }

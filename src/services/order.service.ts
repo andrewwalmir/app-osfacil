@@ -8,7 +8,7 @@ import { FormModelDTO } from './../models/formModel.dto';
 @Injectable()
 export class OrderService {
   jwtHelper: JwtHelper = new JwtHelper();
-  constructor(public http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   listOrder() {
     return this.http.get<FormModelDTO[]>(
@@ -16,18 +16,18 @@ export class OrderService {
     );
   }
   saveOrder(os: FormModelDTO): Observable<boolean> {
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    let headers = new HttpHeaders().append('Content-Type', 'application/json');
     return this.http
       .post<boolean>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/form/salvar`, JSON.stringify(os), {
-        headers
+        headers: headers
       })
       .catch(erro => this.tratarHttpStatusBack(erro));
   }
   updateOrder(os: FormModelDTO): Observable<boolean> {
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    let headers = new HttpHeaders().append('Content-Type', 'application/json');
     return this.http
       .put<boolean>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/form/alterar`, JSON.stringify(os), {
-        headers
+        headers: headers
       })
       .catch(erro => this.tratarHttpStatusBack(erro));
   }

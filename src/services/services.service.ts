@@ -8,14 +8,14 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class ServicesService {
   jwtHelper: JwtHelper = new JwtHelper();
-  constructor(public http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   listarServicos(): Observable<ServiceModelDTO[]> {
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
-    
+    let headers = new HttpHeaders().append('Content-Type', 'application/json');
+
     return this.http
       .get<ServiceModelDTO[]>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/service/listar`, {
-        headers
+        headers: headers
       })
       .catch(erro => this.tratarHttpStatusBack(erro));
   }

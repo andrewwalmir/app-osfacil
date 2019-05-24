@@ -56,7 +56,8 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
   ngOnInit() {
     console.log('tá chegando assim:');
     console.log(this.navParams.data);
-    if (this.navParams.data) {    //testa se o objeto possui valor
+    if (this.navParams.data) {
+      //testa se o objeto possui valor
       console.log('modo edição de order');
       this.os = this.navParams.data;
     } else {
@@ -64,9 +65,7 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
       this.os = new FormModelDTO(); //se NULL recebe nova intancia
     }
 
-    this.carregarListaPrioridades();
     this.carregarListaSetores();
-    this.carregarListaServicos();
   }
 
   saveOrder(formulario) {
@@ -131,6 +130,7 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
     this.priorityService.listarPrioridades().subscribe(
       lista => {
         this.listPriorities = lista;
+        this.carregarListaServicos();
       },
       error => {
         console.log('deu pau no listaPrioridades');
@@ -142,6 +142,7 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
     this.sectorService.listarSetores().subscribe(
       lista => {
         this.listSectors = lista;
+        this.carregarListaPrioridades();
       },
       error => {
         console.log('deu pau no listaSetores');

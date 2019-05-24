@@ -11,42 +11,26 @@ export class ValidarService {
   url: string;
   jwtHelper: JwtHelper = new JwtHelper();
 
-  constructor(public http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   authenticate(creds: LoginModelDTO): Observable<UserModelDTO> {
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
-
-    /*.set('Access-Control-Allow-Origin', '*');
-
-    this.url = `${API_CONFIG.baseUrl}/OSFacil_Back/api/login/validar`;
-    console.log(this.url);
-    return this.http
-      .post<UserModelDTO>(this.url, JSON.stringify(creds), {
-        headers
-      })
-
-      .catch(erro => this.tratarHttpStatusBack(erro));
-  }
-*/
+    let headers = new HttpHeaders()
+      .append('Content-Type', 'application/json');
     return this.http
       .post<UserModelDTO>(
         `${API_CONFIG.baseUrl}/OSFacil_Back/api/login/validar`,
         JSON.stringify(creds),
-        {
-          headers
-        }
+        { headers: headers } //tirar erro cors
       )
       .catch(erro => this.tratarHttpStatusBack(erro));
   }
   logout() {
     console.log('entrou no logout');
-    let headers = new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('Access-Control-Allow-Origin', '*');
+    let headers = new HttpHeaders().append('Content-Type', 'application/json');
 
     return this.http
       .get(`${API_CONFIG.baseUrl}/OSFacil_Back/api/login/deslogar`, {
-        headers
+        headers: headers
       })
       .catch(erro => this.tratarHttpStatusBack(erro));
   }

@@ -50,7 +50,6 @@ export class UserDetailPage implements OnInit, NavLifecycles {
       this.userform = new UserModelDTO();
     }
 
-    this.carregarListaFuncoes();
     this.carregarListaSetores();
   }
 
@@ -58,6 +57,7 @@ export class UserDetailPage implements OnInit, NavLifecycles {
     this.sectorService.listarSetores().subscribe(
       lista => {
         this.listSectors = lista;
+        this.carregarListaFuncoes();
       },
       error => {
         console.log('deu pau no listaSetores');
