@@ -5,12 +5,21 @@ import { API_CONFIG } from '../config/api.config';
 import { JwtHelper } from 'angular2-jwt';
 import { Observable } from 'rxjs';
 import { FormModelDTO } from './../models/formModel.dto';
+import { Platform } from 'ionic-angular/platform/platform';
 
 @Injectable()
 export class OrderService {
   jwtHelper: JwtHelper = new JwtHelper();
 
-  constructor(private http: HttpClient, private configService: ConfigService) {}
+  constructor(
+    private http: HttpClient,
+    private configService: ConfigService,
+    private _platform: Platform
+    ) {
+      if(this._platform.is("cordova")){
+        API_CONFIG.baseUrl = API_CONFIG.apiUrl;
+      }
+    }
 
   listOrder() {
     return this.http.get<FormModelDTO[]>(

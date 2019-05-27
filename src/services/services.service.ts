@@ -4,18 +4,24 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { API_CONFIG } from '../config/api.config';
 import { JwtHelper } from 'angular2-jwt';
 import { Observable } from 'rxjs';
+import { Platform } from 'ionic-angular/platform/platform';
 
 @Injectable()
 export class ServicesService {
   jwtHelper: JwtHelper = new JwtHelper();
-  constructor(private http: HttpClient) {}
-
+  constructor(
+    private http: HttpClient,
+    private _platform: Platform
+  ) {
+    if (this._platform.is("cordova")) {
+      API_CONFIG.baseUrl = API_CONFIG.apiUrl;
+    }
+  }
   listarServicos(): Observable<ServiceModelDTO[]> {
     let headers = new HttpHeaders().append('Content-Type', 'application/json');
 
     return this.http
-      //.get<ServiceModelDTO[]>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/service/listar`, {
-        .get<ServiceModelDTO[]>(`${API_CONFIG.baseUrl}/service/listar`, {
+      .get<ServiceModelDTO[]>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/service/listar`, {
         headers: headers
       })
       .catch(erro => this.tratarHttpStatusBack(erro));
@@ -32,7 +38,6 @@ export class ServicesService {
         console.log('EXIBA UMA JANELA AQUI FALANDO Q O CARA ERROU A SENHA');
       }
     }
-
     return Observable.of(null);
   }
 }

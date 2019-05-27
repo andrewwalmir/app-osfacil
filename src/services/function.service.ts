@@ -4,11 +4,19 @@ import { API_CONFIG } from '../config/api.config';
 import { JwtHelper } from 'angular2-jwt';
 import { FunctionModelDTO } from '../models/functionModel.dto';
 import { Observable } from 'rxjs';
+import { Platform } from 'ionic-angular';
 
 @Injectable()
 export class FunctionService {
   jwtHelper: JwtHelper = new JwtHelper();
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private _platform: Platform
+    ) {
+      if (this._platform.is("cordova")) {
+        API_CONFIG.baseUrl = API_CONFIG.apiUrl;
+      }
+    }
 
   listarFunction(): Observable<FunctionModelDTO[]> {
     let headers = new HttpHeaders().append('Content-Type', 'application/json');
