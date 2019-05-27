@@ -1,3 +1,4 @@
+import { ConfigService } from './config.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { API_CONFIG } from '../config/api.config';
@@ -8,11 +9,20 @@ import { FormModelDTO } from './../models/formModel.dto';
 @Injectable()
 export class OrderService {
   jwtHelper: JwtHelper = new JwtHelper();
-  constructor(private http: HttpClient) {}
+
+  constructor(private http: HttpClient, private configService: ConfigService) {}
 
   listOrder() {
     return this.http.get<FormModelDTO[]>(
       `${API_CONFIG.baseUrl}/OSFacil_Back/api/form/listar?pagina=1&limitePorPagina=9`
+    );
+  }
+  listTecnico(id: number = this.configService.usuarioLogado.id) {
+    console.log('id do técnico logado : ' + id);
+    return this.http.get<FormModelDTO[]>(
+      `${
+        API_CONFIG.baseUrl
+      }/OSFacil_Back/api/form/listarPorStatusEUsuario?statusid=2&statusid1=3&usuarioid=${id}&pagina=1&limitePorPagina=9`
     );
   }
   saveOrder(os: FormModelDTO): Observable<boolean> {

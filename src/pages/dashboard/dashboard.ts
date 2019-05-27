@@ -40,8 +40,8 @@ export class DashboardPage implements OnInit, NavLifecycles {
   addOrder() {
     this.navCtrl.push(OrderDetailPage.name);
   }
-  listTecnico(){
-
+  listTecnico() {
+    this.navCtrl.push(OrderDetailPage.name);
   }
   listarUsuarios() {
     this.navCtrl.push(UserPage.name);
