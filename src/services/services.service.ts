@@ -14,7 +14,8 @@ export class ServicesService {
     let headers = new HttpHeaders().append('Content-Type', 'application/json');
 
     return this.http
-      .get<ServiceModelDTO[]>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/service/listar`, {
+      //.get<ServiceModelDTO[]>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/service/listar`, {
+        .get<ServiceModelDTO[]>(`${API_CONFIG.baseUrl}/service/listar`, {
         headers: headers
       })
       .catch(erro => this.tratarHttpStatusBack(erro));

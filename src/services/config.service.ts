@@ -44,7 +44,8 @@ export class ConfigService implements OnInit {
       .append('Access-Control-Allow-Origin', '*');
 
     return this.http
-      .get<UserModelDTO>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/login/checar`, {
+      //.get<UserModelDTO>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/login/checar`, {
+        .get<UserModelDTO>(`${API_CONFIG.baseUrl}/login/checar`, {
         headers: headers
       })
       .catch(erro => this.tratarHttpStatusBack(erro));
