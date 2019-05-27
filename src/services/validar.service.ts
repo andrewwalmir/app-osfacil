@@ -11,27 +11,26 @@ import { Platform } from 'ionic-angular/platform/platform';
 export class ValidarService {
   url: string;
   jwtHelper: JwtHelper = new JwtHelper();
-  basepath = API_CONFIG.baseUrl
-  //basepath = "/osfacilapi"
-
+  //basepath = API_CONFIG.baseUrl
+  
   constructor(
     private http: HttpClient,
     private _platform: Platform
     ) {
       if(this._platform.is("cordova")){
-        this.basepath = "http://18.228.104.153:8080";
+        API_CONFIG.baseUrl = API_CONFIG.apiUrl;
       }
     }
 
   authenticate(creds: LoginModelDTO): Observable<UserModelDTO> {
     let headers = new HttpHeaders()
       .append('Content-Type', 'application/json');
-      console.log(this.basepath);
+      console.log(API_CONFIG.baseUrl);
     return this.http
       .post<UserModelDTO>(
-        //`${API_CONFIG.baseUrl}/OSFacil_Back/api/login/validar`,
+        `${API_CONFIG.baseUrl}/OSFacil_Back/api/login/validar`,
         //`${API_CONFIG.baseUrl}/login/validar`,
-        `${this.basepath}/OSFacil_Back/api/login/validar`,
+        //`${this.basepath}/OSFacil_Back/api/login/validar`,
         JSON.stringify(creds),
         { headers: headers } //tirar erro cors
       )
@@ -44,9 +43,9 @@ export class ValidarService {
     let headers = new HttpHeaders().append('Content-Type', 'application/json');
 
     return this.http
-      //.get(`${API_CONFIG.baseUrl}/OSFacil_Back/api/login/deslogar`, {
+      .get(`${API_CONFIG.baseUrl}/OSFacil_Back/api/login/deslogar`, {
       //.get(`${API_CONFIG.baseUrl}/login/deslogar`, {
-        .get(`${this.basepath}/OSFacil_Back/api/login/deslogar`, {
+      //.get(`${this.basepath}/OSFacil_Back/api/login/deslogar`, {
         headers: headers
       })
       .catch(erro => this.tratarHttpStatusBack(erro));

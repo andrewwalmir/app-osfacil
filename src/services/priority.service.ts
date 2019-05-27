@@ -4,11 +4,19 @@ import { API_CONFIG } from '../config/api.config';
 import { JwtHelper } from 'angular2-jwt';
 import { Observable } from 'rxjs';
 import { PriorityOSModel } from '../models/priorityOsModel.dto';
+import { Platform } from 'ionic-angular/platform/platform';
 
 @Injectable()
 export class PriorityService {
   jwtHelper: JwtHelper = new JwtHelper();
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private _platform: Platform
+  ) {
+    if (this._platform.is("cordova")) {
+      API_CONFIG.baseUrl = API_CONFIG.apiUrl;
+    }
+  }
 
   listarPrioridades(): Observable<PriorityOSModel[]> {
     let headers = new HttpHeaders().append('Content-Type', 'application/json');

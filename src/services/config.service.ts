@@ -6,6 +6,7 @@ import { UserModelDTO } from './../models/usermodel.dto';
 import { Injectable, OnInit } from '@angular/core';
 
 import { API_CONFIG } from './../config/api.config';
+import { Platform } from 'ionic-angular/platform/platform';
 
 @Injectable()
 export class ConfigService implements OnInit {
@@ -15,8 +16,14 @@ export class ConfigService implements OnInit {
     console.log('entrou aqui ngOnInit');
   }
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private _platform: Platform
+    ) {
     console.log('entrou constructor config.service');
+    if (this._platform.is("cordova")) {
+      API_CONFIG.baseUrl = API_CONFIG.apiUrl;
+    } 
 
     //essa chamada é necessária para o caso do usuário abrir outra aba
     //ou dar um refresh da app... pois os objetos q são injetados, são desalocados em refresh
@@ -44,9 +51,8 @@ export class ConfigService implements OnInit {
       .append('Access-Control-Allow-Origin', '*');
 
     return this.http
-      //.get<UserModelDTO>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/login/checar`, {
-        .get<UserModelDTO>(`${API_CONFIG.baseUrl}/login/checar`, {
-        headers: headers
+      .get<UserModelDTO>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/login/checar`, {
+          headers: headers
       })
       .catch(erro => this.tratarHttpStatusBack(erro));
   }
