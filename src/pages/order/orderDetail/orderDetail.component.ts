@@ -1,3 +1,4 @@
+import { FormModelDTO } from './../../../models/formModel.dto';
 import { NavLifecycles } from '../../../utils/ionic/nav/nav-lifecycles';
 import { ConfigService } from '../../../services/config.service';
 import { SectorService } from '../../../services/sector.service';
@@ -8,7 +9,7 @@ import { StatusOsModelDTO } from '../../../models/statusOsModel.dto';
 import { ServiceModelDTO } from '../../../models/serviceModel';
 import { SectorModelDTO } from '../../../models/sectorModel.dto';
 import { PriorityOSModel } from '../../../models/priorityOsModel.dto';
-import { FormModelDTO } from '../../../models/formModel.dto';
+
 import { OrderService } from '../../../services/order.service';
 import { Component, OnInit } from '@angular/core';
 import {
@@ -46,7 +47,18 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
     private configService: ConfigService,
     private _loadingCtrl: LoadingController,
     private _alertCtrl: AlertController
-  ) {}
+  ) {
+    if (this.navParams.data) {
+      console.log('passou pelo if do construtor ' + this.navParams.data);
+      //testa se o objeto possui valor
+      console.log('modo edição de order');
+      this.os = this.navParams.data;
+    } else {
+      console.log('passou pelo else do construtor ' + this.navParams.data);
+      console.log('modo novo  order');
+      this.os = new FormModelDTO(); //se NULL recebe nova intancia
+    }
+  }
 
   ionViewDidLoad() {
     let loading = this._loadingCtrl.create({
@@ -56,14 +68,6 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
   ngOnInit() {
     console.log('tá chegando assim:');
     console.log(this.navParams.data);
-    if (this.navParams.data) {
-      //testa se o objeto possui valor
-      console.log('modo edição de order');
-      this.os = this.navParams.data;
-    } else {
-      console.log('modo novo  order');
-      this.os = new FormModelDTO(); //se NULL recebe nova intancia
-    }
 
     this.carregarListaSetores();
   }

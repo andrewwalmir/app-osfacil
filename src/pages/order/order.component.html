@@ -13,8 +13,7 @@
 </ion-header>
 
 <ion-content padding>
-
-  <ion-card *ngFor="let form of forms" (click)="selecionaForm(Form)">
+  <ion-card *ngFor="let form of forms" (click)="selecionaForm(form)">
     <ion-item>
       <h2><b>Prioridade:</b> {{ form.priority.priorityName }}</h2>
       <p><b>Abertura:</b> {{ form.dateopen | date: 'dd/MM/yyyy HH:mm:ss' }}</p>
@@ -34,8 +33,7 @@
     </ion-row>
   </ion-card>
 
-
- <!-- LIST ANTIGO
+  <!-- LIST ANTIGO
   <ion-list>
     <ion-item *ngFor="let form of forms" (click)="selecionaForm(Form)" flex-wrap: nowrap>
       <h2>Prioridade: {{ form.priority.priorityName }}</h2>
@@ -44,7 +42,5 @@
       <p>Descrição: {{ form.description }}</p>
     </ion-item>
   </ion-list>
---> 
-
-
+-->
 </ion-content>

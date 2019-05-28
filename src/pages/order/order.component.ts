@@ -20,7 +20,6 @@ import { DashboardPage } from '../dashboard/dashboard';
 })
 export class OrderPage {
   public forms: FormModelDTO[];
-  form: any;
   cargo: string = this.configService.usuarioLogado.function.nameFunction;
 
   constructor(
@@ -59,8 +58,7 @@ export class OrderPage {
             .present();
         }
       );
-    }
-    else if (this.cargo == 'TECNICO') {
+    } else if (this.cargo == 'TECNICO') {
       console.log('entrou no elseif do listTecnico');
       this.orderService.listTecnico().subscribe(
         forms => {

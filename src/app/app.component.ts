@@ -22,11 +22,11 @@ export class MyApp {
   pages: Array<{ title: string; component: string }>;
 
   constructor(
-    public platform: Platform,
-    public statusBar: StatusBar,
-    public splashScreen: SplashScreen,
-    public validar: ValidarService,
-    public configService: ConfigService
+    private platform: Platform,
+    private statusBar: StatusBar,
+    private splashScreen: SplashScreen,
+    private validar: ValidarService,
+    private configService: ConfigService
   ) {
     this.initializeApp();
 
@@ -52,6 +52,8 @@ export class MyApp {
           retorno => {
             this.configService.usuarioLogado = null;
             this.nav.setRoot(this.rootPage);
+            
+            // this.nav.setRoot(this.navCtrl.getActive().component);
           },
           error => {
             console.log(error);

@@ -21,6 +21,7 @@ export class DashboardPage implements OnInit, NavLifecycles {
 
   ngOnInit(): void {
     console.log(this.parametro);
+    
   }
   // this.configService.usuarioLogado.function.nameFunction;
 
