@@ -28,8 +28,10 @@ import { DashboardPage } from '../../dashboard/dashboard';
   templateUrl: 'orderDetail.component.html'
 })
 export class OrderDetailPage implements OnInit, NavLifecycles {
+  public cargo: string = this.configService.usuarioLogado.function.nameFunction;
   rootPage = OrderPage.name;
   //Objetos
+
   private os: FormModelDTO;
   private priority: PriorityOSModel[];
   private sectors: SectorModelDTO[];
@@ -52,6 +54,7 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
       console.log('passou pelo if do construtor ' + this.navParams.data);
       //testa se o objeto possui valor
       console.log('modo edição de order');
+
       this.os = this.navParams.data;
     } else {
       console.log('passou pelo else do construtor ' + this.navParams.data);

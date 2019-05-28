@@ -19,11 +19,11 @@ import { DashboardPage } from '../dashboard/dashboard';
   templateUrl: 'order.component.html'
 })
 export class OrderPage {
-  public forms: FormModelDTO[];
-  cargo: string = this.configService.usuarioLogado.function.nameFunction;
+  private forms: FormModelDTO[];
+  private cargo: string = this.configService.usuarioLogado.function.nameFunction;
 
   constructor(
-    public navCtrl: NavController,
+    private navCtrl: NavController,
     public navParams: NavParams,
     private _loadingCtrl: LoadingController,
     private _alertCtrl: AlertController,
@@ -84,6 +84,7 @@ export class OrderPage {
   }
   selecionaForm(form: FormModelDTO) {
     this.navCtrl.push(OrderDetailPage.name, form);
+    console.log('dentro do SelecionaForm' + this.cargo);
     console.log('selecionando Form : ' + form);
   }
 
