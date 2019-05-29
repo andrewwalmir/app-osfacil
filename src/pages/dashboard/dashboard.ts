@@ -21,7 +21,6 @@ export class DashboardPage implements OnInit, NavLifecycles {
 
   ngOnInit(): void {
     console.log(this.parametro);
-    
   }
   // this.configService.usuarioLogado.function.nameFunction;
 
@@ -35,15 +34,19 @@ export class DashboardPage implements OnInit, NavLifecycles {
   metodo() {
     this.navCtrl.push(OrderPage.name);
   }
+  listEmployee() {
+    this.navCtrl.push(OrderPage.name);
+  }
+  listTecnico() {
+    this.navCtrl.push(OrderDetailPage.name);
+  }
   metodoUserDetail() {
     this.navCtrl.push(UserDetailPage.name);
   }
   addOrder() {
     this.navCtrl.push(OrderDetailPage.name);
   }
-  listTecnico() {
-    this.navCtrl.push(OrderDetailPage.name);
-  }
+
   listarUsuarios() {
     this.navCtrl.push(UserPage.name);
   }

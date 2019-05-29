@@ -50,16 +50,13 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
     private _loadingCtrl: LoadingController,
     private _alertCtrl: AlertController
   ) {
-    if (this.navParams.data) {
-      console.log('passou pelo if do construtor ' + this.navParams.data);
-      //testa se o objeto possui valor
-      console.log('modo edição de order');
-
-      this.os = this.navParams.data;
-    } else {
-      console.log('passou pelo else do construtor ' + this.navParams.data);
+    this.os = this.navParams.data; //pegando o valor do param e passando pra um objeto  testar no IF
+    if (this.os.id == null) {
       console.log('modo novo  order');
       this.os = new FormModelDTO(); //se NULL recebe nova intancia
+    } else {
+      console.log('modo edição de order');
+      this.os = this.navParams.data;
     }
   }
 
@@ -69,16 +66,11 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
     });
   }
   ngOnInit() {
-    console.log('tá chegando assim:');
-    console.log(this.navParams.data);
-
     this.carregarListaSetores();
   }
 
   saveOrder(formulario) {
     //Colocando estatícamente objetos obrigatórios (NOT NULL) pra ver se a caralha pelo menos salva no banco
-    console.log('vamos ver como estáá o objeto os:');
-    console.log(this.os);
     if (this.os.id > 0) {
       //alteração
       let statusTemp = new StatusOsModelDTO();
@@ -88,7 +80,7 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
       let requesterTemp = new UserModelDTO();
       requesterTemp.id = this.configService.usuarioLogado.id;
       this.os.userRequester = requesterTemp;
-      console.log('alterando Order no bd');
+
       this.orderService.updateOrder(this.os).subscribe(
         retorno => {
           console.log('deu certo o subscribe do updateOrder:');
@@ -101,6 +93,7 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
         }
       );
     } else {
+      // Else para criar Ordem
       let statusTemp = new StatusOsModelDTO();
       statusTemp.id = 1; //cria a OS com o status "Aberto"
       this.os.status = statusTemp;
@@ -110,9 +103,6 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
       this.os.userRequester = requesterTemp;
 
       //Colocando estatícamente objetos obrigatórios (NOT NULL) pra ver se a caralha pelo menos salva no banco
-
-      console.log('vamos ver como estáá o objeto os:');
-      console.log(this.os);
 
       this.orderService.saveOrder(this.os).subscribe(
         retorno => {
