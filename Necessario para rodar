@@ -3,6 +3,14 @@ npm install
 npm install angular2-jwt
 ionic serve
 
+ionic cordova plugin remove cordova-plugin-whitelist
+nvm use 8.15.1
+npm install /home/matielo/Documentos/cordova-plugin-whitelist-master
+npm rebuild node-sass  // para rodar o projeto no node 8
+nvm alias default node  //ira redefinir a versao do node atual para a default
+Bus 001 Device 020: ID 2717:ff48  //meu celular
+
+
 -- paginas //pasta
 ------ os //pasta
 -------- os.component.html //nesses três arquivos (html, ts e scss), vc faz o seu datatable de LISTAR
