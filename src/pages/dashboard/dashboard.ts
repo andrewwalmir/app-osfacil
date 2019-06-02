@@ -31,26 +31,31 @@ export class DashboardPage implements OnInit, NavLifecycles {
   ) {}
 
   ionViewDidLoad;
-  metodo() {
-    this.navCtrl.push(OrderPage.name);
-  }
-  listEmployee() {
-    this.navCtrl.push(OrderPage.name);
-  }
-  listTecnico() {
-    this.navCtrl.push(OrderDetailPage.name);
-  }
+
+  /* BUTTON SUPERVISOR*/
   metodoUserDetail() {
     this.navCtrl.push(UserDetailPage.name);
   }
-  addOrder() {
-    this.navCtrl.push(OrderDetailPage.name);
-  }
-
   listarUsuarios() {
     this.navCtrl.push(UserPage.name);
   }
   assignTechnical() {
-    this.navCtrl.push(OrderPage.name, { 'data' : 'assignTechnical' });
+    this.navCtrl.push(OrderPage.name, { data: 'assignTechnical' });
+  }
+  /* BUTTON TECNICO*/
+  listTecnico() {
+    this.navCtrl.push(OrderDetailPage.name);
+  }
+  /* BUTTON FUNCIONARIO*/
+  listEmployee() {
+    this.navCtrl.push(OrderPage.name);
+  }
+  /* BUTTON GENERICO*/
+  metodo() {
+    this.navCtrl.push(OrderPage.name);
+  }
+
+  addOrder() {
+    this.navCtrl.push(OrderDetailPage.name);
   }
 }

@@ -42,7 +42,7 @@ export class OrderPage {
     switch (this.cargo) {
       case 'SUPERVISOR': {
         if (this.recvData == 'assignTechnical') {
-          this.orderService.listByStatus().subscribe(
+          this.orderService.listOrderByStatus().subscribe(
             forms => {
               this.forms = forms;
               loading.dismiss(); //sumir o loading quando carregar o componente por completo

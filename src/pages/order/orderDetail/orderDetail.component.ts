@@ -69,7 +69,7 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
   }
   ngOnInit() {
     if (this.os.status.id == 1) {
-      this.carregarListaUsuarios();
+      this.carregarListaUsuariosPorFuncao();
     }
     this.carregarListaSetores();
   }
@@ -137,8 +137,8 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
       }
     );
   }
-  carregarListaUsuarios() {
-    this.usersService.listUsers().subscribe(
+  carregarListaUsuariosPorFuncao() {
+    this.usersService.listUsersByFunction().subscribe(
       lista => {
         this.listUsers = lista;
       },

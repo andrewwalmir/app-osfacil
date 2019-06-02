@@ -11,15 +11,16 @@ import { Platform } from 'ionic-angular';
 export class UsersService {
   jwtHelper: JwtHelper = new JwtHelper();
 
-  constructor(
-    private http: HttpClient,
-    private _platform: Platform
-  ) {
-    if (this._platform.is("cordova")) {
+  constructor(private http: HttpClient, private _platform: Platform) {
+    if (this._platform.is('cordova')) {
       API_CONFIG.baseUrl = API_CONFIG.apiUrl;
     }
   }
-
+  listUsersByFunction() {
+    return this.http.get<UserModelDTO[]>(
+      `${API_CONFIG.baseUrl}/OSFacil_Back/api/user/listarUserPorFuncao?id=2`
+    );
+  }
   listUsers() {
     return this.http.get<UserModelDTO[]>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/user/listarUser`);
   }
