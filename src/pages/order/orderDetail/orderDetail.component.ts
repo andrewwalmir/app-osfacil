@@ -1,3 +1,4 @@
+import { UsersService } from './../../../services/user.service';
 import { FormModelDTO } from './../../../models/formModel.dto';
 import { NavLifecycles } from '../../../utils/ionic/nav/nav-lifecycles';
 import { ConfigService } from '../../../services/config.service';
@@ -30,20 +31,21 @@ import { DashboardPage } from '../../dashboard/dashboard';
 export class OrderDetailPage implements OnInit, NavLifecycles {
   public cargo: string = this.configService.usuarioLogado.function.nameFunction;
   rootPage = OrderPage.name;
-  //Objetos
-
   private os: FormModelDTO;
+  private user: UserModelDTO;
   private priority: PriorityOSModel[];
   private sectors: SectorModelDTO[];
   private services: ServiceModelDTO[];
   private listPriorities: PriorityOSModel[] = [];
   private listSectors: SectorModelDTO[] = [];
   private listServices: ServiceModelDTO[] = [];
+  private listUsers: UserModelDTO[] = [];
   constructor(
     private navCtrl: NavController,
     private orderService: OrderService,
     private priorityService: PriorityService,
     private servicesService: ServicesService,
+    private usersService: UsersService,
     private navParams: NavParams,
     private sectorService: SectorService,
     private configService: ConfigService,
@@ -66,6 +68,9 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
     });
   }
   ngOnInit() {
+    if (this.os.status.id == 1) {
+      this.carregarListaUsuarios();
+    }
     this.carregarListaSetores();
   }
 
@@ -73,14 +78,11 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
     //Colocando estatícamente objetos obrigatórios (NOT NULL) pra ver se a caralha pelo menos salva no banco
     if (this.os.id > 0) {
       //alteração
-      let statusTemp = new StatusOsModelDTO();
-      statusTemp.id = 1; //cria a OS com o status "Aberto"
-      this.os.status = statusTemp;
-
-      let requesterTemp = new UserModelDTO();
-      requesterTemp.id = this.configService.usuarioLogado.id;
-      this.os.userRequester = requesterTemp;
-
+      if (this.os.userRequester != null) {
+        let statusTemp = new StatusOsModelDTO();
+        statusTemp.id = 2; //cria a OS com o status "Aberto"
+        this.os.status = statusTemp;
+      }
       this.orderService.updateOrder(this.os).subscribe(
         retorno => {
           console.log('deu certo o subscribe do updateOrder:');
@@ -135,6 +137,18 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
       }
     );
   }
+  carregarListaUsuarios() {
+    this.usersService.listUsers().subscribe(
+      lista => {
+        this.listUsers = lista;
+      },
+      error => {
+        console.log('deu pau no listaUsuarios');
+        console.log(error);
+      }
+    );
+  }
+
   carregarListaSetores() {
     this.sectorService.listarSetores().subscribe(
       lista => {

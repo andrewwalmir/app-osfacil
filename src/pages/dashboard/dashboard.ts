@@ -50,4 +50,7 @@ export class DashboardPage implements OnInit, NavLifecycles {
   listarUsuarios() {
     this.navCtrl.push(UserPage.name);
   }
+  assignTechnical() {
+    this.navCtrl.push(OrderPage.name, { 'data' : 'assignTechnical' });
+  }
 }

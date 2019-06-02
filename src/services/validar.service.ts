@@ -12,40 +12,33 @@ export class ValidarService {
   url: string;
   jwtHelper: JwtHelper = new JwtHelper();
   //basepath = API_CONFIG.baseUrl
-  
-  constructor(
-    private http: HttpClient,
-    private _platform: Platform
-    ) {
-      if(this._platform.is("cordova")){
-        API_CONFIG.baseUrl = API_CONFIG.apiUrl;
-      }
-    }
 
+  constructor(private http: HttpClient, private _platform: Platform) {
+    if (this._platform.is('cordova')) {
+      API_CONFIG.baseUrl = API_CONFIG.apiUrl;
+    }
+  }
   authenticate(creds: LoginModelDTO): Observable<UserModelDTO> {
-    let headers = new HttpHeaders()
-      .append('Content-Type', 'application/json');
-      console.log(API_CONFIG.baseUrl);
+    let headers = new HttpHeaders().append('Content-Type', 'application/json');
+    console.log(API_CONFIG.baseUrl);
     return this.http
       .post<UserModelDTO>(
+        //`http://18.228.104.153:8080/OSFacil_Back/api/login/validar`,
         `${API_CONFIG.baseUrl}/OSFacil_Back/api/login/validar`,
-        //`${API_CONFIG.baseUrl}/login/validar`,
-        //`${this.basepath}/OSFacil_Back/api/login/validar`,
         JSON.stringify(creds),
         { headers: headers } //tirar erro cors
       )
       .catch(erro => this.tratarHttpStatusBack(erro));
-      
   }
-  
+
   logout() {
     console.log('entrou no logout');
     let headers = new HttpHeaders().append('Content-Type', 'application/json');
 
     return this.http
       .get(`${API_CONFIG.baseUrl}/OSFacil_Back/api/login/deslogar`, {
-      //.get(`${API_CONFIG.baseUrl}/login/deslogar`, {
-      //.get(`${this.basepath}/OSFacil_Back/api/login/deslogar`, {
+        //.get(`${API_CONFIG.baseUrl}/login/deslogar`, {
+        //.get(`${this.basepath}/OSFacil_Back/api/login/deslogar`, {
         headers: headers
       })
       .catch(erro => this.tratarHttpStatusBack(erro));

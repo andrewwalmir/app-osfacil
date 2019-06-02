@@ -21,6 +21,7 @@ import { DashboardPage } from '../dashboard/dashboard';
 export class OrderPage {
   private forms: FormModelDTO[];
   private cargo: string = this.configService.usuarioLogado.function.nameFunction;
+  public recvData: string;
 
   constructor(
     private navCtrl: NavController,
@@ -29,81 +30,120 @@ export class OrderPage {
     private _alertCtrl: AlertController,
     private orderService: OrderService,
     private configService: ConfigService
-  ) {}
+  ) {
+    this.recvData = this.navParams.get('data');
+  }
   ionViewDidLoad() {
     let loading = this._loadingCtrl.create({
       content: 'Carregando Ordens de Serviços...'
     });
 
     loading.present();
+    switch (this.cargo) {
+      case 'SUPERVISOR': {
+        if (this.recvData == 'assignTechnical') {
+          this.orderService.listByStatus().subscribe(
+            forms => {
+              this.forms = forms;
+              loading.dismiss(); //sumir o loading quando carregar o componente por completo
+            },
+            (err: HttpErrorResponse) => {
+              console.log(err);
 
-    if (this.cargo == 'SUPERVISOR') {
-      this.orderService.listOrder().subscribe(
-        forms => {
-          this.forms = forms;
-          loading.dismiss(); //sumir o loading quando carregar o componente por completo
-        },
-        (err: HttpErrorResponse) => {
-          console.log(err);
+              loading.dismiss();
 
-          loading.dismiss();
+              this._alertCtrl
+                .create({
+                  title: 'Falha na conexão',
+                  subTitle:
+                    'Não foi possível carregar a lista de Ordem de Serviços. Tente novamente mais tarde!',
+                  buttons: [{ text: 'Ok' }]
+                })
+                .present();
+            }
+          );
+          break;
+        } else {
+          console.log('switchcase Supervisor');
+          this.orderService.listOrder().subscribe(
+            forms => {
+              this.forms = forms;
+              loading.dismiss(); //sumir o loading quando carregar o componente por completo
+            },
+            (err: HttpErrorResponse) => {
+              console.log(err);
 
-          this._alertCtrl
-            .create({
-              title: 'Falha na conexão',
-              subTitle:
-                'Não foi possível carregar a lista de Ordem de Serviços. Tente novamente mais tarde!',
-              buttons: [{ text: 'Ok' }]
-            })
-            .present();
+              loading.dismiss();
+
+              this._alertCtrl
+                .create({
+                  title: 'Falha na conexão',
+                  subTitle:
+                    'Não foi possível carregar a lista de Ordem de Serviços. Tente novamente mais tarde!',
+                  buttons: [{ text: 'Ok' }]
+                })
+                .present();
+            }
+          );
+          break;
         }
-      );
-    } else if (this.cargo == 'TECNICO') {
-      console.log('entrou no elseif do listTecnico');
-      this.orderService.listTecnico().subscribe(
-        forms => {
-          this.forms = forms;
-          loading.dismiss(); //sumir o loading quando carregar o componente por completo
-        },
-        (err: HttpErrorResponse) => {
-          console.log(err);
+      }
+      case 'TECNICO': {
+        console.log('switchcase Tecnico');
+        this.orderService.listTecnico().subscribe(
+          forms => {
+            this.forms = forms;
+            loading.dismiss(); //sumir o loading quando carregar o componente por completo
+          },
+          (err: HttpErrorResponse) => {
+            console.log(err);
 
-          loading.dismiss();
+            loading.dismiss();
 
-          this._alertCtrl
-            .create({
-              title: 'Falha na conexão',
-              subTitle:
-                'Não foi possível carregar a lista de Ordem de Serviços. Tente novamente mais tarde!',
-              buttons: [{ text: 'Ok' }]
-            })
-            .present();
-        }
-      );
-    } else if (this.cargo == 'FUNCIONARIO') {
-      console.log('entrou no elseif do listEmployee');
-      this.orderService.listEmployee().subscribe(
-        forms => {
-          this.forms = forms;
-          loading.dismiss(); //sumir o loading quando carregar o componente por completo
-        },
-        (err: HttpErrorResponse) => {
-          console.log(err);
+            this._alertCtrl
+              .create({
+                title: 'Falha na conexão',
+                subTitle:
+                  'Não foi possível carregar a lista de Ordem de Serviços. Tente novamente mais tarde!',
+                buttons: [{ text: 'Ok' }]
+              })
+              .present();
+          }
+        );
+        break;
+      }
+      case 'FUNCIONARIO': {
+        console.log('switchcase Funcionario');
+        this.orderService.listEmployee().subscribe(
+          forms => {
+            this.forms = forms;
+            loading.dismiss(); //sumir o loading quando carregar o componente por completo
+          },
+          (err: HttpErrorResponse) => {
+            console.log(err);
 
-          loading.dismiss();
+            loading.dismiss();
 
-          this._alertCtrl
-            .create({
-              title: 'Falha na conexão',
-              subTitle:
-                'Não foi possível carregar a lista de Ordem de Serviços. Tente novamente mais tarde!',
-              buttons: [{ text: 'Ok' }]
-            })
-            .present();
-        }
-      );
+            this._alertCtrl
+              .create({
+                title: 'Falha na conexão',
+                subTitle:
+                  'Não foi possível carregar a lista de Ordem de Serviços. Tente novamente mais tarde!',
+                buttons: [{ text: 'Ok' }]
+              })
+              .present();
+          }
+        );
+        break;
+      }
+
+      default: {
+        console.log('entrou no switch default');
+        break;
+      }
     }
   }
+
   selecionaForm(form: FormModelDTO) {
     this.navCtrl.push(OrderDetailPage.name, form);
     console.log('dentro do SelecionaForm' + this.cargo);
