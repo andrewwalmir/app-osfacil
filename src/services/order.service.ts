@@ -34,11 +34,11 @@ export class OrderService {
       }/OSFacil_Back/api/form/listarPorStatusEUsuario?statusid=2&statusid1=3&usuarioid=${id}&pagina=1&limitePorPagina=20`
     );
   }
-  listByStatus() {
+  listOrderByStatus() {
     return this.http.get<FormModelDTO[]>(
       `${
         API_CONFIG.baseUrl
-      }/OSFacil_Back/api/form/listarPorStatus?statusid=1&pagina=1&limitePorPagina=9`
+      }/OSFacil_Back/api/form/listarPorStatus?statusid=1&pagina=1&limitePorPagina=20`
     );
   }
   listEmployee(id: number = this.configService.usuarioLogado.id) {
@@ -46,7 +46,7 @@ export class OrderService {
     return this.http.get<FormModelDTO[]>(
       `${
         API_CONFIG.baseUrl
-      }/OSFacil_Back/api/form/listarPorFuncionario?id=${id}&pagina=1&limitePorPagina=9`
+      }/OSFacil_Back/api/form/listarPorFuncionario?id=${id}&pagina=1&limitePorPagina=20`
     );
   }
   saveOrder(os: FormModelDTO): Observable<boolean> {
