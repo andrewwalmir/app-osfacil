@@ -23,6 +23,7 @@ export class OrderPage {
   private cargo: string = this.configService.usuarioLogado.function.nameFunction;
   public recvData: string;
 
+
   constructor(
     private navCtrl: NavController,
     public navParams: NavParams,
@@ -90,6 +91,7 @@ export class OrderPage {
       }
       case 'TECNICO': {
         console.log('switchcase Tecnico');
+
         this.orderService.listTecnico().subscribe(
           forms => {
             this.forms = forms;

@@ -52,10 +52,12 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
     private _loadingCtrl: LoadingController,
     private _alertCtrl: AlertController
   ) {
-    this.os = this.navParams.data; //pegando o valor do param e passando pra um objeto  testar no IF
+    this.os = this.navParams.data;
     if (this.os.id == null) {
-      console.log('modo novo  order');
+      console.log('modo novo order');
       this.os = new FormModelDTO(); //se NULL recebe nova intancia
+      console.log('modo novo order2');
+      //console.log(this.os.status.id);
     } else {
       console.log('modo edição de order');
       this.os = this.navParams.data;
@@ -69,16 +71,19 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
   }
   ngOnInit() {
     if (this.os.status.id == 1) {
+      console.log('entrou if this.os.status.id == 1 ');
       this.carregarListaUsuariosPorFuncao();
+      console.log('entrou if this.os.status.id == 1 dpois carregarListaUsuariosPorFunção ');
     }
+    console.log('entrou ngOnInit antes carregarListaSetores');
     this.carregarListaSetores();
+    console.log('entrou ngOnInit depois carregarListaSetores');
   }
 
   saveOrder(formulario) {
-    //Colocando estatícamente objetos obrigatórios (NOT NULL) pra ver se a caralha pelo menos salva no banco
     if (this.os.id > 0) {
-      //alteração
-      if (this.os.userRequester != null) {
+      //alterando ordem
+      if (this.os.userRequester.id != null) {
         let statusTemp = new StatusOsModelDTO();
         statusTemp.id = 2; //cria a OS com o status "Aberto"
         this.os.status = statusTemp;
@@ -90,16 +95,16 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
           this.navCtrl.setRoot(this.rootPage);
         },
         error => {
-          console.log('deu pau no saveUser');
+          console.log('deu pau no updateOrder');
           console.log(error);
         }
       );
     } else {
+      console.log('else do saveOrder ');
       // Else para criar Ordem
       let statusTemp = new StatusOsModelDTO();
       statusTemp.id = 1; //cria a OS com o status "Aberto"
       this.os.status = statusTemp;
-
       let requesterTemp = new UserModelDTO();
       requesterTemp.id = this.configService.usuarioLogado.id;
       this.os.userRequester = requesterTemp;
@@ -119,12 +124,7 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
       );
     }
   }
-  comparacaoDeIdOrder(c1, c2): boolean {
-    return c1 && c2 ? c1.id === c2.id : c1 === c2;
-  }
-  closeModal() {
-    this.navCtrl.setRoot(DashboardPage.name);
-  }
+
   carregarListaPrioridades() {
     this.priorityService.listarPrioridades().subscribe(
       lista => {
@@ -171,5 +171,11 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
         console.log(error);
       }
     );
+  }
+  comparacaoDeIdOrder(c1, c2): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
+  }
+  closeModal() {
+    this.navCtrl.setRoot(DashboardPage.name);
   }
 }

@@ -1,3 +1,4 @@
+import { OrderGenericPage } from './../order/orderGeneric/orderGeneric.component';
 import { UserModelDTO } from './../../models/usermodel.dto';
 import { FunctionModelDTO } from './../../models/functionModel.dto';
 import { UserPage } from '../user/user.component';
@@ -40,12 +41,14 @@ export class DashboardPage implements OnInit, NavLifecycles {
     this.navCtrl.push(UserPage.name);
   }
   assignTechnical() {
+    //this.navCtrl.push(OrderPage.name);
     this.navCtrl.push(OrderPage.name, { data: 'assignTechnical' });
   }
   /* BUTTON TECNICO*/
   listTecnico() {
-    this.navCtrl.push(OrderDetailPage.name);
+    this.navCtrl.push(OrderGenericPage.name);
   }
+
   /* BUTTON FUNCIONARIO*/
   listEmployee() {
     this.navCtrl.push(OrderPage.name);
@@ -56,6 +59,7 @@ export class DashboardPage implements OnInit, NavLifecycles {
   }
 
   addOrder() {
-    this.navCtrl.push(OrderDetailPage.name);
+    this.navCtrl.push(OrderGenericPage.name);
+    console.log('aaaddOrder');
   }
 }
