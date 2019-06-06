@@ -14,9 +14,9 @@
 <ion-content padding>
   <section [ngSwitch]="cargo">
     <ng-container *ngSwitchCase="'SUPERVISOR'">
-
- <form #formulario01="ngForm" (ngSubmit)="saveOrder(formulario01)">
-          <ion-list>
+      <form #formulario01="ngForm" (ngSubmit)="saveOrder(formulario01)">
+        <ion-list>
+          <div *ngIf="os.status.id == 1">
             <ion-item>
               <ion-label floating>Técnico:</ion-label>
               <ion-select [(ngModel)]="os.userResponsible" name="user" multiple="false">
@@ -25,63 +25,63 @@
                 }}</ion-option>
               </ion-select>
             </ion-item>
-            <ion-item>
-              <ion-label floating>Descrever a manutenção: ngIf</ion-label>
-              <ion-input
-                required
-                [(ngModel)]="os.description"
-                type="text"
-                name="description"
-              ></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label floating>Setor:</ion-label>
-              <ion-select
-                required
-                [compareWith]="comparacaoDeIdOrder"
-                [(ngModel)]="os.sectorRequester"
-                name="sector"
-                multiple="false"
-              >
-                <ion-option *ngFor="let sector of listSectors" [value]="sector">{{
-                  sector.nameSector
-                }}</ion-option>
-              </ion-select>
-            </ion-item>
-            <ion-item>
-              <ion-label floating>Serviço:</ion-label>
-              <ion-select
-                required
-                [compareWith]="comparacaoDeIdOrder"
-                [(ngModel)]="os.service"
-                name="service"
-                multiple="false"
-              >
-                <ion-option *ngFor="let service of listServices" [value]="service">{{
-                  service.description
-                }}</ion-option>
-              </ion-select>
-            </ion-item>
-            <ion-item>
-              <ion-label floating>Prioridade:</ion-label>
-              <ion-select
-                required
-                [compareWith]="comparacaoDeIdOrder"
-                [(ngModel)]="os.priority"
-                name="priority"
-                multiple="false"
-              >
-                <ion-option *ngFor="let priority of listPriorities" [value]="priority">{{
-                  priority.priorityName
-                }}</ion-option>
-              </ion-select>
-            </ion-item>
-          </ion-list>
-          <button [disabled]="!formulario01.valid" ion-button full block color="primary">
-            Salvar OS
-          </button>
-        </form>
-
+          </div>
+          <ion-item>
+            <ion-label floating>Descrever a manutenção: </ion-label>
+            <ion-input
+              required
+              [(ngModel)]="os.description"
+              type="text"
+              name="description"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Setor:</ion-label>
+            <ion-select
+              required
+              [compareWith]="comparacaoDeIdOrder"
+              [(ngModel)]="os.sectorRequester"
+              name="sector"
+              multiple="false"
+            >
+              <ion-option *ngFor="let sector of listSectors" [value]="sector">{{
+                sector.nameSector
+              }}</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Serviço:</ion-label>
+            <ion-select
+              required
+              [compareWith]="comparacaoDeIdOrder"
+              [(ngModel)]="os.service"
+              name="service"
+              multiple="false"
+            >
+              <ion-option *ngFor="let service of listServices" [value]="service">{{
+                service.description
+              }}</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Prioridade:</ion-label>
+            <ion-select
+              required
+              [compareWith]="comparacaoDeIdOrder"
+              [(ngModel)]="os.priority"
+              name="priority"
+              multiple="false"
+            >
+              <ion-option *ngFor="let priority of listPriorities" [value]="priority">{{
+                priority.priorityName
+              }}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+        <button [disabled]="!formulario01.valid" ion-button full block color="primary">
+          Salvar OS
+        </button>
+      </form>
     </ng-container>
     <ng-container *ngSwitchCase="'TECNICO'">
       <form #formulario01="ngForm" (ngSubmit)="saveOrder(formulario01)">
