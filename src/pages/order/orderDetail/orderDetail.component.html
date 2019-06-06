@@ -86,6 +86,22 @@
     <ng-container *ngSwitchCase="'TECNICO'">
       <form #formulario01="ngForm" (ngSubmit)="saveOrder(formulario01)">
         <ion-list>
+          <div *ngIf="statusMati.id == 3">
+            <ion-item>
+              <ion-label floating>Status:</ion-label>
+              <ion-select
+                required
+                [(ngModel)]="os.status"
+                name="status"
+                multiple="false"
+                [compareWith]="comparacaoDeIdOrder"
+              >
+                <ion-option *ngFor="let status of listStatus" [value]="status">{{
+                  status.nameStatus
+                }}</ion-option>
+              </ion-select>
+            </ion-item>
+          </div>
           <ion-item>
             <ion-label floating>Descrever a manutenção:</ion-label>
             <ion-input
