@@ -1,3 +1,4 @@
+import { StatusOsModelDTO } from './../../../models/statusOsModel.dto';
 import { UsersService } from './../../../services/user.service';
 import { FormModelDTO } from './../../../models/formModel.dto';
 import { NavLifecycles } from '../../../utils/ionic/nav/nav-lifecycles';
@@ -6,7 +7,6 @@ import { SectorService } from '../../../services/sector.service';
 import { ServicesService } from '../../../services/services.service';
 import { PriorityService } from '../../../services/priority.service';
 import { UserModelDTO } from '../../../models/usermodel.dto';
-import { StatusOsModelDTO } from '../../../models/statusOsModel.dto';
 import { ServiceModelDTO } from '../../../models/serviceModel';
 import { SectorModelDTO } from '../../../models/sectorModel.dto';
 import { PriorityOSModel } from '../../../models/priorityOsModel.dto';
@@ -22,6 +22,7 @@ import {
 } from 'ionic-angular';
 import { OrderPage } from '../order.component';
 import { DashboardPage } from '../../dashboard/dashboard';
+import { StatusService } from '../../../services/status.service';
 
 @IonicPage()
 @Component({
@@ -32,17 +33,21 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
   public cargo: string = this.configService.usuarioLogado.function.nameFunction;
   rootPage = OrderPage.name;
   private os: FormModelDTO;
+  private statusMati: StatusOsModelDTO;
   private user: UserModelDTO;
   private priority: PriorityOSModel[];
   private sectors: SectorModelDTO[];
   private services: ServiceModelDTO[];
+  private status: StatusOsModelDTO[];
   private listPriorities: PriorityOSModel[] = [];
   private listSectors: SectorModelDTO[] = [];
   private listServices: ServiceModelDTO[] = [];
   private listUsers: UserModelDTO[] = [];
+  private listStatus: StatusOsModelDTO[] = [];
   constructor(
     private navCtrl: NavController,
     private orderService: OrderService,
+    private statusService: StatusService,
     private priorityService: PriorityService,
     private servicesService: ServicesService,
     private usersService: UsersService,
@@ -53,14 +58,11 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
     private _alertCtrl: AlertController
   ) {
     this.os = this.navParams.data;
-    if (this.os.id == null) {
-      console.log('modo novo order');
-      this.os = new FormModelDTO(); //se NULL recebe nova intancia
-      console.log('modo novo order2');
-      //console.log(this.os.status.id);
-    } else {
-      console.log('modo edição de order');
-      this.os = this.navParams.data;
+    if (this.os.status.id == 2 || this.os.status.id == 3) {
+      console.log('deixando o StatusMati = 3');
+      this.statusMati = new StatusOsModelDTO();
+      this.statusMati.id = 3; //cria a OS com o status "Em Execução para tecnico poder alterar ordem"
+      console.log(this.statusMati.id);
     }
   }
 
@@ -70,59 +72,23 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
     });
   }
   ngOnInit() {
-    if (this.os.status.id == 1) {
-      console.log('entrou if this.os.status.id == 1 ');
-      this.carregarListaUsuariosPorFuncao();
-      console.log('entrou if this.os.status.id == 1 dpois carregarListaUsuariosPorFunção ');
-    }
-    console.log('entrou ngOnInit antes carregarListaSetores');
     this.carregarListaSetores();
-    console.log('entrou ngOnInit depois carregarListaSetores');
   }
 
   saveOrder(formulario) {
-    if (this.os.id > 0) {
-      //alterando ordem
-      if (this.os.userRequester.id != null) {
-        let statusTemp = new StatusOsModelDTO();
-        statusTemp.id = 2; //cria a OS com o status "Aberto"
-        this.os.status = statusTemp;
-      }
-      this.orderService.updateOrder(this.os).subscribe(
-        retorno => {
-          console.log('deu certo o subscribe do updateOrder:');
-          console.log(retorno);
-          this.navCtrl.setRoot(this.rootPage);
-        },
-        error => {
-          console.log('deu pau no updateOrder');
-          console.log(error);
-        }
-      );
-    } else {
-      console.log('else do saveOrder ');
-      // Else para criar Ordem
+    if (this.os.status.id == 1) {
       let statusTemp = new StatusOsModelDTO();
-      statusTemp.id = 1; //cria a OS com o status "Aberto"
+      statusTemp.id = 2; //cria a OS com o status "Aberto"
       this.os.status = statusTemp;
-      let requesterTemp = new UserModelDTO();
-      requesterTemp.id = this.configService.usuarioLogado.id;
-      this.os.userRequester = requesterTemp;
-
-      //Colocando estatícamente objetos obrigatórios (NOT NULL) pra ver se a caralha pelo menos salva no banco
-
-      this.orderService.saveOrder(this.os).subscribe(
-        retorno => {
-          console.log('deu certo o subscribe do saveOrder:');
-          console.log(retorno);
-          this.navCtrl.setRoot(this.rootPage);
-        },
-        error => {
-          console.log('deu pau no saveOrder');
-          console.log(error);
-        }
-      );
     }
+    this.orderService.updateOrder(this.os).subscribe(
+      retorno => {
+        this.navCtrl.setRoot(this.rootPage);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   carregarListaPrioridades() {
@@ -132,7 +98,6 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
         this.carregarListaServicos();
       },
       error => {
-        console.log('deu pau no listaPrioridades');
         console.log(error);
       }
     );
@@ -143,7 +108,6 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
         this.listUsers = lista;
       },
       error => {
-        console.log('deu pau no listaUsuarios');
         console.log(error);
       }
     );
@@ -156,7 +120,6 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
         this.carregarListaPrioridades();
       },
       error => {
-        console.log('deu pau no listaSetores');
         console.log(error);
       }
     );
@@ -165,9 +128,23 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
     this.servicesService.listarServicos().subscribe(
       lista => {
         this.listServices = lista;
+        this.carregarListaStatus();
+        if (this.os.status.id == 1) {
+          //testa se estiver com status aberto carrega tecnicos
+          this.carregarListaUsuariosPorFuncao();
+        }
       },
       error => {
-        console.log('deu pau no listaServicos');
+        console.log(error);
+      }
+    );
+  }
+  carregarListaStatus() {
+    this.statusService.listarStatus().subscribe(
+      lista => {
+        this.listStatus = lista;
+      },
+      error => {
         console.log(error);
       }
     );

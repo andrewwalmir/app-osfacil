@@ -48,7 +48,9 @@ export class DashboardPage implements OnInit, NavLifecycles {
   listTecnico() {
     this.navCtrl.push(OrderGenericPage.name);
   }
-
+  tratarOrdem() {
+    this.navCtrl.push(OrderPage.name, { data2: 'tratarOrdemTecnico' });
+  }
   /* BUTTON FUNCIONARIO*/
   listEmployee() {
     this.navCtrl.push(OrderPage.name);
@@ -59,7 +61,11 @@ export class DashboardPage implements OnInit, NavLifecycles {
   }
 
   addOrder() {
+    // this.navCtrl.push(OrderDetailPage.name);
     this.navCtrl.push(OrderGenericPage.name);
     console.log('aaaddOrder');
+  }
+  listMyOrders() {
+    this.navCtrl.push(OrderPage.name, { data1: 'listMyOrdersGeneric' });
   }
 }
