@@ -44,9 +44,15 @@ export class DashboardPage implements OnInit, NavLifecycles {
     //this.navCtrl.push(OrderPage.name);
     this.navCtrl.push(OrderPage.name, { data: 'assignTechnical' });
   }
+  listarPorStatusPendenteSupenso() {
+    this.navCtrl.push(OrderPage.name, { data4: 'listarPorStatusPendenteSupenso' });
+  }
   /* BUTTON TECNICO*/
   listTecnico() {
     this.navCtrl.push(OrderGenericPage.name);
+  }
+  ordersFinalizedByMe() {
+    this.navCtrl.push(OrderPage.name, { data3: 'ordersFinalizedByMe' });
   }
   tratarOrdem() {
     this.navCtrl.push(OrderPage.name, { data2: 'tratarOrdemTecnico' });

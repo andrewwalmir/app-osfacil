@@ -63,6 +63,11 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
       this.statusMati = new StatusOsModelDTO();
       this.statusMati.id = 3; //cria a OS com o status "Em Execução para tecnico poder alterar ordem"
       console.log(this.statusMati.id);
+    } else if (this.os.status.id == 4) {
+      console.log('deixando o StatusMati = 4');
+      this.statusMati = new StatusOsModelDTO();
+      this.statusMati.id = 4; //cria a OS com o status "Em Execução para tecnico poder alterar ordem"
+      console.log(this.statusMati.id);
     }
   }
 
@@ -129,7 +134,7 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
       lista => {
         this.listServices = lista;
         this.carregarListaStatus();
-        if (this.os.status.id == 1) {
+        if (this.os.status.id == 1 || this.os.status.id == 5 || this.os.status.id == 6) {
           //testa se estiver com status aberto carrega tecnicos
           this.carregarListaUsuariosPorFuncao();
         }

@@ -16,14 +16,11 @@ export class ConfigService implements OnInit {
     console.log('entrou aqui ngOnInit');
   }
 
-  constructor(
-    private http: HttpClient,
-    private _platform: Platform
-    ) {
+  constructor(private http: HttpClient, private _platform: Platform) {
     console.log('entrou constructor config.service');
-    if (this._platform.is("cordova")) {
+    if (this._platform.is('cordova')) {
       API_CONFIG.baseUrl = API_CONFIG.apiUrl;
-    } 
+    }
 
     //essa chamada é necessária para o caso do usuário abrir outra aba
     //ou dar um refresh da app... pois os objetos q são injetados, são desalocados em refresh
@@ -46,13 +43,11 @@ export class ConfigService implements OnInit {
 
   verificarUsuarioLogado() {
     console.log('entrou no verificarUsuarioLogado');
-    let headers = new HttpHeaders()
-      .append('Content-Type', 'application/json')
-      .append('Access-Control-Allow-Origin', '*');
+    let headers = new HttpHeaders().append('Content-Type', 'application/json');
 
     return this.http
       .get<UserModelDTO>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/login/checar`, {
-          headers: headers
+        headers: headers
       })
       .catch(erro => this.tratarHttpStatusBack(erro));
   }

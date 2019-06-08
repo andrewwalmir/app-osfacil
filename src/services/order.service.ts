@@ -26,12 +26,29 @@ export class OrderService {
       `${API_CONFIG.baseUrl}/OSFacil_Back/api/form/listar?pagina=1&limitePorPagina=20`
     );
   }
+  listPorStatusPendenteSupenso() {
+    return this.http.get<FormModelDTO[]>(
+      `${
+        API_CONFIG.baseUrl
+      }/OSFacil_Back/api/form/listarPorStatusPendenteSupenso?statusid=5&statusid1=6&pagina=1&limitePorPagina=20`
+    );
+  }
+
+  listFinalizadasPorTecnico(id: number = this.configService.usuarioLogado.id) {
+    console.log('id do técnico logado : ');
+    return this.http.get<FormModelDTO[]>(
+      `${
+        API_CONFIG.baseUrl
+      }/OSFacil_Back/api/form/listarPorStatusEUsuario?statusid=4&usuarioid=${id}&pagina=1&limitePorPagina=20`
+      //
+    );
+  }
   listTecnico(id: number = this.configService.usuarioLogado.id) {
     console.log('id do técnico logado : ' + id);
     return this.http.get<FormModelDTO[]>(
       `${
         API_CONFIG.baseUrl
-      }/OSFacil_Back/api/form/listarPorStatusEUsuario?statusid=2&statusid1=3&usuarioid=${id}&pagina=1&limitePorPagina=20`
+      }/OSFacil_Back/api/form/listarPor2StatusEUsuario?statusid=2&statusid1=3&usuarioid=${id}&pagina=1&limitePorPagina=20`
     );
   }
   listOrderByStatus() {
