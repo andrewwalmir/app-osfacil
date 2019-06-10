@@ -54,7 +54,7 @@
               <h2 color="primary">Atribuir Técnico</h2>
             </ion-card>
           </ion-col>
-          <ion-col col-6>
+          <ion-col col-6  (click)="listarPorStatusPendenteSupenso()">
             <ion-card text-center padding color="my-button">
               <ion-icon color="primary" name="alert"></ion-icon>
               <h2>Ordens Pendentes</h2>
@@ -89,7 +89,7 @@
           </ion-card>
         </ion-col>
 
-        <ion-col col-6 (click)="metodo()">
+        <ion-col col-6 (click)="ordersFinalizedByMe()">
           <ion-card text-center padding color="my-button">
             <ion-icon color="primary" name="checkmark-circle-outline"></ion-icon>
             <h2>Ordens Finalizadas</h2>

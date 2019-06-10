@@ -25,6 +25,8 @@ export class OrderPage {
   public recvData: string;
   public recvData1: string;
   public recvData2: string;
+  public recvData3: string;
+  public recvData4: string;
   constructor(
     private navCtrl: NavController,
     public navParams: NavParams,
@@ -36,6 +38,8 @@ export class OrderPage {
     this.recvData = this.navParams.get('data');
     this.recvData1 = this.navParams.get('data1');
     this.recvData2 = this.navParams.get('data2');
+    this.recvData3 = this.navParams.get('data3');
+    this.recvData4 = this.navParams.get('data4');
   }
   ionViewDidLoad() {
     let loading = this._loadingCtrl.create({
@@ -48,6 +52,29 @@ export class OrderPage {
       case 'SUPERVISOR': {
         if (this.recvData == 'assignTechnical') {
           this.orderService.listOrderByStatus().subscribe(
+            forms => {
+              this.forms = forms;
+              loading.dismiss(); //sumir o loading quando carregar o componente por completo
+            },
+            (err: HttpErrorResponse) => {
+              console.log(err);
+
+              loading.dismiss();
+
+              this._alertCtrl
+                .create({
+                  title: 'Falha na conexão',
+                  subTitle:
+                    'Não foi possível carregar a lista de Ordem de Serviços. Tente novamente mais tarde!',
+                  buttons: [{ text: 'Ok' }]
+                })
+                .present();
+            }
+          );
+          break;
+        } else if (this.recvData4 == 'listarPorStatusPendenteSupenso') {
+          console.log('switchcase listarPorStatusPendenteSupenso');
+          this.orderService.listPorStatusPendenteSupenso().subscribe(
             forms => {
               this.forms = forms;
               loading.dismiss(); //sumir o loading quando carregar o componente por completo
@@ -140,6 +167,28 @@ export class OrderPage {
                 .present();
             }
           );
+        } else if (this.recvData3 == 'ordersFinalizedByMe') {
+          console.log('entrou no ordersFinalizedByMe');
+          this.orderService.listFinalizadasPorTecnico().subscribe(
+            forms => {
+              this.forms = forms;
+              loading.dismiss(); //sumir o loading quando carregar o componente por completo
+            },
+            (err: HttpErrorResponse) => {
+              console.log(err);
+
+              loading.dismiss();
+
+              this._alertCtrl
+                .create({
+                  title: 'Falha na conexão',
+                  subTitle:
+                    'Não foi possível carregar a lista de Ordem de Serviços. Tente novamente mais tarde!',
+                  buttons: [{ text: 'Ok' }]
+                })
+                .present();
+            }
+          );
         } else {
           console.log('entrou no else normal');
           this.orderService.listTecnico().subscribe(
@@ -193,7 +242,7 @@ export class OrderPage {
         }
       }
       default: {
-        console.log('entrou no switch default');
+        alert('Algo errado não esta certo!');
         break;
       }
     }

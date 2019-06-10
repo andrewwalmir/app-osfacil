@@ -16,7 +16,7 @@
     <ng-container *ngSwitchCase="'SUPERVISOR'">
       <form #formulario01="ngForm" (ngSubmit)="saveOrder(formulario01)">
         <ion-list>
-          <div *ngIf="os.status.id == 1">
+          <div *ngIf="os.status.id == 1 || os.status.id == 5 || os.status.id == 6 ">
             <ion-item>
               <ion-label floating>Técnico:</ion-label>
               <ion-select [(ngModel)]="os.userResponsible" name="user" multiple="false">
