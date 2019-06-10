@@ -23,7 +23,6 @@ export class ValidarService {
     console.log(API_CONFIG.baseUrl);
     return this.http
       .post<UserModelDTO>(
-        //`http://18.228.104.153:8080/OSFacil_Back/api/login/validar`,
         `${API_CONFIG.baseUrl}/OSFacil_Back/api/login/validar`,
         JSON.stringify(creds),
         { headers: headers } //tirar erro cors
@@ -37,8 +36,6 @@ export class ValidarService {
 
     return this.http
       .get(`${API_CONFIG.baseUrl}/OSFacil_Back/api/login/deslogar`, {
-        //.get(`${API_CONFIG.baseUrl}/login/deslogar`, {
-        //.get(`${this.basepath}/OSFacil_Back/api/login/deslogar`, {
         headers: headers
       })
       .catch(erro => this.tratarHttpStatusBack(erro));

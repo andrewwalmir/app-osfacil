@@ -36,6 +36,7 @@ export class OrderGenericPage implements OnInit, NavLifecycles {
 
   ngOnInit() {
     this.carregarListaSetores();
+    console.log('ordergeneric');
   }
   constructor(
     public navCtrl: NavController,

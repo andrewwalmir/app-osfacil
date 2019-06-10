@@ -238,11 +238,34 @@ export class OrderPage {
                 .present();
             }
           );
-          break;
+        } else {
+          console.log('botaoMinhasOrdensFuncionarioOK');
+          this.orderService.listEmployee().subscribe(
+            forms => {
+              this.forms = forms;
+              loading.dismiss(); //sumir o loading quando carregar o componente por completo
+            },
+            (err: HttpErrorResponse) => {
+              console.log(err);
+
+              loading.dismiss();
+
+              this._alertCtrl
+                .create({
+                  title: 'Falha na conexão',
+                  subTitle:
+                    'Não foi possível carregar a lista de Ordem de Serviços. Tente novamente mais tarde!',
+                  buttons: [{ text: 'Ok' }]
+                })
+                .present();
+            }
+          );
         }
+        break;
       }
+
       default: {
-        alert('Algo errado não esta certo!');
+        console.log('erro no switch case do Order.ts');
         break;
       }
     }

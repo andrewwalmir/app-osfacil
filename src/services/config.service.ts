@@ -46,7 +46,7 @@ export class ConfigService implements OnInit {
     let headers = new HttpHeaders().append('Content-Type', 'application/json');
 
     return this.http
-      .get<UserModelDTO>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/login/checar`, {
+      .get<UserModelDTO>(`${API_CONFIG.baseUrl}/OSFacil_Back/api/login/`, {
         headers: headers
       })
       .catch(erro => this.tratarHttpStatusBack(erro));
