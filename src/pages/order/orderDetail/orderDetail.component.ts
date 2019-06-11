@@ -63,7 +63,7 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
       this.statusMati = new StatusOsModelDTO();
       this.statusMati.id = 3; //cria a OS com o status "Em Execução para tecnico poder alterar ordem"
       console.log(this.statusMati.id);
-    } else if (this.os.status.id == 4) {
+    } else if (this.os.status.id != 2 && this.os.status.id != 3) {
       console.log('deixando o StatusMati = 4');
       this.statusMati = new StatusOsModelDTO();
       this.statusMati.id = 4; //cria a OS com o status "Em Execução para tecnico poder alterar ordem"

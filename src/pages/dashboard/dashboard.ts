@@ -1,15 +1,12 @@
 import { OrderGenericPage } from './../order/orderGeneric/orderGeneric.component';
-import { UserModelDTO } from './../../models/usermodel.dto';
-import { FunctionModelDTO } from './../../models/functionModel.dto';
 import { UserPage } from '../user/user.component';
 import { NavLifecycles } from './../../utils/ionic/nav/nav-lifecycles';
 import { ConfigService } from './../../services/config.service';
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, Config } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { UserDetailPage } from '../user/userdetail/userdetail.component';
 
-import { OrderDetailPage } from '../order/orderDetail/orderDetail.component';
 import { OrderPage } from '../order/order.component';
 
 @IonicPage()
@@ -45,17 +42,17 @@ export class DashboardPage implements OnInit, NavLifecycles {
     this.navCtrl.push(OrderPage.name, { data: 'assignTechnical' });
   }
   listarPorStatusPendenteSupenso() {
-    this.navCtrl.push(OrderPage.name, { data4: 'listarPorStatusPendenteSupenso' });
+    this.navCtrl.push(OrderPage.name, { data: 'listarPorStatusPendenteSupenso' });
   }
   /* BUTTON TECNICO*/
-  listTecnico() {
+  addOrderGeneric() {
     this.navCtrl.push(OrderGenericPage.name);
   }
   ordersFinalizedByMe() {
-    this.navCtrl.push(OrderPage.name, { data3: 'ordersFinalizedByMe' });
+    this.navCtrl.push(OrderPage.name, { data: 'ordersFinalizedByMe' });
   }
   tratarOrdem() {
-    this.navCtrl.push(OrderPage.name, { data2: 'tratarOrdemTecnico' });
+    this.navCtrl.push(OrderPage.name, { data: 'tratarOrdemTecnico' });
   }
   /* BUTTON FUNCIONARIO*/
   listEmployee() {
@@ -72,6 +69,6 @@ export class DashboardPage implements OnInit, NavLifecycles {
     console.log('aaaddOrder');
   }
   listMyOrders() {
-    this.navCtrl.push(OrderPage.name, { data1: 'listMyOrdersGeneric' });
+    this.navCtrl.push(OrderPage.name, { data: 'listMyOrdersGeneric' });
   }
 }
