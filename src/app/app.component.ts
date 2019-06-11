@@ -32,8 +32,6 @@ export class MyApp {
 
     this.pages = [
       { title: 'Dashboard', component: DashboardPage.name },
-      { title: 'Ordens de Serviço', component: OrderPage.name },
-      { title: 'Usuarios', component: UserPage.name },
       { title: 'Logout', component: '' }
     ];
   }
@@ -52,7 +50,7 @@ export class MyApp {
           retorno => {
             this.configService.usuarioLogado = null;
             this.nav.setRoot(this.rootPage);
-            
+
             // this.nav.setRoot(this.navCtrl.getActive().component);
           },
           error => {

@@ -62,12 +62,10 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
       console.log('deixando o StatusMati = 3');
       this.statusMati = new StatusOsModelDTO();
       this.statusMati.id = 3; //cria a OS com o status "Em Execução para tecnico poder alterar ordem"
-      console.log(this.statusMati.id);
     } else if (this.os.status.id != 2 && this.os.status.id != 3) {
       console.log('deixando o StatusMati = 4');
       this.statusMati = new StatusOsModelDTO();
       this.statusMati.id = 4; //cria a OS com o status "Em Execução para tecnico poder alterar ordem"
-      console.log(this.statusMati.id);
     }
   }
 
@@ -82,6 +80,15 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
 
   saveOrder(formulario) {
     if (this.os.status.id == 1) {
+      let statusTemp = new StatusOsModelDTO();
+      statusTemp.id = 2; //cria a OS com o status "Aberto"
+      this.os.status = statusTemp;
+    } else if (
+      this.os.userResponsible != null &&
+      this.cargo == 'SUPERVISOR' &&
+      (this.os.status.id == 5 || this.os.status.id == 6) //logica para devolver ordem como atribuida
+    ) {
+      console.log('deu certo deixar status atribuido');
       let statusTemp = new StatusOsModelDTO();
       statusTemp.id = 2; //cria a OS com o status "Aberto"
       this.os.status = statusTemp;
