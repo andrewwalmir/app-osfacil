@@ -9,19 +9,17 @@ import { SectorModelDTO } from '../../../models/sectorModel.dto';
 import { ServiceModelDTO } from '../../../models/serviceModel';
 import { OrderPage } from '../order.component';
 import { ConfigService } from '../../../services/config.service';
-import { StatusOsModelDTO } from '../../../models/statusOsModel.dto';
-import { OrderService } from '../../../services/order.service';
 import { PriorityService } from '../../../services/priority.service';
-import { UsersService } from '../../../services/user.service';
+
 import { SectorService } from '../../../services/sector.service';
 import { ServicesService } from '../../../services/services.service';
 
 @IonicPage()
 @Component({
-  selector: 'page-orderGeneric',
-  templateUrl: 'orderGeneric.component.html'
+  selector: 'page-orderVisualization',
+  templateUrl: 'orderVisualization.component.html'
 })
-export class OrderGenericPage implements OnInit, NavLifecycles {
+export class OrderVisualizationPage implements OnInit, NavLifecycles {
   public cargo: string = this.configService.usuarioLogado.function.nameFunction;
   rootPage = OrderPage.name;
   private os: FormModelDTO;
@@ -33,50 +31,26 @@ export class OrderGenericPage implements OnInit, NavLifecycles {
   private listSectors: SectorModelDTO[] = [];
   private listServices: ServiceModelDTO[] = [];
   private listUsers: UserModelDTO[] = [];
-
-  ngOnInit() {
-    this.carregarListaSetores();
-    console.log('ordergeneric');
-  }
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private orderService: OrderService,
     private priorityService: PriorityService,
-    private usersService: UsersService,
     private servicesService: ServicesService,
-
     private sectorService: SectorService,
     private configService: ConfigService
   ) {
-    this.os = new FormModelDTO(); //se NULL recebe nova intancia
-    console.log('modo novo order2');
-    //console.log(this.os.status.id);
+    this.os = this.navParams.data;
   }
+  ngOnInit() {
+    this.carregarListaSetores();
+    console.log('orderVisualization');
+  }
+
   ionViewDidLoad?;
+
   saveOrder(formulario) {
-    console.log('else do saveOrder ');
-    // Else para criar Ordem
-    let statusTemp = new StatusOsModelDTO();
-    statusTemp.id = 1; //cria a OS com o status "Aberto"
-    this.os.status = statusTemp;
-    let requesterTemp = new UserModelDTO();
-    requesterTemp.id = this.configService.usuarioLogado.id;
-    this.os.userRequester = requesterTemp;
-
-    //Colocando estatícamente objetos obrigatórios (NOT NULL) pra ver se a caralha pelo menos salva no banco
-
-    this.orderService.saveOrder(this.os).subscribe(
-      retorno => {
-        console.log('deu certo o subscribe do saveOrder:');
-        console.log(retorno);
-        this.navCtrl.setRoot(this.rootPage);
-      },
-      error => {
-        console.log('deu pau no saveOrder');
-        console.log(error);
-      }
-    );
+    this.navCtrl.push(OrderPage.name);
+    console.log('dentro do saindoDoVisualizationForm' + this.cargo);
   }
 
   carregarListaPrioridades() {

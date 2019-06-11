@@ -1,4 +1,3 @@
-import { StatusOsModelDTO } from './../../models/statusOsModel.dto';
 import { ConfigService } from './../../services/config.service';
 import { OrderService } from './../../services/order.service';
 import { FormModelDTO } from '../../models/formModel.dto';
@@ -13,6 +12,7 @@ import {
 import { HttpErrorResponse } from '@angular/common/http';
 import { OrderDetailPage } from './orderDetail/orderDetail.component';
 import { DashboardPage } from '../dashboard/dashboard';
+import { OrderVisualizationPage } from './orderVisualization/orderVisualization.component';
 
 @IonicPage()
 @Component({
@@ -20,13 +20,11 @@ import { DashboardPage } from '../dashboard/dashboard';
   templateUrl: 'order.component.html'
 })
 export class OrderPage {
+  private order: FormModelDTO;
   private forms: FormModelDTO[];
   private cargo: string = this.configService.usuarioLogado.function.nameFunction;
   public recvData: string;
-  public recvData1: string;
-  public recvData2: string;
-  public recvData3: string;
-  public recvData4: string;
+
   constructor(
     private navCtrl: NavController,
     public navParams: NavParams,
@@ -36,10 +34,6 @@ export class OrderPage {
     private configService: ConfigService
   ) {
     this.recvData = this.navParams.get('data');
-    this.recvData1 = this.navParams.get('data1');
-    this.recvData2 = this.navParams.get('data2');
-    this.recvData3 = this.navParams.get('data3');
-    this.recvData4 = this.navParams.get('data4');
   }
   ionViewDidLoad() {
     let loading = this._loadingCtrl.create({
@@ -72,7 +66,7 @@ export class OrderPage {
             }
           );
           break;
-        } else if (this.recvData4 == 'listarPorStatusPendenteSupenso') {
+        } else if (this.recvData == 'listarPorStatusPendenteSupenso') {
           console.log('switchcase listarPorStatusPendenteSupenso');
           this.orderService.listPorStatusPendenteSupenso().subscribe(
             forms => {
@@ -122,7 +116,8 @@ export class OrderPage {
       }
       case 'TECNICO': {
         console.log('switchcase Tecnico');
-        if (this.recvData1 == 'listMyOrdersGeneric') {
+
+        if (this.recvData == 'listMyOrdersGeneric') {
           console.log('botaoMinhasOrdensTecnicoOK');
           this.orderService.listEmployee().subscribe(
             forms => {
@@ -145,7 +140,7 @@ export class OrderPage {
             }
           );
           break;
-        } else if (this.recvData2 == 'tratarOrdemTecnico') {
+        } else if (this.recvData == 'tratarOrdemTecnico') {
           console.log('entrou no tratarOrdemTecnico');
           this.orderService.listTecnico().subscribe(
             forms => {
@@ -167,7 +162,7 @@ export class OrderPage {
                 .present();
             }
           );
-        } else if (this.recvData3 == 'ordersFinalizedByMe') {
+        } else if (this.recvData == 'ordersFinalizedByMe') {
           console.log('entrou no ordersFinalizedByMe');
           this.orderService.listFinalizadasPorTecnico().subscribe(
             forms => {
@@ -191,7 +186,8 @@ export class OrderPage {
           );
         } else {
           console.log('entrou no else normal');
-          this.orderService.listTecnico().subscribe(
+          this.orderService.listEmployee().subscribe(
+            //this.orderService.listTecnico().subscribe(
             forms => {
               this.forms = forms;
               loading.dismiss(); //sumir o loading quando carregar o componente por completo
@@ -216,7 +212,7 @@ export class OrderPage {
       }
       case 'FUNCIONARIO': {
         console.log('switchcase Funcionario');
-        if (this.recvData1 == 'listMyOrdersGeneric') {
+        if (this.recvData == 'listMyOrdersGeneric') {
           console.log('botaoMinhasOrdensFuncionarioOK');
           this.orderService.listEmployee().subscribe(
             forms => {
@@ -238,18 +234,60 @@ export class OrderPage {
                 .present();
             }
           );
-          break;
+        } else {
+          console.log('botaoMinhasOrdensFuncionarioOK');
+          this.orderService.listEmployee().subscribe(
+            forms => {
+              this.forms = forms;
+              loading.dismiss(); //sumir o loading quando carregar o componente por completo
+            },
+            (err: HttpErrorResponse) => {
+              console.log(err);
+
+              loading.dismiss();
+
+              this._alertCtrl
+                .create({
+                  title: 'Falha na conexão',
+                  subTitle:
+                    'Não foi possível carregar a lista de Ordem de Serviços. Tente novamente mais tarde!',
+                  buttons: [{ text: 'Ok' }]
+                })
+                .present();
+            }
+          );
         }
+        break;
       }
+
       default: {
-        alert('Algo errado não esta certo!');
+        console.log('erro no switch case do Order.ts');
         break;
       }
     }
   }
 
   selecionaForm(form: FormModelDTO) {
-    this.navCtrl.push(OrderDetailPage.name, form);
+    this.order = form;
+    if (this.cargo == 'FUNCIONARIO' && this.order.status.id != 1) {
+      console.log('this.os.status.id' + this.order.status.id);
+      console.log('deu certo funcionario + status.id!=1 orderVisualization');
+      this.navCtrl.push(OrderVisualizationPage.name, form);
+    } else if (
+      this.recvData == 'listMyOrdersGeneric' &&
+      this.cargo == 'TECNICO' &&
+      this.order.status.id == 1
+    ) {
+      console.log('entrou no elseif selecionaForm tecnico');
+      this.navCtrl.push(OrderDetailPage.name, form);
+    } else if (this.cargo == 'TECNICO' && this.order.status.id == 4) {
+      console.log('entrou no elseif selecionaForm executado id=4');
+      this.navCtrl.push(OrderVisualizationPage.name, form);
+    } else {
+      console.log('deu else no funcionario + status.id=1 orderDetailPage');
+      this.navCtrl.push(OrderDetailPage.name, form);
+    }
+
     console.log('dentro do SelecionaForm' + this.cargo);
     console.log('selecionando Form : ' + form);
   }

@@ -35,7 +35,7 @@ export class OrderService {
   }
 
   listFinalizadasPorTecnico(id: number = this.configService.usuarioLogado.id) {
-    console.log('id do técnico logado : ');
+    console.log('id do técnico logado :  ' + id);
     return this.http.get<FormModelDTO[]>(
       `${
         API_CONFIG.baseUrl
