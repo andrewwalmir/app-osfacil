@@ -62,10 +62,19 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
       console.log('deixando o StatusMati = 3');
       this.statusMati = new StatusOsModelDTO();
       this.statusMati.id = 3; //cria a OS com o status "Em Execução para tecnico poder alterar ordem"
-    } else if (this.os.status.id != 2 && this.os.status.id != 3) {
+    } else if (
+      this.os.status.id != 2 &&
+      this.os.status.id != 3 &&
+      this.os.status.id != 1 &&
+      this.cargo != 'SUPERVISOR'
+    ) {
       console.log('deixando o StatusMati = 4');
       this.statusMati = new StatusOsModelDTO();
       this.statusMati.id = 4; //cria a OS com o status "Em Execução para tecnico poder alterar ordem"
+    } else if (this.os.status.id != 2 && this.os.status.id != 3 && this.cargo == 'SUPERVISOR') {
+      console.log('deixando o StatusMati = 1');
+      this.statusMati = new StatusOsModelDTO();
+      this.statusMati.id = 1; //cria a OS com o status "Em Execução para tecnico poder alterar ordem"
     }
   }
 
@@ -76,6 +85,7 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
   }
   ngOnInit() {
     this.carregarListaSetores();
+    console.log('orderDetail');
   }
 
   saveOrder(formulario) {

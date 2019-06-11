@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>Gerar/Editar Ordem de Serviço </ion-title>
+    <ion-title>Visualizar Ordem de Serviço </ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="closeModal()">
         <ion-icon name="close"></ion-icon>
@@ -16,6 +16,7 @@
     <ng-container *ngSwitchCase="'SUPERVISOR'">
       <form #formulario01="ngForm" (ngSubmit)="saveOrder(formulario01)">
         <ion-list>
+          
           <div *ngIf="os.status.id == 1 || os.status.id == 5 || os.status.id == 6">
             <ion-item>
               <ion-label floating>Técnico:</ion-label>
@@ -79,15 +80,14 @@
           </ion-item>
         </ion-list>
         <button [disabled]="!formulario01.valid" ion-button full block color="primary">
-          Salvar OS
+          Voltar para Lista OS
         </button>
       </form>
     </ng-container>
     <ng-container *ngSwitchCase="'TECNICO'">
       <form #formulario01="ngForm" (ngSubmit)="saveOrder(formulario01)">
         <ion-list>
-          <ng-template [ngIf]="statusMati.id == 3">
-            <div>
+          <div *ngIf="statusMati.id == 3">
               <ion-item>
                 <ion-label floating>Status:</ion-label>
                 <ion-select
@@ -102,10 +102,8 @@
                   }}</ion-option>
                 </ion-select>
               </ion-item>
-            </div></ng-template
-          >
-
-          <ion-item>
+            </div>
+            <ion-item>
             <ion-label floating>Descrever a manutenção:</ion-label>
             <ion-input
               required
@@ -158,7 +156,7 @@
           </ion-item>
         </ion-list>
         <button [disabled]="!formulario01.valid" ion-button full block color="primary">
-          Salvar OS
+          Voltar para Lista OS
         </button>
       </form>
     </ng-container>
