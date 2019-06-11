@@ -16,11 +16,13 @@
     <ng-container *ngSwitchCase="'SUPERVISOR'">
       <form #formulario01="ngForm" (ngSubmit)="saveOrder(formulario01)">
         <ion-list>
-          <div *ngIf="statusMati.id == 4">
+          <div *ngIf="statusMati.id == 4 ">
             <ion-item>
               <ion-label floating>Descrever o fechamento:</ion-label>
               <ion-input required [(ngModel)]="os.reason" type="text" name="reason"></ion-input>
             </ion-item>
+            </div>
+            <div *ngIf="statusMati.id == 1  ">
             <ion-item>
               <ion-label floating>Técnico:</ion-label>
               <ion-select required [(ngModel)]="os.userResponsible" name="user" multiple="false">
@@ -29,7 +31,7 @@
                 }}</ion-option>
               </ion-select>
             </ion-item>
-          </div>
+</div>
           <ion-item>
             <ion-label floating>Descrever a manutenção: </ion-label>
             <ion-input
