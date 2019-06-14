@@ -274,8 +274,8 @@ export class OrderPage {
       console.log('deu certo funcionario + status.id!=1 orderVisualization');
       this.navCtrl.push(OrderVisualizationPage.name, form);
     } else if (
-      this.recvData == 'listMyOrdersGeneric' &&
       this.cargo == 'TECNICO' &&
+      this.recvData == 'listMyOrdersGeneric' &&
       this.order.status.id == 1
     ) {
       console.log('entrou no elseif selecionaForm tecnico');
@@ -283,12 +283,15 @@ export class OrderPage {
     } else if (this.cargo == 'TECNICO' && this.order.status.id == 4) {
       console.log('entrou no elseif selecionaForm executado id=4');
       this.navCtrl.push(OrderVisualizationPage.name, form);
+    } else if (this.cargo == 'SUPERVISOR' && this.order.status.id == 2) {
+      console.log('deu elseIF no supervisor + status.id=2 orderDetailPage');
+      this.navCtrl.push(OrderDetailPage.name, form);
     } else {
       console.log('deu else no funcionario + status.id=1 orderDetailPage');
       this.navCtrl.push(OrderDetailPage.name, form);
     }
 
-    console.log('dentro do SelecionaForm' + this.cargo);
+    console.log('dentro do SelecionaForm   ' + this.cargo);
     console.log('selecionando Form : ' + form);
   }
 

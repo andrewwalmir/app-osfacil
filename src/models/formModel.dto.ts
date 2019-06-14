@@ -7,6 +7,7 @@ import { StatusOsModelDTO } from './statusOsModel.dto';
 
 export class FormModelDTO {
   id: number;
+  image: string;
   dateopen: Date;
   description: string;
   reason: string;

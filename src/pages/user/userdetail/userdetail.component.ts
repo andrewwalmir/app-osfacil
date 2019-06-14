@@ -10,6 +10,7 @@ import { FunctionService } from '../../../services/function.service';
 import { UserPage } from '../user.component';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { DashboardPage } from '../../dashboard/dashboard';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 @IonicPage()
 @Component({
   selector: 'page-userdetail',
@@ -30,7 +31,8 @@ export class UserDetailPage implements OnInit, NavLifecycles {
     private functionService: FunctionService,
     private userService: UsersService,
     private configService: ConfigService,
-    private _loadingCtrl: LoadingController
+    private _loadingCtrl: LoadingController,
+    private camera: Camera
   ) {}
   //https://cursos.alura.com.br/course/ionic3-parte1/task/33246
   ionViewDidLoad() {
@@ -117,4 +119,28 @@ export class UserDetailPage implements OnInit, NavLifecycles {
     return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }
   //pra poder rolar o select mostrar o que veio no json
+
+  public tirarFoto() {
+    const options: CameraOptions = {
+      quality: 10,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    };
+
+    this.camera.getPicture(options).then(
+      imageData => {
+        // imageData is either a base64 encoded string or a file URI
+        // If it's base64:
+        let base64Image = 'data:image/jpeg;base64,' + imageData;
+
+        this.userform.foto = base64Image;
+
+        console.log(base64Image);
+      },
+      err => {
+        // Handle error
+      }
+    );
+  }
 }

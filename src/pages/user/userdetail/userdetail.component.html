@@ -58,7 +58,8 @@
 
       <ion-item>
         <ion-label floating>Setor:</ion-label>
-        <ion-select required
+        <ion-select
+          required
           [compareWith]="comparacaoDeId"
           [(ngModel)]="userform.sector"
           name="sector"
@@ -69,6 +70,11 @@
           >
         </ion-select>
       </ion-item>
+      <ion-item (click)="tirarFoto()">
+        <ion-label>Foto da camera</ion-label>
+        <ion-icon name="reverse-camera"> TESTE</ion-icon>
+      </ion-item>
+
       <button [disabled]="!formulario02.valid" ion-button full block color="primary">Enviar</button>
     </ion-list>
   </form>

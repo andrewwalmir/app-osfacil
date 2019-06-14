@@ -12,7 +12,7 @@ import { LoginModelDTO } from '../../models/loginModel.dto';
   selector: 'page-login',
   templateUrl: 'login.html'
 })
-export class LoginPage  {
+export class LoginPage implements NavLifecycles {
   creds: LoginModelDTO = new LoginModelDTO();
 
   constructor(
@@ -23,7 +23,7 @@ export class LoginPage  {
     public configService: ConfigService
   ) {}
 
-  
+  ionViewDidLoad?;
 
   ionViewWillEnter() {
     this.menu.swipeEnable(false);
