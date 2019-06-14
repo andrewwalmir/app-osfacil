@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { NavLifecycles } from '../../../utils/ionic/nav/nav-lifecycles';
 import { DashboardPage } from '../../dashboard/dashboard';
@@ -25,6 +26,7 @@ export class OrderGenericPage implements OnInit, NavLifecycles {
   public cargo: string = this.configService.usuarioLogado.function.nameFunction;
   rootPage = OrderPage.name;
   private os: FormModelDTO;
+
   private user: UserModelDTO;
   private priority: PriorityOSModel[];
   private sectors: SectorModelDTO[];
@@ -43,9 +45,8 @@ export class OrderGenericPage implements OnInit, NavLifecycles {
     public navParams: NavParams,
     private orderService: OrderService,
     private priorityService: PriorityService,
-    private usersService: UsersService,
     private servicesService: ServicesService,
-
+    private camera: Camera,
     private sectorService: SectorService,
     private configService: ConfigService
   ) {
@@ -115,6 +116,30 @@ export class OrderGenericPage implements OnInit, NavLifecycles {
       }
     );
   }
+  takePicture() {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    };
+
+    this.camera.getPicture(options).then(
+      imageData => {
+        // imageData is either a base64 encoded string or a file URI
+        // If it's base64:
+        let base64Image = 'data:image/jpeg;base64,' + imageData;
+
+        this.os.image = base64Image;
+
+        console.log(base64Image);
+      },
+      err => {
+        // Handle error
+      }
+    );
+  }
+
   comparacaoDeIdOrder(c1, c2): boolean {
     return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }

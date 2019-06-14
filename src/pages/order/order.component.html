@@ -20,17 +20,28 @@
         {{ form.priority.priorityName }}
       </h2>
       <p><b>Abertura:</b> {{ form.dateopen | date: 'dd/MM/yyyy HH:mm:ss' }}</p>
+      <div *ngIf="form.dateclose != null">
+        <p><b>Encerramento:</b> {{ form.dateclose | date: 'dd/MM/yyyy HH:mm:ss' }}</p>
+      </div>
+
       <p><b>Status:</b> {{ form.status.nameStatus }}</p>
     </ion-item>
     <ion-card-content>
       <b>Descrição:</b>
       <p>{{ form.description }}</p>
+      <!-- <p><b>Foto: </b> <img [src]="form.image" /></p>-->
     </ion-card-content>
     <ion-row>
       <ion-col>
         <button ion-button icon-start clear small>
           <ion-icon name="person"></ion-icon>
-          <div><b>Solicitante:</b> {{ form.userRequester.nome }}</div>
+          <div>
+            <b>Solicitante:</b> {{ form.userRequester.nome }}
+            <div *ngIf="form.userResponsible != null">
+              <ion-icon name="construct" color="tertiary"></ion-icon>
+              <b>Técnico:</b> {{ form.userResponsible.nome }}
+            </div>
+          </div>
         </button>
       </ion-col>
     </ion-row>

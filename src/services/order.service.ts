@@ -23,14 +23,14 @@ export class OrderService {
 
   listOrder() {
     return this.http.get<FormModelDTO[]>(
-      `${API_CONFIG.baseUrl}/OSFacil_Back/api/form/listar?pagina=1&limitePorPagina=20`
+      `${API_CONFIG.baseUrl}/OSFacil_Back/api/form/listar?pagina=1&limitePorPagina=100`
     );
   }
   listPorStatusPendenteSupenso() {
     return this.http.get<FormModelDTO[]>(
       `${
         API_CONFIG.baseUrl
-      }/OSFacil_Back/api/form/listarPorStatusPendenteSupenso?statusid=5&statusid1=6&pagina=1&limitePorPagina=20`
+      }/OSFacil_Back/api/form/listarPorStatusPendenteSupenso?statusid=5&statusid1=6&pagina=1&limitePorPagina=100`
     );
   }
 
@@ -39,7 +39,7 @@ export class OrderService {
     return this.http.get<FormModelDTO[]>(
       `${
         API_CONFIG.baseUrl
-      }/OSFacil_Back/api/form/listarPorStatusEUsuario?statusid=4&usuarioid=${id}&pagina=1&limitePorPagina=20`
+      }/OSFacil_Back/api/form/listarPorStatusEUsuario?statusid=4&usuarioid=${id}&pagina=1&limitePorPagina=100`
       //
     );
   }
@@ -48,14 +48,14 @@ export class OrderService {
     return this.http.get<FormModelDTO[]>(
       `${
         API_CONFIG.baseUrl
-      }/OSFacil_Back/api/form/listarPor2StatusEUsuario?statusid=2&statusid1=3&usuarioid=${id}&pagina=1&limitePorPagina=20`
+      }/OSFacil_Back/api/form/listarPor2StatusEUsuario?statusid=2&statusid1=3&usuarioid=${id}&pagina=1&limitePorPagina=100`
     );
   }
   listOrderByStatus() {
     return this.http.get<FormModelDTO[]>(
       `${
         API_CONFIG.baseUrl
-      }/OSFacil_Back/api/form/listarPorStatus?statusid=1&pagina=1&limitePorPagina=20`
+      }/OSFacil_Back/api/form/listarPorStatus?statusid=1&pagina=1&limitePorPagina=100`
     );
   }
   listEmployee(id: number = this.configService.usuarioLogado.id) {
@@ -63,7 +63,7 @@ export class OrderService {
     return this.http.get<FormModelDTO[]>(
       `${
         API_CONFIG.baseUrl
-      }/OSFacil_Back/api/form/listarPorFuncionario?id=${id}&pagina=1&limitePorPagina=20`
+      }/OSFacil_Back/api/form/listarPorFuncionario?id=${id}&pagina=1&limitePorPagina=100`
     );
   }
   saveOrder(os: FormModelDTO): Observable<boolean> {

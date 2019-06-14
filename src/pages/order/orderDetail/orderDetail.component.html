@@ -16,13 +16,13 @@
     <ng-container *ngSwitchCase="'SUPERVISOR'">
       <form #formulario01="ngForm" (ngSubmit)="saveOrder(formulario01)">
         <ion-list>
-          <div *ngIf="statusMati.id == 4 ">
+          <div *ngIf="statusMati?.id == 4">
             <ion-item>
               <ion-label floating>Descrever o fechamento:</ion-label>
               <ion-input required [(ngModel)]="os.reason" type="text" name="reason"></ion-input>
             </ion-item>
             </div>
-            <div *ngIf="statusMati.id == 1  ">
+            <div *ngIf="statusMati?.id == 1">
             <ion-item>
               <ion-label floating>Técnico:</ion-label>
               <ion-select required [(ngModel)]="os.userResponsible" name="user" multiple="false">
@@ -91,7 +91,7 @@
     </ng-container>
     <ng-container *ngSwitchCase="'TECNICO'">
 
-      <div *ngIf="statusMati.id == 3; else elseBlock">
+      <div *ngIf="statusMati?.id == 3; else elseBlock">
         <form #formulario01="ngForm" (ngSubmit)="saveOrder(formulario01)">
           <ion-list>
             <ion-item>
@@ -229,7 +229,6 @@ required
           </button>
           </form>
       </ng-template>
-
     </ng-container>
     <ng-container *ngSwitchCase="'FUNCIONARIO'">
       <form #formulario01="ngForm" (ngSubmit)="saveOrder(formulario01)">

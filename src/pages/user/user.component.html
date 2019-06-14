@@ -10,19 +10,16 @@
 </ion-header>
 
 <ion-content padding>
-
   <ion-card *ngFor="let user of users" (click)="selecionaUser(user)">
     <ion-item>
-      <h2>
-        <ion-icon name="person"></ion-icon> {{ user.nome }}
-      </h2>
+      <h2><ion-icon name="person"></ion-icon> {{ user.nome }}</h2>
     </ion-item>
     <ion-card-content>
       <p><b>Login: </b> {{ user.login }}</p>
       <p><b>Setor: </b> {{ user.sector.nameSector }}</p>
+      <p><b>Foto: </b> <img [src]="user.foto" /></p>
     </ion-card-content>
   </ion-card>
-  
 
   <!--
   <ion-list>
@@ -34,5 +31,4 @@
     </ion-item>
   </ion-list>
 -->
-
 </ion-content>

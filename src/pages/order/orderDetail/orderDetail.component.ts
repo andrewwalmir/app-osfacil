@@ -58,23 +58,34 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
     private _alertCtrl: AlertController
   ) {
     this.os = this.navParams.data;
-    if (this.os.status.id == 2 || this.os.status.id == 3) {
-      console.log('deixando o StatusMati = 3');
+    if (this.cargo == 'TECNICO') {
+      if (this.os.status.id == 2 || this.os.status.id == 3) {
+        /* ----------------------------------------------
+            
+        */
+        console.log('deixando o StatusMati = 3');
+        this.statusMati = new StatusOsModelDTO();
+        this.statusMati.id = 3; //cria a OS com o status "Em Execução para tecnico poder alterar ordem"
+      } else if (this.os.status.id == 1) {
+        console.log('deixando o StatusMati = 4');
+        this.statusMati = new StatusOsModelDTO();
+        this.statusMati.id = 4; //cria a OS com o status "Em Execução para tecnico poder alterar ordem"
+      }
+    }
+    if (this.cargo == 'SUPERVISOR') {
+      if (this.os.status.id != 2 && this.os.status.id != 3 && this.os.status.id != 1) {
+        console.log('deixando o StatusMati = 4');
+        this.statusMati = new StatusOsModelDTO();
+        this.statusMati.id = 4; //cria a OS com o status "Em Execução para tecnico poder alterar ordem"
+      } else if (this.os.status.id != 2 && this.os.status.id != 3) {
+        console.log('deixando o StatusMati = 1');
+        this.statusMati = new StatusOsModelDTO();
+        this.statusMati.id = 1; //cria a OS com o status "Em Execução para tecnico poder alterar ordem"
+      }
+    } else {
+      console.log('else deixando o StatusMati = 1');
       this.statusMati = new StatusOsModelDTO();
       this.statusMati.id = 3; //cria a OS com o status "Em Execução para tecnico poder alterar ordem"
-    } else if (
-      this.os.status.id != 2 &&
-      this.os.status.id != 3 &&
-      this.os.status.id != 1 &&
-      this.cargo != 'SUPERVISOR'
-    ) {
-      console.log('deixando o StatusMati = 4');
-      this.statusMati = new StatusOsModelDTO();
-      this.statusMati.id = 4; //cria a OS com o status "Em Execução para tecnico poder alterar ordem"
-    } else if (this.os.status.id != 2 && this.os.status.id != 3 && this.cargo == 'SUPERVISOR') {
-      console.log('deixando o StatusMati = 1');
-      this.statusMati = new StatusOsModelDTO();
-      this.statusMati.id = 1; //cria a OS com o status "Em Execução para tecnico poder alterar ordem"
     }
   }
 
@@ -89,7 +100,7 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
   }
 
   saveOrder(formulario) {
-    if (this.os.status.id == 1) {
+    if (this.cargo == 'SUPERVISOR' && this.os.status.id == 1) {
       let statusTemp = new StatusOsModelDTO();
       statusTemp.id = 2; //cria a OS com o status "Aberto"
       this.os.status = statusTemp;
@@ -105,7 +116,12 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
     }
     this.orderService.updateOrder(this.os).subscribe(
       retorno => {
-        this.navCtrl.setRoot(this.rootPage);
+        if (this.cargo == 'TECNICO') {
+          this.navCtrl.setRoot(this.rootPage, { data: 'tratarOrdemTecnico' });
+        } else {
+          this.navCtrl.setRoot(this.rootPage);
+          console.log('StatusDaOrdem:  ' + this.os.status.id);
+        }
       },
       error => {
         console.log(error);

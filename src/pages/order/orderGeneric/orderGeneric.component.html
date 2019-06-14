@@ -61,6 +61,10 @@
           }}</ion-option>
         </ion-select>
       </ion-item>
+      <ion-item (click)="takePicture()">
+        <ion-label>Adicionar Foto</ion-label>
+        <ion-icon name="reverse-camera">Add</ion-icon>
+      </ion-item>
     </ion-list>
     <button [disabled]="!formulario01.valid" ion-button full block color="primary">
       Salvar OS

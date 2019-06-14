@@ -28,7 +28,7 @@ export class DashboardPage implements OnInit, NavLifecycles {
     public configService: ConfigService
   ) {}
 
-  ionViewDidLoad;
+  ionViewDidLoad?;
 
   /* BUTTON SUPERVISOR*/
   metodoUserDetail() {
