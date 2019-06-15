@@ -77,6 +77,10 @@
               }}</ion-option>
             </ion-select>
           </ion-item>
+
+              <div *ngIf="os.foto">
+            <p><b>Foto: </b> <img [src]="os.foto" /></p>
+</div>
         </ion-list>
         <button [disabled]="!formulario01.valid" ion-button full block color="primary">
           Voltar para Lista OS
@@ -153,6 +157,10 @@
               }}</ion-option>
             </ion-select>
           </ion-item>
+
+              <div *ngIf="os.foto">
+            <p><b>Foto: </b> <img [src]="os.foto" /></p>
+</div>
         </ion-list>
         <button [disabled]="!formulario01.valid" ion-button full block color="primary">
           Voltar para Lista OS
@@ -213,6 +221,10 @@
               }}</ion-option>
             </ion-select>
           </ion-item>
+
+              <div *ngIf="os.foto">
+            <p><b>Foto: </b> <img [src]="os.foto" /></p>
+</div>
         </ion-list>
         <button [disabled]="!formulario01.valid" ion-button full block color="primary">
           Voltar para listar OS

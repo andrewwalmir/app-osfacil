@@ -61,7 +61,7 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
     if (this.cargo == 'TECNICO') {
       if (this.os.status.id == 2 || this.os.status.id == 3) {
         /* ----------------------------------------------
-            
+
         */
         console.log('deixando o StatusMati = 3');
         this.statusMati = new StatusOsModelDTO();
@@ -77,10 +77,6 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
         console.log('deixando o StatusMati = 4');
         this.statusMati = new StatusOsModelDTO();
         this.statusMati.id = 4; //cria a OS com o status "Em Execução para tecnico poder alterar ordem"
-      } else if (this.os.status.id != 2 && this.os.status.id != 3) {
-        console.log('deixando o StatusMati = 1');
-        this.statusMati = new StatusOsModelDTO();
-        this.statusMati.id = 1; //cria a OS com o status "Em Execução para tecnico poder alterar ordem"
       }
     } else {
       console.log('else deixando o StatusMati = 1');
@@ -116,6 +112,11 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
     }
     this.orderService.updateOrder(this.os).subscribe(
       retorno => {
+        if (this.cargo == 'SUPERVISOR') {
+          this.navCtrl.setRoot(this.rootPage, {
+            data: 'listarPorStatusPendenteSupenso'
+          });
+        }
         if (this.cargo == 'TECNICO') {
           this.navCtrl.setRoot(this.rootPage, { data: 'tratarOrdemTecnico' });
         } else {
