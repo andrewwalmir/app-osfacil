@@ -16,6 +16,7 @@ export class UserModelDTO {
   formRequester: FormModelDTO[];
   function: FunctionModelDTO;
   sector: SectorModelDTO;
+  active: boolean;
 
   /*
   *

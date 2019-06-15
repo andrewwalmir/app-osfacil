@@ -118,7 +118,7 @@ export class OrderGenericPage implements OnInit, NavLifecycles {
   }
   takePicture() {
     const options: CameraOptions = {
-      quality: 100,
+      quality: 20,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
@@ -130,7 +130,7 @@ export class OrderGenericPage implements OnInit, NavLifecycles {
         // If it's base64:
         let base64Image = 'data:image/jpeg;base64,' + imageData;
 
-        this.os.image = base64Image;
+        this.os.foto = base64Image;
 
         console.log(base64Image);
       },

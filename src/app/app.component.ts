@@ -48,10 +48,8 @@ export class MyApp {
       case 'Logout':
         this.validar.logout().subscribe(
           retorno => {
-            this.configService.usuarioLogado = null;
+            //this.configService.usuarioLogado = null;
             this.nav.setRoot(this.rootPage);
-
-            // this.nav.setRoot(this.navCtrl.getActive().component);
           },
           error => {
             console.log(error);

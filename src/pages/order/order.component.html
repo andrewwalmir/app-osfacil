@@ -16,11 +16,14 @@
   <ion-card *ngFor="let form of forms" (click)="selecionaForm(form)">
     <ion-item>
       <h2>
-        <b>ID: </b>{{ form.id }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Prioridade:</b>
+        <b>ID: </b>{{ form.id }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Prioridade:</b>
         {{ form.priority.priorityName }}
       </h2>
+      <div *ngIf="form?.foto">
+        <ion-icon name="image"> </ion-icon>
+      </div>
       <p><b>Abertura:</b> {{ form.dateopen | date: 'dd/MM/yyyy HH:mm:ss' }}</p>
-      <div *ngIf="form.dateclose != null">
+      <div *ngIf="form?.dateclose">
         <p><b>Encerramento:</b> {{ form.dateclose | date: 'dd/MM/yyyy HH:mm:ss' }}</p>
       </div>
 
@@ -29,7 +32,6 @@
     <ion-card-content>
       <b>Descrição:</b>
       <p>{{ form.description }}</p>
-      <!-- <p><b>Foto: </b> <img [src]="form.image" /></p>-->
     </ion-card-content>
     <ion-row>
       <ion-col>
@@ -37,7 +39,7 @@
           <ion-icon name="person"></ion-icon>
           <div>
             <b>Solicitante:</b> {{ form.userRequester.nome }}
-            <div *ngIf="form.userResponsible != null">
+            <div *ngIf="form?.userResponsible">
               <ion-icon name="construct" color="tertiary"></ion-icon>
               <b>Técnico:</b> {{ form.userResponsible.nome }}
             </div>

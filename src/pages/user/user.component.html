@@ -17,18 +17,7 @@
     <ion-card-content>
       <p><b>Login: </b> {{ user.login }}</p>
       <p><b>Setor: </b> {{ user.sector.nameSector }}</p>
-      <p><b>Foto: </b> <img [src]="user.foto" /></p>
+      <!--  <p><b>Foto: </b> <img [src]="user.foto" /></p>-->
     </ion-card-content>
   </ion-card>
-
-  <!--
-  <ion-list>
-    <ion-item *ngFor="let user of users" (click)="selecionaUser(user)" flex-wrap: nowrap>
-      <h2>Nome: {{ user.nome }}</h2>
-      <h2>Login: {{ user.login }}</h2>
-      <p>Função: {{ user.function.nameFunction }}</p>
-      <p>Setor: {{ user.sector.nameSector }}</p>
-    </ion-item>
-  </ion-list>
--->
 </ion-content>

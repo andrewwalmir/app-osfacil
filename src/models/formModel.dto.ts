@@ -20,7 +20,7 @@ export class FormModelDTO {
   service: ServiceModelDTO;
   priority: PriorityOSModel;
   status: StatusOsModelDTO;
-
+ foto : string;
   /*
 
 	id: number;
