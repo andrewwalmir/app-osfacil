@@ -1,7 +1,8 @@
 nvm use 6.17.0
 npm install
-npm install angular2-jwt
+npm install angular2-jwt  && npm install ts-md5
 ionic serve
+import { Md5 } from 'ts-md5/dist/md5';
 
 ionic cordova plugin remove cordova-plugin-whitelist
 nvm use 8.15.1

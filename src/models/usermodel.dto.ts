@@ -17,28 +17,4 @@ export class UserModelDTO {
   function: FunctionModelDTO;
   sector: SectorModelDTO;
   active: boolean;
-
-  /*
-  *
-            @JsonIgnoreProperties("user") // quando é RESTFul precisa desta annotation
-            @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-            private List<ActionModel> action;// correto professor
-            @JsonIgnoreProperties("userResponsible") // quando é RESTFul precisa desta annotation
-            @OneToMany(mappedBy = "userResponsible", fetch = FetchType.LAZY)
-            private List<FormModel> formResponsible;// correto
-            @JsonIgnoreProperties("userRequester") // quando é RESTFul precisa desta annotation
-            @OneToMany(mappedBy = "userRequester", fetch = FetchType.LAZY)
-            private List<FormModel> formRequester;// correto
-
-            @JsonIgnoreProperties("users")
-            @ManyToOne
-            @JoinColumn(name = "function_id", nullable = false) // an
-            private FunctionModel function;
-
-            @JsonIgnoreProperties("users")
-            @ManyToOne
-            @JoinColumn(name = "sector_id", nullable = true)
-            private SectorModel sector;
-
-  */
 }

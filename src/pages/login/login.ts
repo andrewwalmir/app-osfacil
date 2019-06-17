@@ -3,7 +3,7 @@ import { ConfigService } from './../../services/config.service';
 import { ValidarService } from './../../services/validar.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { Md5 } from 'ts-md5/dist/md5';
 import { MenuController } from 'ionic-angular/components/app/menu-controller';
 import { LoginModelDTO } from '../../models/loginModel.dto';
 

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>Gerar/Editar Ordem de Serviço </ion-title>
+    <ion-title>Add/Editar Ordem de Serviço </ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="closeModal()">
         <ion-icon name="close"></ion-icon>
@@ -16,11 +16,13 @@
     <ng-container *ngSwitchCase="'SUPERVISOR'">
       <form #formulario01="ngForm" (ngSubmit)="saveOrder(formulario01)">
         <ion-list>
-          <div *ngIf="statusMati?.id == 4">
+          <div *ngIf="os.status.id !=1">
             <ion-item>
               <ion-label floating>Descrever o fechamento:</ion-label>
               <ion-input required [(ngModel)]="os.reason" type="text" name="reason"></ion-input>
             </ion-item>
+</div>
+          <div *ngIf="statusMati?.id == 3">
             <ion-item>
               <ion-label floating>Técnico:</ion-label>
               <ion-select required [(ngModel)]="os.userResponsible" name="user" multiple="false">
@@ -82,9 +84,15 @@
             </ion-select>
           </ion-item>
 
+   <div *ngIf="os.foto">
+          <ion-item (click)="takePicture()" no-line>
+        <ion-icon name="camera">Add</ion-icon>
+      </ion-item>
+            </div>
+
           <div *ngIf="os.foto">
             <p><b>Foto: </b> <img [src]="os.foto" /></p>
-</div>
+          </div>
         </ion-list>
         <button [disabled]="!formulario01.valid" ion-button full block color="primary">
           Editar OS
@@ -95,24 +103,27 @@
       <div *ngIf="statusMati?.id == 3; else elseBlock">
         <form #formulario01="ngForm" (ngSubmit)="saveOrder(formulario01)">
           <ion-list>
-            <ion-item>
-              <ion-label floating>Descrever o fechamento:</ion-label>
-              <ion-input [(ngModel)]="os.reason" type="text" name="reason"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label floating>Status:</ion-label>
-              <ion-select
-                required
-                [(ngModel)]="os.status"
-                name="status"
-                multiple="false"
-                [compareWith]="comparacaoDeIdOrder"
-              >
-                <ion-option *ngFor="let status of listStatus" [value]="status">{{
-                  status.nameStatus
-                }}</ion-option>
-              </ion-select>
-            </ion-item>
+            <div *ngIf="os.status.id != 1">
+              <ion-item>
+                <ion-label floating>Descrever o fechamento:</ion-label>
+                <ion-input [(ngModel)]="os.reason" type="text" name="reason"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label floating>Status:</ion-label>
+                <ion-select
+                  required
+                  [(ngModel)]="os.status"
+                  name="status"
+                  multiple="false"
+                  [compareWith]="comparacaoDeIdOrder"
+                >
+                  <ion-option *ngFor="let status of listStatus" [value]="status">{{
+                    status.nameStatus
+                  }}</ion-option>
+                </ion-select>
+              </ion-item>
+            </div>
             <ion-item>
               <ion-label floating>Descrever a manutenção:</ion-label>
               <ion-input
@@ -164,12 +175,19 @@
                 }}</ion-option>
               </ion-select>
             </ion-item>
-                <div *ngIf="os.foto">
-            <p><b>Foto: </b> <img [src]="os.foto" /></p>
-</div>
+
+            <div *ngIf="os.foto">
+          <ion-item (click)="takePicture()" no-line>
+        <ion-icon name="camera">Add</ion-icon>
+      </ion-item>
+            </div>
+
+            <div *ngIf=" <div *ngIf="os.foto">" no-line>
+              <p><b>Foto: </b> <img [src]="os.foto" /></p>
+            </div>
           </ion-list>
           <button [disabled]="!formulario01.valid" ion-button full block color="primary">
-            Salvar OS
+            Editar OS
           </button>
         </form>
       </div>
@@ -227,9 +245,15 @@
                 }}</ion-option>
               </ion-select>
             </ion-item>
-                <div *ngIf="os.foto">
-            <p><b>Foto: </b> <img [src]="os.foto" /></p>
-</div>
+            <div *ngIf="os.foto">
+          <ion-item (click)="takePicture()" no-line>
+        <ion-icon name="camera">Add</ion-icon>
+      </ion-item>
+            </div>
+
+            <div *ngIf="os.foto">
+              <p><b>Foto: </b> <img [src]="os.foto" /></p>
+            </div>
           </ion-list>
           <button [disabled]="!formulario01.valid" ion-button full block color="primary">
             Salvar OS
@@ -291,9 +315,14 @@
               }}</ion-option>
             </ion-select>
           </ion-item>
-              <div *ngIf="os.foto">
+ <div *ngIf="os.foto">
+          <ion-item (click)="takePicture()" no-line>
+        <ion-icon name="camera">Add</ion-icon>
+      </ion-item>
+      </div>
+          <div *ngIf="os.foto">
             <p><b>Foto: </b> <img [src]="os.foto" /></p>
-</div>
+          </div>
         </ion-list>
         <button [disabled]="!formulario01.valid" ion-button full block color="primary">
           Salvar OS

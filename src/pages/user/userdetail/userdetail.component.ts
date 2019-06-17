@@ -1,5 +1,7 @@
+import { ChangePassModelDTO } from './../../../models/changePass.dto';
 import { UserModelDTO } from '../../../models/usermodel.dto';
 import { UsersService } from '../../../services/user.service';
+import { ToastController } from 'ionic-angular';
 import { Component, OnInit } from '@angular/core';
 import { FunctionModelDTO } from '../../../models/functionModel.dto';
 import { ConfigService } from '../../../services/config.service';
@@ -18,7 +20,9 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 })
 export class UserDetailPage implements OnInit, NavLifecycles {
   rootPage = UserPage.name;
+  private recvData: string;
   private userform: UserModelDTO;
+  private changePass: ChangePassModelDTO;
   private functions: FunctionModelDTO[];
   private sectors: SectorModelDTO[];
   private listFunctions: FunctionModelDTO[] = [];
@@ -26,6 +30,7 @@ export class UserDetailPage implements OnInit, NavLifecycles {
 
   constructor(
     private navCtrl: NavController,
+    private toastCtrl: ToastController,
     private navParams: NavParams,
     private sectorService: SectorService,
     private functionService: FunctionService,
@@ -33,7 +38,10 @@ export class UserDetailPage implements OnInit, NavLifecycles {
     private configService: ConfigService,
     private _loadingCtrl: LoadingController,
     private camera: Camera
-  ) {}
+  ) {
+    this.recvData = this.navParams.get('data');
+    console.log('data chegou assim : ' + this.recvData);
+  }
   //https://cursos.alura.com.br/course/ionic3-parte1/task/33246
   ionViewDidLoad() {
     let loading = this._loadingCtrl.create({
@@ -51,7 +59,7 @@ export class UserDetailPage implements OnInit, NavLifecycles {
       console.log('modo novo  usuário');
       this.userform = new UserModelDTO();
     }
-
+    this.changePass = new ChangePassModelDTO();
     this.carregarListaSetores();
   }
 
@@ -83,7 +91,6 @@ export class UserDetailPage implements OnInit, NavLifecycles {
     console.log('vamos ver como estáá o objeto user:');
     console.log(this.userform);
     if (this.userform.id > 0) {
-      //alteração
       console.log('alterando no bd');
       this.userService.updateUser(this.userform).subscribe(
         retorno => {
@@ -103,6 +110,7 @@ export class UserDetailPage implements OnInit, NavLifecycles {
           console.log('deu certo o subscribe do saveUser:');
           console.log(retorno);
           this.navCtrl.setRoot(this.rootPage);
+          this.presentToast();
         },
         error => {
           console.log('deu pau no saveUser');
@@ -110,6 +118,38 @@ export class UserDetailPage implements OnInit, NavLifecycles {
         }
       );
     }
+  }
+  alterSenha(formulario) {
+    if (this.changePass.senha == this.changePass.senha1) {
+      this.userform = this.configService.usuarioLogado;
+      this.userform.senha = this.changePass.senha;
+      console.log('entrou no if alterSenha' + this.userform.senha);
+      this.userService.updateUser(this.userform).subscribe(
+        retorno => {
+          console.log(retorno);
+          this.navCtrl.setRoot(this.rootPage);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    } else {
+      alert('As senhas não são iguais!');
+    }
+  }
+
+  presentToast() {
+    let toast = this.toastCtrl.create({
+      message: 'Usuario criado com sucesso',
+      duration: 1500,
+      position: 'middle'
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
   }
   closeModal() {
     this.navCtrl.setRoot(DashboardPage.name);

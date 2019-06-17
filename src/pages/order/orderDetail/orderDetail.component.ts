@@ -10,7 +10,7 @@ import { UserModelDTO } from '../../../models/usermodel.dto';
 import { ServiceModelDTO } from '../../../models/serviceModel';
 import { SectorModelDTO } from '../../../models/sectorModel.dto';
 import { PriorityOSModel } from '../../../models/priorityOsModel.dto';
-
+import { Camera, CameraOptions } from '@ionic-native/camera';
 import { OrderService } from '../../../services/order.service';
 import { Component, OnInit } from '@angular/core';
 import {
@@ -47,6 +47,7 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
   constructor(
     private navCtrl: NavController,
     private orderService: OrderService,
+    private camera: Camera,
     private statusService: StatusService,
     private priorityService: PriorityService,
     private servicesService: ServicesService,
@@ -73,18 +74,21 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
       }
     }
     if (this.cargo == 'SUPERVISOR') {
-      if (this.os.status.id != 2 && this.os.status.id != 3 && this.os.status.id != 1) {
+      if (this.os.status.id == 1) {
+        console.log('deixando o StatusMati = 3');
+        this.statusMati = new StatusOsModelDTO();
+        this.statusMati.id = 3; //cria a OS com o status "Em Execução para tecnico poder alterar ordem"
+      } else if (this.os.status.id != 2 && this.os.status.id != 3 && this.os.status.id != 1) {
         console.log('deixando o StatusMati = 4');
         this.statusMati = new StatusOsModelDTO();
         this.statusMati.id = 4; //cria a OS com o status "Em Execução para tecnico poder alterar ordem"
+      } else {
+        console.log('else deixando o StatusMati = 3');
+        this.statusMati = new StatusOsModelDTO();
+        this.statusMati.id = 3; //cria a OS com o status "Em Execução para tecnico poder alterar ordem"
       }
-    } else {
-      console.log('else deixando o StatusMati = 1');
-      this.statusMati = new StatusOsModelDTO();
-      this.statusMati.id = 3; //cria a OS com o status "Em Execução para tecnico poder alterar ordem"
     }
   }
-
   ionViewDidLoad() {
     let loading = this._loadingCtrl.create({
       content: 'Carregando Pagina, Aguarde...'
@@ -117,8 +121,12 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
             data: 'listarPorStatusPendenteSupenso'
           });
         }
-        if (this.cargo == 'TECNICO') {
+        if (this.cargo == 'TECNICO' && this.statusMati.id == 3) {
+          this.navCtrl.setRoot(this.rootPage, { data: 'listMyOrders' });
+          console.log('saveOrder Tecnico passando listMyOrders');
+        } else if (this.cargo == 'TECNICO') {
           this.navCtrl.setRoot(this.rootPage, { data: 'tratarOrdemTecnico' });
+          console.log('saveOrder Tecnico passando tratarOrdemTecnico');
         } else {
           this.navCtrl.setRoot(this.rootPage);
           console.log('StatusDaOrdem:  ' + this.os.status.id);
@@ -168,10 +176,13 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
       lista => {
         this.listServices = lista;
         this.carregarListaStatus();
-        if (this.os.status.id == 1 || this.os.status.id == 5 || this.os.status.id == 6) {
-          //testa se estiver com status aberto carrega tecnicos
+        if (this.cargo == 'SUPERVISOR') {
           this.carregarListaUsuariosPorFuncao();
         }
+        // else if (this.os.status.id == 1 || this.os.status.id == 5 || this.os.status.id == 6) {
+        //  testa se estiver com status aberto carrega tecnicos
+        //  this.carregarListaUsuariosPorFuncao();
+        //}
       },
       error => {
         console.log(error);
@@ -188,6 +199,30 @@ export class OrderDetailPage implements OnInit, NavLifecycles {
       }
     );
   }
+  takePicture() {
+    const options: CameraOptions = {
+      quality: 20,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    };
+
+    this.camera.getPicture(options).then(
+      imageData => {
+        // imageData is either a base64 encoded string or a file URI
+        // If it's base64:
+        let base64Image = 'data:image/jpeg;base64,' + imageData;
+
+        this.os.foto = base64Image;
+
+        console.log(base64Image);
+      },
+      err => {
+        // Handle error
+      }
+    );
+  }
+
   comparacaoDeIdOrder(c1, c2): boolean {
     return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }

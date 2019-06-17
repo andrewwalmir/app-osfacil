@@ -2,7 +2,6 @@
   <ion-menu [content]="conteudo" *ngIf="configService.usuarioLogado">
     <!--configService?.usuarioLogado?.function.id-->
     <ion-content>
-      
       <ion-item no-lines id="cabecalho-menu" class="cabecalho-menu">
         <div class="avatar-wrapper">
           <ion-avatar item-start>
@@ -10,7 +9,7 @@
           </ion-avatar>
         </div>
         <p>
-          <ion-icon name="contact"> 
+          <ion-icon name="contact">
             {{ configService?.usuarioLogado?.nome }}
           </ion-icon>
         </p>
@@ -24,6 +23,11 @@
             {{ configService?.usuarioLogado?.function.nameFunction }}
           </ion-icon>
         </p>
+        <p>
+          <ion-icon name="md-locate">
+            {{ configService?.usuarioLogado?.sector.nameSector }}
+          </ion-icon>
+        </p>
       </ion-item>
 
       <ion-list no-lines class="list-menu">
@@ -31,7 +35,6 @@
           {{ p.title }}
         </button>
       </ion-list>
-
     </ion-content>
   </ion-menu>
 

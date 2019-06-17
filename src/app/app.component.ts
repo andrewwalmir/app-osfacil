@@ -1,5 +1,4 @@
-import { UserPage } from '../pages/user/user.component';
-import { OrderPage } from '../pages/order/order.component';
+import { UserDetailPage } from './../pages/user/userdetail/userdetail.component';
 import { ConfigService } from './../services/config.service';
 import { ValidarService } from './../services/validar.service';
 import { Component, ViewChild } from '@angular/core';
@@ -32,6 +31,7 @@ export class MyApp {
 
     this.pages = [
       { title: 'Dashboard', component: DashboardPage.name },
+      { title: 'Alterar Senha', component: UserDetailPage.name },
       { title: 'Logout', component: '' }
     ];
   }
@@ -48,17 +48,22 @@ export class MyApp {
       case 'Logout':
         this.validar.logout().subscribe(
           retorno => {
-            //this.configService.usuarioLogado = null;
             this.nav.setRoot(this.rootPage);
+            //this.configService.usuarioLogado = null;
           },
           error => {
             console.log(error);
           }
         );
         break;
+      case 'Alterar Senha':
+        this.nav.setRoot(page.component, { data: 'alterarSenha' });
 
+        break;
       default:
         this.nav.setRoot(page.component);
+
+        break;
     }
   }
 }

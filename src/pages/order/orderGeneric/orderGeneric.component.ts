@@ -13,10 +13,9 @@ import { ConfigService } from '../../../services/config.service';
 import { StatusOsModelDTO } from '../../../models/statusOsModel.dto';
 import { OrderService } from '../../../services/order.service';
 import { PriorityService } from '../../../services/priority.service';
-import { UsersService } from '../../../services/user.service';
 import { SectorService } from '../../../services/sector.service';
 import { ServicesService } from '../../../services/services.service';
-
+import { ToastController } from 'ionic-angular';
 @IonicPage()
 @Component({
   selector: 'page-orderGeneric',
@@ -47,31 +46,26 @@ export class OrderGenericPage implements OnInit, NavLifecycles {
     private priorityService: PriorityService,
     private servicesService: ServicesService,
     private camera: Camera,
+    private toastCtrl: ToastController,
     private sectorService: SectorService,
     private configService: ConfigService
   ) {
     this.os = new FormModelDTO(); //se NULL recebe nova intancia
     console.log('modo novo order2');
-    //console.log(this.os.status.id);
   }
   ionViewDidLoad?;
   saveOrder(formulario) {
     console.log('else do saveOrder ');
-    // Else para criar Ordem
     let statusTemp = new StatusOsModelDTO();
     statusTemp.id = 1; //cria a OS com o status "Aberto"
     this.os.status = statusTemp;
     let requesterTemp = new UserModelDTO();
     requesterTemp.id = this.configService.usuarioLogado.id;
     this.os.userRequester = requesterTemp;
-
-    //Colocando estatícamente objetos obrigatórios (NOT NULL) pra ver se a caralha pelo menos salva no banco
-
     this.orderService.saveOrder(this.os).subscribe(
       retorno => {
-        console.log('deu certo o subscribe do saveOrder:');
-        console.log(retorno);
         this.navCtrl.setRoot(this.rootPage);
+        this.createOrderToast();
       },
       error => {
         console.log('deu pau no saveOrder');
@@ -126,20 +120,25 @@ export class OrderGenericPage implements OnInit, NavLifecycles {
 
     this.camera.getPicture(options).then(
       imageData => {
-        // imageData is either a base64 encoded string or a file URI
-        // If it's base64:
         let base64Image = 'data:image/jpeg;base64,' + imageData;
-
         this.os.foto = base64Image;
-
         console.log(base64Image);
       },
-      err => {
-        // Handle error
-      }
+      err => {}
     );
   }
 
+  createOrderToast() {
+    let toast = this.toastCtrl.create({
+      message: 'Ordem de Serviço criada com sucesso!',
+      duration: 2000,
+      position: 'bottom'
+    });
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+    toast.present();
+  }
   comparacaoDeIdOrder(c1, c2): boolean {
     return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }
